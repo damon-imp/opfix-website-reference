@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="OpFix_Favicon_dark_32px.svg">
+<title>The System | OpFix</title>
+<meta name="description" content="Not a consultant's opinion. A unified operating system built from 18 proven frameworks across 8 operating layers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B1D3A;--white:#FFFFFF;--off-white:#F8F9FA;--gray-100:#E5E7EB;--gray-200:#D1D5DB;--gray-300:#9CA3AF;--gray-400:#6B7280;--gray-500:#4B5563;--accent:#C81E2D;--font:'DM Sans',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--white);color:var(--navy);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(11,29,58,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo img{height:160px;width:auto}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--gray-200);transition:color .2s;letter-spacing:.2px}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{font-size:14px;font-weight:600;color:var(--white)!important;background:var(--accent);padding:10px 22px;border-radius:8px;transition:background .2s}
+.nav-cta:hover{background:#a8182a}
+
+.page-hero{padding:140px 48px 80px;text-align:center;background:var(--navy);color:var(--white)}
+.page-hero .section-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;background:rgba(200,30,30,.12);padding:6px 16px;border-radius:20px}
+.page-hero h1{font-size:clamp(32px,4.5vw,52px);font-weight:800;line-height:1.1;letter-spacing:-2px;margin-bottom:20px}
+.page-hero p{font-size:17px;color:#94A3B8;line-height:1.7;max-width:640px;margin:0 auto}
+
+.content{max-width:1000px;margin:0 auto;padding:80px 48px}
+.btn-primary{display:inline-block;padding:16px 32px;background:var(--accent);color:var(--white);border-radius:8px;font-weight:700;font-size:16px;border:none;cursor:pointer;transition:background .2s;text-decoration:none}
+.btn-primary:hover{background:#a8182a}
+
+.footer{background:var(--navy);padding:48px;color:var(--gray-400)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-left{font-size:14px}
+.footer-links{display:flex;gap:28px}
+.footer-links a{font-size:13px;color:var(--gray-400);transition:color .2s}
+.footer-links a:hover{color:var(--white)}
+
+@media(max-width:900px){
+  .nav{padding:0 16px}
+  .nav-links{display:none}
+  .page-hero,.content{padding-left:24px;padding-right:24px}
+  .footer-inner{flex-direction:column;gap:24px;text-align:center}
+}
+
+.layers{max-width:1000px;margin:0 auto;padding:0 48px}
+.layer-section{display:flex;gap:20px;padding:28px 0;border-bottom:1px solid var(--gray-100)}
+.layer-section:last-child{border-bottom:none}
+.layer-num{font-size:13px;font-weight:800;color:var(--accent);background:rgba(200,30,30,.08);padding:6px 10px;border-radius:6px;white-space:nowrap;min-width:32px;text-align:center;height:fit-content}
+.layer-name{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.layer-desc{font-size:14px;color:var(--gray-400);line-height:1.6;margin-bottom:8px}
+.layer-frameworks{display:flex;flex-wrap:wrap;gap:6px}
+.fw-tag{font-size:11px;background:var(--off-white);color:var(--gray-500);padding:4px 10px;border-radius:4px;border:1px solid var(--gray-100)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1000px;margin:64px auto;padding:0 48px}
+.stat-card{padding:24px;border-radius:10px;background:var(--off-white);border:1px solid var(--gray-100);text-align:center}
+.stat-card .num{font-size:32px;font-weight:800;color:var(--navy);letter-spacing:-1px}
+.stat-card .label{font-size:13px;color:var(--gray-400);margin-top:4px}
+.app-map{max-width:1000px;margin:0 auto;padding:0 48px 80px}
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.app-card{background:var(--white);border:1px solid var(--gray-100);border-radius:10px;padding:20px 24px}
+.app-scenario{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.app-applied{font-size:13px;color:var(--gray-400);line-height:1.5}
+@media(max-width:900px){
+  .layer-section{flex-direction:column;gap:8px}
+  .stats-grid{grid-template-columns:1fr 1fr;padding:0 24px}
+  .layers,.app-map{padding-left:24px;padding-right:24px}
+  .app-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="OpFix_Logo__white_.svg" alt="OpFix"></a>
+  <div class="nav-links">
+    <a href="how-it-works.html">How It Works</a>
+    <a href="four-pillars.html">The Four Pillars</a>
+    <a href="the-system.html" style="color:var(--white)">The System</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="opfix_diagnostic.html" class="nav-cta">Free Diagnostic →</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="section-tag">The engine under the hood</div>
+  <h1>Not a consultant's opinion.<br>A unified operating system.</h1>
+  <p>Consultants diagnose. Systems fix. Every OpFix engagement runs on a single decision-making engine distilled from 18 proven frameworks across 8 operating layers.</p>
+</section>
+
+
+<div class="content" style="padding-bottom:0">
+  <h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-1px;margin-bottom:8px">The 8 operating layers</h2>
+  <p style="font-size:15px;color:var(--gray-400);margin-bottom:0">Every decision, every system, every deliverable is filtered through these layers.</p>
+</div>
+
+<div class="layers" style="padding-top:32px;padding-bottom:48px">
+  <div class="layer-section"><div class="layer-num">01</div><div><div class="layer-name">Offer & Lead Generation</div><div class="layer-desc">How you attract, package, and present what you sell. Every engagement starts here.</div><div class="layer-frameworks"><span class="fw-tag">Hormozi Value Equation</span><span class="fw-tag">Grand Slam Offers</span><span class="fw-tag">Core Four Lead Gen</span></div></div></div>
+  <div class="layer-section"><div class="layer-num">02</div><div><div class="layer-name">Human Influence</div><div class="layer-desc">How you build trust, lead people, and create cooperation without manipulation.</div><div class="layer-frameworks"><span class="fw-tag">Carnegie Principles</span></div></div></div>
+  <div class="layer-section"><div class="layer-num">03</div><div><div class="layer-name">Negotiation</div><div class="layer-desc">How you navigate high-stakes conversations where money and relationships are on the line.</div><div class="layer-frameworks"><span class="fw-tag">Voss Tactical Empathy</span><span class="fw-tag">Ackerman Model</span><span class="fw-tag">Camp No-Neediness</span></div></div></div>
+  <div class="layer-section"><div class="layer-num">04</div><div><div class="layer-name">Persuasion Science</div><div class="layer-desc">The psychological triggers that make every offer, email, and conversation more effective.</div><div class="layer-frameworks"><span class="fw-tag">Cialdini 7 Triggers</span><span class="fw-tag">50 Proven Persuasion Principles</span></div></div></div>
+  <div class="layer-section"><div class="layer-num">05</div><div><div class="layer-name">Sales Methodology</div><div class="layer-desc">The process your team uses to move prospects from first contact to signed contract.</div><div class="layer-frameworks"><span class="fw-tag">SPIN</span><span class="fw-tag">Challenger Sale</span><span class="fw-tag">StoryBrand SB7</span><span class="fw-tag">TAYA Big 5</span><span class="fw-tag">Hanan Consultative</span><span class="fw-tag">Phil Jones Magic Phrases</span></div></div></div>
+  <div class="layer-section"><div class="layer-num">06</div><div><div class="layer-name">Operations & Finance</div><div class="layer-desc">The systems, processes, and financial infrastructure that make your business a machine.</div><div class="layer-frameworks"><span class="fw-tag">Profit First</span><span class="fw-tag">E-Myth</span><span class="fw-tag">EOS/Traction</span><span class="fw-tag">Checklist Manifesto</span><span class="fw-tag">Work the System</span><span class="fw-tag">Crabtree LER</span></div></div></div>
+  <div class="layer-section"><div class="layer-num">07</div><div><div class="layer-name">Writing & Communication</div><div class="layer-desc">How every document, email, and message is crafted — clear, tight, and purposeful.</div><div class="layer-frameworks"><span class="fw-tag">King (On Writing)</span></div></div></div>
+  <div class="layer-section"><div class="layer-num">08</div><div><div class="layer-name">Mindset & Wealth</div><div class="layer-desc">The mental operating system that drives every other decision.</div><div class="layer-frameworks"><span class="fw-tag">Allen (As a Man Thinketh)</span><span class="fw-tag">Collins (Simple Path to Wealth)</span></div></div></div>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">18</div><div class="label">Frameworks unified</div></div>
+  <div class="stat-card"><div class="num">8</div><div class="label">Operating layers</div></div>
+  <div class="stat-card"><div class="num">34</div><div class="label">Deliverables per client</div></div>
+  <div class="stat-card"><div class="num">90</div><div class="label">Day installation</div></div>
+</div>
+
+<div class="app-map">
+  <h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-1px;margin-bottom:8px">What activates when</h2>
+  <p style="font-size:15px;color:var(--gray-400);margin-bottom:0">The frameworks don't get referenced. They get applied. Here's how they map.</p>
+  <div class="app-grid">
+    <div class="app-card"><div class="app-scenario">Sales scripts & process</div><div class="app-applied">Voss, SPIN, Challenger, Jones, Hanan, Cialdini</div></div>
+    <div class="app-card"><div class="app-scenario">Partner & team conversations</div><div class="app-applied">Carnegie, Voss, Camp</div></div>
+    <div class="app-card"><div class="app-scenario">Offer & pricing design</div><div class="app-applied">Hormozi, Hanan, Cialdini</div></div>
+    <div class="app-card"><div class="app-scenario">Operational problems</div><div class="app-applied">E-Myth, Traction, Checklist, Work the System, Crabtree</div></div>
+    <div class="app-card"><div class="app-scenario">Financial decisions</div><div class="app-applied">Profit First, Crabtree, Collins</div></div>
+    <div class="app-card"><div class="app-scenario">Content & copy</div><div class="app-applied">King, StoryBrand, TAYA, Jones</div></div>
+    <div class="app-card"><div class="app-scenario">Negotiation</div><div class="app-applied">Voss, Camp, Cialdini</div></div>
+    <div class="app-card"><div class="app-scenario">Leadership & management</div><div class="app-applied">Carnegie, Traction, E-Myth</div></div>
+  </div>
+</div>
+
+
+<div class="cta-band" style="background:var(--navy);padding:64px 48px;text-align:center">
+  <h2 style="font-size:clamp(24px,3vw,36px);font-weight:800;color:var(--white);letter-spacing:-1px;margin-bottom:12px">18 books. One operating system. Every engagement.</h2>
+  <p style="font-size:16px;color:#94A3B8;margin-bottom:28px;max-width:540px;margin-left:auto;margin-right:auto">Score your operational bleed across 40 factors in 5 minutes. See exactly where you're losing money.</p>
+  <a href="opfix_diagnostic.html" class="btn-primary">Start the Free Diagnostic →</a>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">© 2026 OpFix. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="four-pillars.html">Four Pillars</a>
+      <a href="the-system.html">The System</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="opfix_diagnostic.html">Free Diagnostic</a>
+      <a href="opfix_team_page.html">The Team</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

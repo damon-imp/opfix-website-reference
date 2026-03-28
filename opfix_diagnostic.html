@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="OpFix_Favicon_dark_32px.svg">
+<title>OpFix Diagnostic Engine — 40-Factor Operational Bleed Assessment</title>
+<meta name="description" content="Score your operational bleed across 40 factors and 4 pillars. Higher score = worse problem. Takes 5 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B1D3A;--white:#FFFFFF;--off-white:#F8F9FA;--gray-100:#E5E7EB;--gray-200:#D1D5DB;--gray-300:#9CA3AF;--gray-400:#6B7280;--gray-500:#4B5563;--accent:#C81E2D;--blue:#3B82F6;--green:#22C55E;--amber:#F59E0B;--orange:#E97820;--red:#E94560;--purple:#8B5CF6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--navy);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(11,29,58,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo img{height:160px;width:auto}
+.nav-back{font-size:14px;font-weight:500;color:var(--gray-200);transition:color .2s}
+.nav-back:hover{color:var(--white)}
+
+/* Page */
+.page{max-width:900px;margin:0 auto;padding:96px 24px 80px}
+.page-header{text-align:center;margin-bottom:48px}
+.page-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.page-title{font-size:clamp(28px,4vw,42px);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:16px}
+.page-sub{font-size:16px;color:var(--gray-400);line-height:1.6;max-width:640px;margin:0 auto}
+.page-sub strong{color:var(--navy)}
+
+/* Scoring Guide */
+.scoring-guide{background:var(--white);border:1px solid var(--gray-100);border-radius:12px;padding:24px 28px;margin-bottom:32px}
+.scoring-guide h3{font-size:15px;font-weight:700;margin-bottom:16px}
+.sg-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.sg-row:last-child{margin-bottom:0}
+.sg-badge{width:36px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+.sg-0{background:#ECFDF5;color:#047857}
+.sg-1{background:#FEF3C7;color:#B45309}
+.sg-2{background:#FFEDD5;color:#C2410C}
+.sg-3{background:#FEE2E2;color:#B91C1C}
+.sg-text{font-size:13px;color:var(--gray-500)}
+.sg-text strong{font-weight:700}
+.scoring-note{font-size:13px;color:var(--gray-300);font-style:italic;margin-top:16px;text-align:center}
+
+/* Diagnostic Engine */
+.diag-engine{max-width:860px;margin:0 auto}
+.diag-steps-bar{display:flex;gap:4px;margin-bottom:8px}
+.diag-step-bar{flex:1;height:6px;border-radius:3px;background:var(--gray-100);transition:background .4s}
+.diag-step-bar.done{background:var(--blue)}
+.diag-step-bar.active{background:var(--blue);opacity:.5}
+.diag-step-labels{display:flex;justify-content:space-between;margin-bottom:24px;font-size:12px;color:var(--gray-300)}
+.diag-step-labels span.active-label{color:var(--navy);font-weight:600}
+
+.diag-pillar-badge{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:6px 14px;border-radius:6px;display:inline-block;margin-bottom:20px}
+.pb-ops{background:#EFF6FF;color:#1D4ED8}
+.pb-rev{background:#ECFDF5;color:#047857}
+.pb-fin{background:#FEF3C7;color:#B45309}
+.pb-team{background:#F3E8FF;color:#6D28D9}
+
+.diag-factor-row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:16px 20px;background:var(--white);border:1.5px solid var(--gray-100);border-radius:10px;margin-bottom:10px;transition:border-color .2s}
+.diag-factor-row.scored{border-color:rgba(59,130,246,.3)}
+.diag-factor-name{font-weight:700;font-size:15px}
+
+.diag-scores{display:flex;gap:6px;flex-shrink:0}
+.diag-score-btn{width:56px;height:44px;border:2px solid var(--gray-100);border-radius:8px;background:var(--white);cursor:pointer;text-align:center;transition:all .15s;font-family:inherit;font-size:11px;line-height:1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}
+.diag-score-btn:hover{border-color:var(--blue);background:#EFF6FF}
+.diag-score-btn.sel-0{border-color:#10B981;background:#ECFDF5;color:#047857}
+.diag-score-btn.sel-1{border-color:#F59E0B;background:#FEF3C7;color:#B45309}
+.diag-score-btn.sel-2{border-color:#E97820;background:#FFEDD5;color:#C2410C}
+.diag-score-btn.sel-3{border-color:#EF4444;background:#FEE2E2;color:#B91C1C}
+.diag-score-btn .score-num{font-weight:700;font-size:16px;line-height:1}
+.diag-score-btn .score-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.03em}
+
+.diag-pillar-subtotal{margin-top:16px;padding:16px 20px;background:var(--off-white);border:1px solid var(--gray-100);border-radius:10px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.sub-label{color:var(--gray-300);font-weight:500}
+.sub-score{font-weight:800;font-size:18px}
+
+.diag-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:16px}
+.diag-btn{padding:14px 28px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;border:none;transition:all .2s}
+.diag-btn-back{background:var(--gray-100);color:var(--navy)}
+.diag-btn-back:hover{background:var(--gray-200)}
+.diag-btn-next{background:var(--accent);color:var(--white)}
+.diag-btn-next:hover{background:#a8182a}
+.diag-btn-next:disabled{opacity:.4;cursor:not-allowed}
+
+/* Results */
+.diag-results{text-align:center}
+.diag-results h2{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:8px}
+.diag-tier-badge{display:inline-block;font-size:24px;font-weight:800;padding:12px 32px;border-radius:8px;margin:16px 0 12px;letter-spacing:1px}
+.tier-healthy{background:#ECFDF5;color:#047857}
+.tier-moderate{background:#FEF3C7;color:#B45309}
+.tier-severe{background:#FFEDD5;color:#C2410C}
+.tier-critical{background:#FEE2E2;color:#B91C1C}
+.diag-score-display{font-size:48px;font-weight:800;color:var(--navy);letter-spacing:-2px}
+.diag-score-max{font-size:20px;color:var(--gray-300)}
+.diag-severity-pct{font-size:18px;color:var(--gray-400);margin-bottom:32px}
+.diag-severity-note{font-size:14px;color:var(--gray-300);margin-bottom:32px;font-style:italic}
+
+.diag-pillar-results{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0;text-align:left}
+.diag-pillar-result{background:var(--white);border:1px solid var(--gray-100);border-radius:10px;padding:20px;position:relative;overflow:hidden}
+.diag-pillar-result::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.p-ops::before{background:var(--blue)}.p-rev::before{background:var(--green)}.p-fin::before{background:var(--amber)}.p-team::before{background:var(--purple)}
+.dpr-name{font-size:15px;font-weight:700;margin-bottom:8px}
+.dpr-bar{height:8px;background:var(--gray-100);border-radius:4px;margin-bottom:8px;overflow:hidden}
+.dpr-fill{height:100%;border-radius:4px;transition:width 1s ease}
+.dpr-score{font-size:13px;color:var(--gray-400)}
+
+.diag-top-issues{text-align:left;margin:32px 0}
+.diag-top-issues h3{font-size:20px;font-weight:700;margin-bottom:16px;text-align:center}
+.diag-issue-item{display:flex;align-items:center;gap:16px;padding:14px 20px;background:var(--white);border:1px solid var(--gray-100);border-radius:8px;margin-bottom:8px}
+.diag-issue-score{font-size:18px;font-weight:800;min-width:40px;text-align:center}
+.diag-issue-score.sev-3{color:#B91C1C}.diag-issue-score.sev-2{color:#C2410C}.diag-issue-score.sev-1{color:#B45309}
+.diag-issue-name{font-size:14px;font-weight:600}
+.diag-issue-pillar{font-size:12px;color:var(--gray-300)}
+
+.diag-cta-result{margin-top:40px;padding:40px;background:var(--navy);border-radius:12px;color:var(--white);text-align:center}
+.diag-cta-result h3{font-size:22px;font-weight:800;margin-bottom:12px}
+.diag-cta-result p{color:#94A3B8;margin-bottom:24px;font-size:15px;line-height:1.6}
+.btn-primary{display:inline-block;padding:16px 32px;background:var(--accent);color:var(--white);border-radius:8px;font-weight:700;font-size:16px;border:none;cursor:pointer;transition:background .2s;text-decoration:none}
+.btn-primary:hover{background:#a8182a}
+
+@media(max-width:600px){
+  .nav{padding:0 16px}
+  .page{padding:80px 16px 60px}
+  .diag-factor-row{grid-template-columns:1fr;gap:12px}
+  .diag-scores{justify-content:flex-start}
+  .diag-pillar-results{grid-template-columns:1fr}
+  .diag-cta-result{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="OpFix_Logo__white_.svg" alt="OpFix"></a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-tag">Full 40-Factor Diagnostic</div>
+    <h1 class="page-title">Score your operational bleed<br>across all four pillars.</h1>
+    <p class="page-sub">40 factors. 4 pillars. 5 minutes. Score each factor 0–3 based on severity. <strong>Higher score = worse problem.</strong> No email. No sales pitch. Just your numbers.</p>
+  </div>
+
+  <div class="scoring-guide">
+    <h3>Scoring Guide — higher = more damage</h3>
+    <div class="sg-row"><div class="sg-badge sg-0">0</div><div class="sg-text"><strong>No Issue</strong> — This area is healthy. No action needed.</div></div>
+    <div class="sg-row"><div class="sg-badge sg-1">1</div><div class="sg-text"><strong>Minor</strong> — Small gaps. Optimize when you get to it.</div></div>
+    <div class="sg-row"><div class="sg-badge sg-2">2</div><div class="sg-text"><strong>Moderate</strong> — Real problems. Costing you money or time right now.</div></div>
+    <div class="sg-row"><div class="sg-badge sg-3">3</div><div class="sg-text"><strong>Severe</strong> — Critical failure. Actively bleeding revenue or blocking growth.</div></div>
+    <p class="scoring-note">Be honest. The diagnostic only works if you are. Higher scores mean more damage.</p>
+  </div>
+
+  <div id="diagnostic-app"></div>
+</div>
+
+<script>
+(function() {
+
+const factors = [
+  {id:1,name:"SOP Documentation",wt:3,pillar:0},
+  {id:2,name:"Tech Stack Integration",wt:2,pillar:0},
+  {id:3,name:"Workflow Consistency",wt:3,pillar:0},
+  {id:4,name:"Reporting & KPI Tracking",wt:2,pillar:0},
+  {id:5,name:"Bottleneck & Dependency",wt:3,pillar:0},
+  {id:6,name:"Quality Control Systems",wt:2,pillar:0},
+  {id:7,name:"Client Delivery Process",wt:3,pillar:0},
+  {id:8,name:"Internal Communication",wt:1,pillar:0},
+  {id:9,name:"Project Management",wt:2,pillar:0},
+  {id:10,name:"Business Continuity",wt:3,pillar:0},
+  {id:11,name:"Lead Generation System",wt:3,pillar:1},
+  {id:12,name:"Sales Process Documentation",wt:3,pillar:1},
+  {id:13,name:"Conversion Tracking",wt:2,pillar:1},
+  {id:14,name:"Follow-Up & Nurture",wt:2,pillar:1},
+  {id:15,name:"Offer Clarity & Differentiation",wt:3,pillar:1},
+  {id:16,name:"Pricing Strategy",wt:3,pillar:1},
+  {id:17,name:"Revenue Concentration",wt:2,pillar:1},
+  {id:18,name:"Client Retention & Churn",wt:2,pillar:1},
+  {id:19,name:"Upsell / Cross-Sell",wt:1,pillar:1},
+  {id:20,name:"Marketing ROI Tracking",wt:2,pillar:1},
+  {id:21,name:"Profit Margin Visibility",wt:3,pillar:2},
+  {id:22,name:"Cash Flow Predictability",wt:3,pillar:2},
+  {id:23,name:"Expense Discipline",wt:2,pillar:2},
+  {id:24,name:"Debt Structure",wt:2,pillar:2},
+  {id:25,name:"Financial Forecasting",wt:2,pillar:2},
+  {id:26,name:"Pricing Model Effectiveness",wt:3,pillar:2},
+  {id:27,name:"Revenue Model Sustainability",wt:2,pillar:2},
+  {id:28,name:"Funding Readiness",wt:1,pillar:2},
+  {id:29,name:"Invoicing & Collections",wt:2,pillar:2},
+  {id:30,name:"Financial Reporting Cadence",wt:2,pillar:2},
+  {id:31,name:"Org Chart & Role Clarity",wt:3,pillar:3},
+  {id:32,name:"Talent Quality in Key Seats",wt:3,pillar:3},
+  {id:33,name:"Performance Metrics Per Role",wt:2,pillar:3},
+  {id:34,name:"Delegation Maturity",wt:3,pillar:3},
+  {id:35,name:"Hiring Pipeline & Process",wt:2,pillar:3},
+  {id:36,name:"Onboarding & Training",wt:2,pillar:3},
+  {id:37,name:"Accountability Framework",wt:2,pillar:3},
+  {id:38,name:"Culture & Retention",wt:1,pillar:3},
+  {id:39,name:"Leadership Development",wt:1,pillar:3},
+  {id:40,name:"Succession Planning",wt:2,pillar:3}
+];
+
+const pillarNames = ["Operations & Systems","Revenue & Sales","Financial Structure","Team & Leadership"];
+const pillarClasses = ["pb-ops","pb-rev","pb-fin","pb-team"];
+const pillarResultClasses = ["p-ops","p-rev","p-fin","p-team"];
+const pillarColors = ["#3B82F6","#22C55E","#F59E0B","#8B5CF6"];
+const scoreLabels = ["None","Minor","Mod","Severe"];
+const selClasses = ["sel-0","sel-1","sel-2","sel-3"];
+
+var scores = new Array(40).fill(-1);
+var currentPillar = 0;
+var maxScore = 270;
+
+var app = document.getElementById('diagnostic-app');
+
+function getFactorsForPillar(p) {
+  return factors.filter(function(f) { return f.pillar === p; });
+}
+
+function pillarComplete(p) {
+  return getFactorsForPillar(p).every(function(f) { return scores[f.id - 1] >= 0; });
+}
+
+function pillarSubtotal(p) {
+  var pf = getFactorsForPillar(p);
+  var scored = 0, total = 0, max = 0;
+  pf.forEach(function(f) {
+    max += f.wt * 3;
+    if (scores[f.id - 1] >= 0) { scored++; total += scores[f.id - 1] * f.wt; }
+  });
+  return { scored: scored, total: total, max: max, count: pf.length };
+}
+
+function render() {
+  if (currentPillar >= 4) { renderResults(); return; }
+
+  var pf = getFactorsForPillar(currentPillar);
+  var sub = pillarSubtotal(currentPillar);
+
+  var html = '<div class="diag-engine">';
+
+  // Step labels
+  html += '<div class="diag-step-labels">';
+  for (var p = 0; p < 4; p++) {
+    var cls = p === currentPillar ? ' active-label' : '';
+    html += '<span class="' + cls + '">' + pillarNames[p] + '</span>';
+  }
+  html += '</div>';
+
+  // Step bars
+  html += '<div class="diag-steps-bar">';
+  for (var p = 0; p < 4; p++) {
+    var stepCls = 'diag-step-bar';
+    if (p < currentPillar) stepCls += ' done';
+    else if (p === currentPillar) stepCls += ' active';
+    html += '<div class="' + stepCls + '"></div>';
+  }
+  html += '</div>';
+
+  // Pillar badge
+  html += '<div class="diag-pillar-badge ' + pillarClasses[currentPillar] + '">' + pillarNames[currentPillar] + '</div>';
+
+  // Factor rows
+  pf.forEach(function(f) {
+    var idx = f.id - 1;
+    var scoredCls = scores[idx] >= 0 ? ' scored' : '';
+    html += '<div class="diag-factor-row' + scoredCls + '">';
+    html += '<div class="diag-factor-name">' + f.name + ' <span style="font-size:11px;color:var(--gray-300);font-weight:400">(' + f.wt + 'x weight)</span></div>';
+    html += '<div class="diag-scores">';
+    for (var s = 0; s < 4; s++) {
+      var selected = scores[idx] === s ? ' ' + selClasses[s] : '';
+      html += '<button class="diag-score-btn' + selected + '" onclick="diagSet(' + idx + ',' + s + ')">';
+      html += '<span class="score-num">' + s + '</span>';
+      html += '<span class="score-lbl">' + scoreLabels[s] + '</span>';
+      html += '</button>';
+    }
+    html += '</div></div>';
+  });
+
+  // Subtotal
+  html += '<div class="diag-pillar-subtotal">';
+  html += '<span class="sub-label">' + sub.scored + ' of ' + sub.count + ' scored</span>';
+  html += '<span class="sub-score">' + sub.total + ' / ' + sub.max + '</span>';
+  html += '</div>';
+
+  // Nav
+  html += '<div class="diag-nav">';
+  html += '<button class="diag-btn diag-btn-back" onclick="diagPrev()"' + (currentPillar === 0 ? ' disabled style="opacity:0.3"' : '') + '>\u2190 Back</button>';
+  html += '<span style="font-size:13px;color:var(--gray-300)">Pillar ' + (currentPillar + 1) + ' of 4</span>';
+  var canNext = pillarComplete(currentPillar);
+  var nextLabel = currentPillar === 3 ? 'See Results \u2192' : 'Next Pillar \u2192';
+  html += '<button class="diag-btn diag-btn-next" onclick="diagNextPillar()"' + (canNext ? '' : ' disabled') + '>' + nextLabel + '</button>';
+  html += '</div></div>';
+
+  app.innerHTML = html;
+}
+
+window.diagSet = function(idx, s) { scores[idx] = s; render(); };
+window.diagPrev = function() { if (currentPillar > 0) { currentPillar--; render(); app.scrollIntoView({behavior:'smooth',block:'start'}); } };
+window.diagNextPillar = function() { if (pillarComplete(currentPillar)) { currentPillar++; render(); app.scrollIntoView({behavior:'smooth',block:'start'}); } };
+
+function renderResults() {
+  var total = 0;
+  var pillarScores = [0,0,0,0];
+  var pillarMax = [0,0,0,0];
+  var issues = [];
+
+  factors.forEach(function(f, i) {
+    var weighted = scores[i] * f.wt;
+    total += weighted;
+    pillarScores[f.pillar] += weighted;
+    pillarMax[f.pillar] += 3 * f.wt;
+    if (scores[i] > 0) { issues.push({name: f.name, score: scores[i], weighted: weighted, pillar: f.pillar}); }
+  });
+
+  issues.sort(function(a, b) { return b.weighted - a.weighted; });
+  var topIssues = issues.slice(0, 8);
+
+  var sevPct = Math.round((total / maxScore) * 100);
+  var tier, tierClass;
+  if (sevPct <= 15) { tier = "HEALTHY"; tierClass = "tier-healthy"; }
+  else if (sevPct <= 35) { tier = "MODERATE BLEED"; tierClass = "tier-moderate"; }
+  else if (sevPct <= 60) { tier = "SEVERE BLEED"; tierClass = "tier-severe"; }
+  else { tier = "CRITICAL"; tierClass = "tier-critical"; }
+
+  var html = '<div class="diag-engine diag-results">';
+  html += '<h2>Your Operational Bleed Report</h2>';
+  html += '<div class="diag-tier-badge ' + tierClass + '">' + tier + '</div>';
+  html += '<div><span class="diag-score-display">' + total + '</span><span class="diag-score-max"> / ' + maxScore + '</span></div>';
+  html += '<div class="diag-severity-pct">' + sevPct + '% severity — higher = worse</div>';
+
+  html += '<div class="diag-pillar-results">';
+  for (var p = 0; p < 4; p++) {
+    var ppct = pillarMax[p] > 0 ? Math.round((pillarScores[p] / pillarMax[p]) * 100) : 0;
+    html += '<div class="diag-pillar-result ' + pillarResultClasses[p] + '">';
+    html += '<div class="dpr-name">' + pillarNames[p] + '</div>';
+    html += '<div class="dpr-bar"><div class="dpr-fill" style="width:' + ppct + '%;background:' + pillarColors[p] + '"></div></div>';
+    html += '<div class="dpr-score">' + pillarScores[p] + ' / ' + pillarMax[p] + ' (' + ppct + '% severity)</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  if (topIssues.length > 0) {
+    html += '<div class="diag-top-issues"><h3>Your Top Issues (by weighted impact)</h3>';
+    topIssues.forEach(function(iss) {
+      html += '<div class="diag-issue-item">';
+      html += '<div class="diag-issue-score sev-' + iss.score + '">' + iss.score + '</div>';
+      html += '<div><div class="diag-issue-name">' + iss.name + '</div>';
+      html += '<div class="diag-issue-pillar">' + pillarNames[iss.pillar] + ' \u00B7 Weighted: ' + iss.weighted + 'pts</div></div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+
+  html += '<div class="diag-severity-note">Every factor is weighted 1-3x based on business impact. Your total score reflects both severity and weight. Higher = more operational bleed = more urgent the fix.</div>';
+
+  html += '<div class="diag-cta-result">';
+  html += '<h3>Ready to Fix What\u2019s Broken?</h3>';
+  html += '<p>You\u2019ve seen the diagnosis. Now let us show you the prescription. Book a free 30-minute call and we\u2019ll walk through your results, prioritize your fixes, and map your 90-day plan.</p>';
+  html += '<a class="btn-primary" href="index.html#final-section">Book Your Free Diagnosis Call \u2192</a>';
+  html += '</div>';
+
+  html += '<div style="margin-top:24px;text-align:center">';
+  html += '<button class="diag-btn diag-btn-back" onclick="diagReset()">\u2190 Retake Diagnostic</button>';
+  html += '</div></div>';
+
+  app.innerHTML = html;
+  app.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+window.diagReset = function() { scores = new Array(40).fill(-1); currentPillar = 0; render(); app.scrollIntoView({behavior:'smooth',block:'start'}); };
+
+render();
+
+})();
+</script>
+</body>
+</html>

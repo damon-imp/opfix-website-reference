@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="OpFix_Favicon_dark_32px.svg">
+<title>OpFix | The Team</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-blue: #3B82F6;
+    --blue-dark: #2563EB;
+    --blue-50: #EFF6FF;
+    --blue-900: #1E3A5F;
+    --black: #0A0A0A;
+    --dark: #1A1A1A;
+    --muted: #64748B;
+    --light-gray: #F1F5F9;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --pillar-ops: #3B82F6;
+    --pillar-rev: #10B981;
+    --pillar-fin: #F59E0B;
+    --pillar-team: #8B5CF6;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── SITE NAV ── */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(11,29,58,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav-logo img{height:160px;width:auto}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{font-size:14px;font-weight:500;color:#D1D5DB;transition:color .2s;letter-spacing:.2px}
+  .nav-links a:hover{color:#fff}
+  .nav-cta{font-size:14px;font-weight:600;color:#fff!important;background:#C81E2D;padding:10px 22px;border-radius:8px;transition:background .2s;text-decoration:none}
+  .nav-cta:hover{background:#a8182a}
+
+  /* ── SITE FOOTER ── */
+  .site-footer{background:#0B1D3A;padding:48px;color:#6B7280}
+  .site-footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+  .site-footer-left{font-size:14px}
+  .site-footer-links{display:flex;gap:28px;flex-wrap:wrap}
+  .site-footer-links a{font-size:13px;color:#6B7280;transition:color .2s;text-decoration:none}
+  .site-footer-links a:hover{color:#fff}
+
+  /* ── HERO SECTION ── */
+  .hero {
+    padding: 140px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--brand-blue);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+
+  .hero h1 span {
+    color: var(--brand-blue);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.6s;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: var(--brand-blue);
+    margin: 60px auto;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.8s;
+  }
+
+  /* ── TEAM GRID ── */
+  .team-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+  }
+
+  /* Founder card - full width featured */
+  .founder-card {
+    background: var(--dark);
+    border: 1px solid rgba(59,130,246,0.15);
+    border-radius: 12px;
+    padding: 48px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 1s;
+  }
+
+  .founder-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--brand-blue);
+  }
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  }
+
+  .avatar-da { background: linear-gradient(135deg, var(--brand-blue), var(--blue-900)); }
+  .avatar-lg { background: linear-gradient(135deg, var(--pillar-team), #6D28D9); }
+  .avatar-gc { background: linear-gradient(135deg, #0EA5E9, var(--blue-900)); }
+  .avatar-ev { background: linear-gradient(135deg, var(--pillar-ops), #1D4ED8); }
+  .avatar-bc { background: linear-gradient(135deg, var(--pillar-rev), #059669); }
+  .avatar-jr { background: linear-gradient(135deg, var(--pillar-fin), #D97706); }
+  .avatar-mk { background: linear-gradient(135deg, #EC4899, #BE185D); }
+
+  .founder-info h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+
+  .founder-info .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--brand-blue);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .founder-info .bio {
+    color: #94A3B8;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  /* Core team grid */
+  .core-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .team-card {
+    background: var(--dark);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 36px 32px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .team-card:nth-child(1) { animation-delay: 1.1s; }
+  .team-card:nth-child(2) { animation-delay: 1.2s; }
+  .team-card:nth-child(3) { animation-delay: 1.3s; }
+
+  .team-card:hover {
+    border-color: rgba(59,130,246,0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .team-card .avatar {
+    width: 72px;
+    height: 72px;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .team-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .team-card .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--brand-blue);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .team-card .bio {
+    color: #94A3B8;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* Advisory + support row */
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .support-card {
+    background: rgba(26,26,26,0.6);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 32px 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    transition: all 0.3s ease;
+  }
+
+  .support-card:nth-child(1) { animation-delay: 1.4s; }
+  .support-card:nth-child(2) { animation-delay: 1.5s; }
+  .support-card:nth-child(3) { animation-delay: 1.6s; }
+
+  .support-card:hover {
+    border-color: rgba(59,130,246,0.15);
+    transform: translateY(-2px);
+  }
+
+  .support-card .avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .support-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 3px;
+  }
+
+  .support-card .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .support-card .bio {
+    color: #64748B;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    padding-left: 4px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 1.05s;
+  }
+
+  .section-label-2 {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 1.35s;
+  }
+
+  /* ── FOOTER BAR ── */
+  .footer-bar {
+    text-align: center;
+    padding: 48px 40px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 1.8s;
+  }
+
+  .footer-bar .tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .footer-bar .tagline span {
+    color: var(--brand-blue);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav{padding:0 16px}
+    .nav-links{display:none}
+    .site-footer-inner{flex-direction:column;gap:24px;text-align:center}
+    .site-footer-links{justify-content:center}
+    .core-grid, .support-grid {
+      grid-template-columns: 1fr;
+    }
+    .founder-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 36px 28px;
+    }
+    .founder-card .avatar {
+      margin: 0 auto;
+    }
+    .founder-card::before {
+      width: 100%;
+      height: 4px;
+      top: 0;
+      left: 0;
+    }
+    .hero { padding: 60px 24px 40px; }
+    .team-section { padding: 0 24px 80px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="OpFix_Logo__white_.svg" alt="OpFix"></a>
+  <div class="nav-links">
+    <a href="how-it-works.html" style="color:var(--white)">How It Works</a>
+    <a href="four-pillars.html">The Four Pillars</a>
+    <a href="the-system.html">The System</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="opfix_diagnostic.html" class="nav-cta">Free Diagnostic →</a>
+  </div>
+</nav>
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Who's Behind the Wrench</div>
+  <h1>The <span>Op</span><span style="color:var(--white)">erators</span> Behind the <span>Fix</span></h1>
+  <p class="hero-sub">Seven people who have spent their careers inside broken businesses. Not advising from the outside. Building from the inside.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- TEAM -->
+<section class="team-section">
+
+  <!-- FOUNDER -->
+  <div class="section-label">Leadership</div>
+  <div class="founder-card">
+    <div class="avatar avatar-da">DA</div>
+    <div class="founder-info">
+      <h2>Damon Aleczander</h2>
+      <div class="role">Founder & CEO</div>
+      <p class="bio">Personally built two 8-figure annual businesses and four multi-million dollar annual businesses from the ground up. Helped create dozens more through hands-on operational work. A proven systems architect and high-performance operator who saw the same pattern everywhere: founders trapped running operations instead of growing companies. Built OpFix to fix that problem permanently. Designed the Four Pillars Diagnostic, the pricing system, the delivery model, and every system the team runs on.</p>
+    </div>
+  </div>
+
+  <!-- CORE TEAM -->
+  <div class="section-label" style="animation-delay:1.05s;">Core Team</div>
+  <div class="core-grid">
+
+    <div class="team-card">
+      <div class="avatar avatar-gc">GC</div>
+      <h3>Greg</h3>
+      <div class="role">Chief Technology Officer</div>
+      <p class="bio">Architects the technology layer for every client engagement. Evaluates tech stacks, designs custom integrations, and ensures what gets built actually scales. Owns the technical QA standard across all tiers of delivery.</p>
+    </div>
+
+    <div class="team-card">
+      <div class="avatar avatar-bc">BC</div>
+      <h3>Brianca</h3>
+      <div class="role">Head of Sales</div>
+      <p class="bio">Eight years closing high-ticket B2B deals in professional services. Runs the sales floor, manages closers, and owns the pipeline from qualified lead to signed agreement. Doesn't pitch. Diagnoses, then prescribes.</p>
+    </div>
+
+    <div class="team-card">
+      <div class="avatar avatar-ev">EV</div>
+      <h3>Everett</h3>
+      <div class="role">Lead Developer</div>
+      <p class="bio">Primary builder on every client engagement. CRM configurations, pipeline builds, automation sequences, dashboards, and integrations. Turns the 90-Day Execution Plan into live, working infrastructure inside the client's business.</p>
+    </div>
+
+  </div>
+
+  <!-- SUPPORT + ADVISORY -->
+  <div class="section-label section-label-2">Operations & Advisory</div>
+  <div class="support-grid">
+
+    <div class="support-card">
+      <div class="avatar avatar-jr">JR</div>
+      <h3>Jordan Rivera</h3>
+      <div class="role">Operations Manager</div>
+      <p class="bio">Manages internal workflow, vendor coordination, and delivery timelines across concurrent engagements. Keeps the machine running so the team stays focused on client work.</p>
+    </div>
+
+    <div class="support-card">
+      <div class="avatar avatar-mk">MK</div>
+      <h3>Maya Kim</h3>
+      <div class="role">Client Success Lead</div>
+      <p class="bio">Primary point of contact for active clients. Manages onboarding, progress tracking, deliverable handoffs, and post-engagement transition. Owns the client experience from signed deal to close-out.</p>
+    </div>
+
+    <div class="support-card">
+      <div class="avatar avatar-lg">LG</div>
+      <h3>Lamar</h3>
+      <div class="role">Advisory Partner</div>
+      <p class="bio">Long-standing business partner and strategic advisor. Brings deep operational experience across business consulting and service delivery. Provides senior oversight on engagement strategy and client outcomes.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<div class="footer-bar">
+  <div class="tagline">Diagnose. <span>Fix.</span> Scale.</div>
+</div>
+
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-left">&copy; 2026 OpFix. All rights reserved.</div>
+    <div class="site-footer-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="four-pillars.html">Four Pillars</a>
+      <a href="the-system.html">The System</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="opfix_diagnostic.html">Free Diagnostic</a>
+      <a href="opfix_team_page.html">The Team</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

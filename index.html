@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="OpFix_Favicon_dark_32px.svg">
+<title>OpFix | We Fix Operations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1D3A;
+  --navy-deep:#060F1F;
+  --navy-mid:#0F3460;
+  --navy-light:#1A4A7A;
+  --accent:#E94560;
+  --accent-dark:#C73450;
+  --white:#FFFFFF;
+  --off-white:#F7F8FA;
+  --gray-100:#EEF0F4;
+  --gray-200:#D5D9E0;
+  --gray-300:#A0A8B8;
+  --gray-400:#6B7280;
+  --gray-500:#4A5060;
+  --blue:#3B82F6;
+  --green:#22C55E;
+  --amber:#F59E0B;
+  --font:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);color:var(--navy);background:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(11,29,58,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s}
+.nav-logo{display:flex;align-items:center}
+.nav-logo-img{height:160px;width:auto}
+.footer-logo-img{height:120px;width:auto}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--gray-200);transition:color .2s;letter-spacing:.2px}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--accent);color:var(--white);padding:10px 24px;border-radius:6px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .2s;letter-spacing:.2px}
+.nav-cta:hover{background:var(--accent-dark);transform:translateY(-1px)}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;background:var(--navy-deep);position:relative;display:flex;align-items:center;padding:120px 48px 80px;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-20%;width:80%;height:160%;background:radial-gradient(ellipse,rgba(59,130,246,.06) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,.2),transparent)}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:24px}
+.hero-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(36px,4.5vw,58px);font-weight:800;color:var(--white);line-height:1.08;letter-spacing:-1.5px;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:18px;color:var(--gray-300);line-height:1.7;margin-bottom:40px;max-width:520px}
+.hero-cta-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:var(--white);padding:16px 32px;border-radius:8px;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all .25s;letter-spacing:.3px;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(233,69,96,.3)}
+.btn-secondary{background:transparent;color:var(--gray-200);padding:16px 28px;border-radius:8px;font-size:16px;font-weight:600;border:1px solid rgba(255,255,255,.15);cursor:pointer;transition:all .25s}
+.btn-secondary:hover{border-color:rgba(255,255,255,.3);color:var(--white)}
+.hero-qualifier{font-size:13px;color:var(--gray-400);margin-top:16px;letter-spacing:.2px}
+
+/* Hero Calculator */
+.hero-calc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px;position:relative}
+.hero-calc::before{content:'';position:absolute;top:-1px;left:40px;right:40px;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,.4),transparent)}
+.calc-label{font-size:13px;font-weight:600;color:var(--gray-300);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px}
+.calc-input-wrap{position:relative;margin-bottom:32px}
+.calc-input-wrap .prefix{position:absolute;left:20px;top:50%;transform:translateY(-50%);font-size:28px;font-weight:700;color:var(--gray-400)}
+.calc-input{width:100%;padding:20px 20px 20px 44px;font-size:28px;font-weight:700;color:var(--white);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;font-family:var(--font);outline:none;transition:border-color .2s}
+.calc-input:focus{border-color:rgba(59,130,246,.4)}
+.calc-input::placeholder{color:var(--gray-500)}
+.calc-result{padding:24px 0 0;border-top:1px solid rgba(255,255,255,.06)}
+.calc-result-label{font-size:12px;font-weight:600;color:var(--gray-400);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.calc-result-num{font-size:48px;font-weight:800;color:var(--accent);letter-spacing:-2px;line-height:1;margin-bottom:6px}
+.calc-result-sub{font-size:14px;color:var(--gray-400);line-height:1.5}
+.calc-rows{display:flex;flex-direction:column;gap:16px;margin-bottom:20px}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:8px}
+.calc-row.leak{background:rgba(233,69,96,.08);border:1px solid rgba(233,69,96,.12)}
+.calc-row.blocked{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.12)}
+.calc-row.total{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.calc-row-left{display:flex;flex-direction:column;gap:2px}
+.calc-row-label{font-size:13px;font-weight:600;color:var(--gray-200);letter-spacing:.2px}
+.calc-row-desc{font-size:11px;color:var(--gray-400);line-height:1.4}
+.calc-row-num{font-size:24px;font-weight:800;letter-spacing:-1px;white-space:nowrap}
+.calc-row.leak .calc-row-num{color:var(--accent)}
+.calc-row.blocked .calc-row-num{color:var(--amber)}
+.calc-row.total .calc-row-num{font-size:32px;color:var(--white)}
+.calc-row.total .calc-row-label{font-size:14px;font-weight:700;color:var(--white)}
+.calc-divider{height:1px;background:rgba(255,255,255,.06);margin:4px 0}
+.calc-method{font-size:11px;color:var(--gray-500);line-height:1.5;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.04)}
+
+/* ─── PAIN SECTION ─── */
+.pain{padding:100px 48px;background:var(--white)}
+.pain-inner{max-width:1000px;margin:0 auto}
+.section-tag{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.pain h2{font-size:clamp(28px,3.5vw,42px);font-weight:800;color:var(--navy);line-height:1.15;letter-spacing:-1px;margin-bottom:48px}
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.pain-card{padding:28px 32px;border-radius:12px;border:1px solid var(--gray-100);background:var(--off-white);transition:all .2s;position:relative;overflow:hidden}
+.pain-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:0;transition:opacity .2s}
+.pain-card:hover::before{opacity:1}
+.pain-card:hover{border-color:var(--gray-200);transform:translateY(-2px)}
+.pain-card p{font-size:16px;color:var(--gray-500);line-height:1.6}
+.pain-card strong{color:var(--navy);font-weight:700}
+
+/* ─── ANTI-POSITIONING ─── */
+.anti{padding:100px 48px;background:var(--navy-deep);position:relative;overflow:hidden}
+.anti::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(233,69,96,.04),transparent 70%);pointer-events:none}
+.anti-inner{max-width:1100px;margin:0 auto}
+.anti h2{font-size:clamp(28px,3.5vw,42px);font-weight:800;color:var(--white);line-height:1.15;letter-spacing:-1px;margin-bottom:16px;text-align:center}
+.anti-sub{font-size:18px;color:var(--gray-300);text-align:center;max-width:680px;margin:0 auto 56px;line-height:1.6}
+.anti-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:start}
+.anti-col{padding:40px;border-radius:14px}
+.anti-col.them{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.anti-col.us{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15)}
+.anti-col-title{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.anti-col.them .anti-col-title{color:var(--gray-400)}
+.anti-col.us .anti-col-title{color:var(--blue)}
+.anti-vs{display:flex;align-items:center;justify-content:center;padding-top:40px}
+.anti-vs span{font-size:14px;font-weight:800;color:var(--gray-400);letter-spacing:2px}
+.anti-item{display:flex;gap:12px;margin-bottom:20px;align-items:flex-start}
+.anti-icon{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:2px}
+.anti-col.them .anti-icon{background:rgba(255,255,255,.06);color:var(--gray-400)}
+.anti-col.us .anti-icon{background:rgba(59,130,246,.15);color:var(--blue)}
+.anti-item p{font-size:15px;color:var(--gray-300);line-height:1.6}
+.anti-item strong{color:var(--white);font-weight:600}
+
+/* ─── FOUR PILLARS ─── */
+.pillars{padding:100px 48px;background:var(--white)}
+.pillars-inner{max-width:1100px;margin:0 auto}
+.pillars h2{font-size:clamp(28px,3.5vw,42px);font-weight:800;color:var(--navy);line-height:1.15;letter-spacing:-1px;margin-bottom:8px}
+.pillars-sub{font-size:18px;color:var(--gray-400);margin-bottom:56px;max-width:600px;line-height:1.6}
+.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pillar-card{padding:36px 28px;border-radius:14px;border:1px solid var(--gray-100);background:var(--off-white);text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.pillar-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 12px 40px rgba(15,52,96,.08)}
+.pillar-icon{width:56px;height:56px;border-radius:12px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.pillar-card:nth-child(1) .pillar-icon{background:rgba(233,69,96,.08);color:var(--accent)}
+.pillar-card:nth-child(2) .pillar-icon{background:rgba(59,130,246,.08);color:var(--blue)}
+.pillar-card:nth-child(3) .pillar-icon{background:rgba(245,158,11,.08);color:var(--amber)}
+.pillar-card:nth-child(4) .pillar-icon{background:rgba(34,197,94,.08);color:var(--green)}
+.pillar-card h3{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:-.3px}
+.pillar-card p{font-size:14px;color:var(--gray-400);line-height:1.6}
+.pillar-score{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-top:16px;background:var(--gray-100);color:var(--gray-400)}
+
+/* ─── SOCIAL PROOF ─── */
+.proof{padding:80px 48px;background:var(--navy-deep);border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04)}
+.proof-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center}
+.proof-stat .num{font-size:42px;font-weight:800;color:var(--white);letter-spacing:-2px;line-height:1}
+.proof-stat .num em{font-style:normal;color:var(--accent)}
+.proof-stat .label{font-size:13px;color:var(--gray-400);margin-top:8px;line-height:1.4}
+
+/* ─── HOW IT WORKS ─── */
+.how{padding:100px 48px;background:var(--white)}
+.how-inner{max-width:1000px;margin:0 auto}
+.how h2{font-size:clamp(28px,3.5vw,42px);font-weight:800;color:var(--navy);line-height:1.15;letter-spacing:-1px;margin-bottom:8px}
+.how-sub{font-size:18px;color:var(--gray-400);margin-bottom:56px;line-height:1.6}
+.phase{display:grid;grid-template-columns:80px 1fr;gap:32px;margin-bottom:48px;position:relative}
+.phase-marker{display:flex;flex-direction:column;align-items:center}
+.phase-num{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--white);flex-shrink:0}
+.phase:nth-child(1) .phase-num{background:var(--accent)}
+.phase:nth-child(2) .phase-num{background:var(--blue)}
+.phase:nth-child(3) .phase-num{background:var(--navy)}
+.phase-line{width:2px;flex:1;margin-top:8px;border-radius:1px}
+.phase:nth-child(1) .phase-line{background:linear-gradient(var(--accent),var(--blue))}
+.phase:nth-child(2) .phase-line{background:linear-gradient(var(--blue),var(--navy))}
+.phase:nth-child(3) .phase-line{display:none}
+.phase-content h3{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:4px;letter-spacing:-.3px}
+.phase-timing{font-size:13px;font-weight:600;color:var(--gray-300);letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
+.phase-content p{font-size:16px;color:var(--gray-500);line-height:1.7;margin-bottom:16px}
+.phase-deliverables{display:flex;flex-wrap:wrap;gap:8px}
+.phase-tag{font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;background:var(--gray-100);color:var(--gray-500);letter-spacing:.2px}
+
+/* Deliverables accordion */
+.deliverables{max-width:1000px;margin:0 auto;padding:0 48px 80px}
+.deliverables-toggle{width:100%;background:var(--off-white);border:1px solid var(--gray-200);border-radius:12px;padding:24px 32px;font-size:18px;font-weight:700;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:var(--font);transition:all .2s}
+.deliverables-toggle:hover{border-color:var(--blue);background:var(--white)}
+.deliverables-toggle .arrow{font-size:20px;transition:transform .3s;color:var(--gray-300)}
+.deliverables-toggle.open .arrow{transform:rotate(180deg)}
+.deliverables-list{max-height:0;overflow:hidden;transition:max-height .5s ease;background:var(--off-white);border:1px solid var(--gray-200);border-top:0;border-radius:0 0 12px 12px;margin-top:-1px}
+.deliverables-list.open{max-height:2000px}
+.deliverables-list-inner{padding:24px 32px;display:grid;grid-template-columns:1fr 1fr;gap:8px 32px}
+.del-item{font-size:14px;color:var(--gray-500);padding:6px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.del-item::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* ─── DIAGNOSTIC CTA ─── */
+.diagnostic{padding:100px 48px;background:var(--off-white);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100)}
+.diagnostic-inner{max-width:800px;margin:0 auto;text-align:center}
+.diagnostic h2{font-size:clamp(28px,3.5vw,42px);font-weight:800;color:var(--navy);line-height:1.15;letter-spacing:-1px;margin-bottom:16px}
+.diagnostic-sub{font-size:18px;color:var(--gray-400);margin-bottom:40px;line-height:1.6}
+.diagnostic-box{background:var(--white);border:1px solid var(--gray-200);border-radius:16px;padding:48px;text-align:left;position:relative;overflow:hidden}
+.diagnostic-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--blue))}
+.diag-step{margin-bottom:28px}
+.diag-step-label{font-size:12px;font-weight:700;color:var(--gray-300);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.diag-question{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:12px}
+.diag-options{display:flex;gap:10px;flex-wrap:wrap}
+.diag-opt{padding:10px 20px;border-radius:8px;border:1px solid var(--gray-200);font-size:14px;font-weight:500;color:var(--gray-500);cursor:pointer;transition:all .2s;font-family:var(--font);background:var(--white)}
+.diag-opt:hover{border-color:var(--blue);color:var(--navy)}
+.diag-opt.selected{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.diag-progress{height:4px;background:var(--gray-100);border-radius:2px;margin-bottom:32px;overflow:hidden}
+.diag-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--blue));border-radius:2px;transition:width .4s ease}
+.diag-result{text-align:center;display:none;padding:20px 0}
+.diag-result.show{display:block}
+.diag-score{font-size:64px;font-weight:800;letter-spacing:-3px;line-height:1}
+.diag-score-label{font-size:14px;color:var(--gray-400);margin-top:8px;margin-bottom:24px}
+
+/* ─── ABOUT/FOUNDER ─── */
+.founder{padding:100px 48px;background:var(--white)}
+.system-inner{max-width:900px;margin:0 auto}
+.system-header{margin-bottom:48px}
+.system-header h2{font-size:clamp(28px,3.5vw,38px);font-weight:800;color:var(--navy);line-height:1.15;letter-spacing:-1px;margin-bottom:20px}
+.system-lead{font-size:17px;color:var(--gray-500);line-height:1.7;max-width:780px}
+.system-layers{display:flex;flex-direction:column;gap:0;margin-bottom:32px;border:1px solid var(--gray-100);border-radius:12px;overflow:hidden}
+.system-layer{display:flex;align-items:flex-start;gap:20px;padding:24px 28px;border-bottom:1px solid var(--gray-100);transition:background .2s}
+.system-layer:last-child{border-bottom:none}
+.system-layer:hover{background:var(--off-white)}
+.layer-num{font-size:13px;font-weight:700;color:var(--accent);background:rgba(200,30,30,.08);padding:6px 10px;border-radius:6px;white-space:nowrap;letter-spacing:.5px;min-width:32px;text-align:center}
+.layer-info{flex:1}
+.layer-name{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.layer-desc{font-size:14px;color:var(--gray-400);line-height:1.6}
+.founder-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.founder-stat{padding:20px;border-radius:10px;background:var(--off-white);border:1px solid var(--gray-100);text-align:center}
+.founder-stat .num{font-size:28px;font-weight:800;color:var(--navy);letter-spacing:-1px}
+.founder-stat .label{font-size:13px;color:var(--gray-400);margin-top:2px}
+.framework-badge{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:var(--white);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;margin-top:24px;letter-spacing:.3px}
+
+/* ─── FINAL CTA ─── */
+.final-cta{padding:120px 48px;background:var(--navy-deep);text-align:center;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(233,69,96,.3),transparent)}
+.final-cta h2{font-size:clamp(32px,4vw,52px);font-weight:800;color:var(--white);line-height:1.1;letter-spacing:-1.5px;margin-bottom:16px}
+.final-cta p{font-size:18px;color:var(--gray-300);max-width:600px;margin:0 auto 40px;line-height:1.6}
+.final-cta .hero-qualifier{color:var(--gray-400);margin-top:20px}
+.final-value{display:flex;justify-content:center;gap:40px;margin-bottom:48px;flex-wrap:wrap}
+.final-value-item{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--gray-300)}
+.final-value-item .check{color:var(--green);font-weight:700}
+
+/* ─── FOOTER ─── */
+.footer{padding:48px;background:var(--navy-deep);border-top:1px solid rgba(255,255,255,.04)}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-left{font-size:14px;color:var(--gray-400)}
+.footer-right{display:flex;gap:32px}
+.footer-right a{font-size:13px;color:var(--gray-400);transition:color .2s}
+.footer-right a:hover{color:var(--white)}
+.footer-tagline{font-size:12px;color:var(--gray-500);margin-top:4px;letter-spacing:.5px}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:48px}
+  .pillars-grid{grid-template-columns:repeat(2,1fr)}
+  .proof-inner{grid-template-columns:repeat(2,1fr);gap:32px}
+  .anti-grid{grid-template-columns:1fr;gap:16px}
+  .anti-vs{padding:0}
+  .founder-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav{padding:0 24px}
+  .nav-links{display:none}
+  .hero,.pain,.anti,.pillars,.how,.diagnostic,.founder,.final-cta{padding-left:24px;padding-right:24px}
+  .deliverables{padding-left:24px;padding-right:24px}
+  .hero h1{font-size:32px}
+  .pillars-grid{grid-template-columns:1fr}
+  .proof-inner{grid-template-columns:1fr 1fr}
+  .pain-grid{grid-template-columns:1fr}
+  .hero-cta-row{flex-direction:column;align-items:stretch}
+  .phase{grid-template-columns:48px 1fr;gap:20px}
+  .deliverables-list-inner{grid-template-columns:1fr}
+  .final-value{flex-direction:column;align-items:center;gap:16px}
+  .footer-inner{flex-direction:column;gap:16px;text-align:center}
+}
+
+/* ─── ANIMATIONS ─── */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.diag-severity-hint{font-size:13px;color:var(--gray-300);margin-bottom:16px;font-style:italic}
+.diag-severity-tag{text-align:center;margin-bottom:16px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo"><img src="OpFix_Logo__white_.svg" alt="OpFix - We Fix Operations" class="nav-logo-img"></div>
+  <div class="nav-links">
+    <a href="how-it-works.html">How It Works</a>
+    <a href="four-pillars.html">The Four Pillars</a>
+    <a href="the-system.html">The System</a>
+    <a href="case-studies.html">Case Studies</a>
+    <button class="nav-cta" onclick="smoothScroll('#diagnostic-section')">Free Diagnostic →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag"><span class="dot"></span> Now accepting founding clients</div>
+      <h1>Your business is <em>bleeding money.</em><br>We find the leak and fix it.</h1>
+      <p class="hero-sub">We diagnose broken operations, install the systems to fix them, and build the infrastructure so you can stop running your business and start scaling it.</p>
+      <div class="hero-cta-row">
+        <button class="btn-primary" onclick="smoothScroll('#diagnostic-section')">Diagnose Your Business Free →</button>
+      </div>
+      <p class="hero-qualifier">For founder-led businesses doing $500K – $10M in revenue</p>
+    </div>
+    <div class="hero-calc fade-up">
+      <div class="calc-label">What are broken operations costing you?</div>
+      <div class="calc-input-wrap">
+        <span class="prefix">$</span>
+        <input class="calc-input" type="text" id="revenueInput" placeholder="Enter annual revenue" oninput="calcLeak(this.value)">
+      </div>
+      <div class="calc-result" id="calcResult" style="display:none">
+        <div class="calc-rows">
+          <div class="calc-row leak">
+            <div class="calc-row-left">
+              <div class="calc-row-label">Revenue leaking out</div>
+              <div class="calc-row-desc">Waste, margin compression, inefficiency, underpriced offers, cash mismanagement</div>
+            </div>
+            <div class="calc-row-num" id="leakNum">$0</div>
+          </div>
+          <div class="calc-row blocked">
+            <div class="calc-row-left">
+              <div class="calc-row-label">New revenue blocked</div>
+              <div class="calc-row-desc">Dead leads, no follow-up system, founder bottleneck, capped capacity, weak pipeline</div>
+            </div>
+            <div class="calc-row-num" id="blockedNum">$0</div>
+          </div>
+          <div class="calc-divider"></div>
+          <div class="calc-row total">
+            <div class="calc-row-left">
+              <div class="calc-row-label">Total annual impact</div>
+            </div>
+            <div class="calc-row-num" id="totalNum">$0</div>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:13px;color:var(--gray-300);margin-bottom:4px"></div>
+          <div class="calc-method">Based on Four Pillars diagnostic data across founder-led businesses doing $500K–$10M. Leakage estimate: 12–18% of revenue from operational inefficiency and margin loss. Blocked revenue estimate: 15–25% from broken sales infrastructure, missing follow-up systems, and founder-dependent capacity constraints.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN SECTION -->
+<section class="pain">
+  <div class="pain-inner">
+    <div class="section-tag">Sound familiar?</div>
+    <h2>You built a business that works.<br>But it only works because <em>you</em> never stop.</h2>
+    <div class="pain-grid">
+      <div class="pain-card fade-up"><p><strong>You are the system.</strong> Every decision, every problem, every fire runs through you. Remove yourself for a week and things break.</p></div>
+      <div class="pain-card fade-up"><p><strong>Revenue is growing. Profit isn't.</strong> More clients, more work, more overhead — but the margin stays flat or shrinks.</p></div>
+      <div class="pain-card fade-up"><p><strong>You've hired people. Nothing changed.</strong> New heads, same chaos. Nobody owns outcomes. You're still the bottleneck.</p></div>
+      <div class="pain-card fade-up"><p><strong>You can't see what's broken.</strong> You know something is off. You don't know if it's sales, ops, people, or finance — or all four.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANTI-POSITIONING -->
+<section class="anti">
+  <div class="anti-inner">
+    <div class="section-tag" style="text-align:center;color:var(--accent)">We're not consultants</div>
+    <h2>Consultants advise.<br>We <em style="color:var(--accent)">install.</em></h2>
+    <p class="anti-sub">Most consulting firms hand you a binder and disappear. We open the hood, find what's broken, fix it, and don't leave until the engine runs without you.</p>
+    <div class="anti-grid">
+      <div class="anti-col them fade-up">
+        <div class="anti-col-title">Traditional consultants</div>
+        <div class="anti-item"><div class="anti-icon">→</div><p>Deliver a <strong>strategy deck</strong> and walk away</p></div>
+        <div class="anti-item"><div class="anti-icon">→</div><p>Charge by the hour to <strong>advise</strong></p></div>
+        <div class="anti-item"><div class="anti-icon">→</div><p>Use your team to execute <strong>their plan</strong></p></div>
+        <div class="anti-item"><div class="anti-icon">→</div><p>Generalized frameworks, <strong>no custom diagnosis</strong></p></div>
+        <div class="anti-item"><div class="anti-icon">→</div><p>Gone before you know if it <strong>actually worked</strong></p></div>
+      </div>
+      <div class="anti-vs"><span>VS</span></div>
+      <div class="anti-col us fade-up">
+        <div class="anti-col-title">OpFix</div>
+        <div class="anti-item"><div class="anti-icon">✓</div><p><strong>Diagnose</strong> your operations with a proprietary framework</p></div>
+        <div class="anti-item"><div class="anti-icon">✓</div><p><strong>Install</strong> the systems that fix what's broken</p></div>
+        <div class="anti-item"><div class="anti-icon">✓</div><p><strong>Build alongside you</strong> for 90 days — not a handoff</p></div>
+        <div class="anti-item"><div class="anti-icon">✓</div><p>Custom scope based on <strong>your diagnostic score</strong></p></div>
+        <div class="anti-item"><div class="anti-icon">✓</div><p>We stay until the systems <strong>run without you</strong></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUR PILLARS -->
+<section class="pillars" id="pillars-section">
+  <div class="pillars-inner">
+    <div class="section-tag">The Four Pillars Diagnostic™</div>
+    <h2>Every broken business fails<br>in the same four places.</h2>
+    <p class="pillars-sub">Our proprietary framework diagnoses exactly where you're bleeding — across revenue, operations, people, and finance — so we fix what matters first.</p>
+    <div class="pillars-grid">
+      <div class="pillar-card fade-up">
+        <div class="pillar-icon">⚡</div>
+        <h3>Revenue Engine</h3>
+        <p>Sales process, offer architecture, pricing, lead generation, conversion, and retention systems.</p>
+        <div class="pillar-score">Pillar 1 of 4</div>
+      </div>
+      <div class="pillar-card fade-up">
+        <div class="pillar-icon">⚙</div>
+        <h3>Operations Machine</h3>
+        <p>Workflows, SOPs, delivery systems, tech stack, automation, and process documentation.</p>
+        <div class="pillar-score">Pillar 2 of 4</div>
+      </div>
+      <div class="pillar-card fade-up">
+        <div class="pillar-icon">◈</div>
+        <h3>People Architecture</h3>
+        <p>Org chart, roles, metrics, hiring systems, accountability structure, and team performance.</p>
+        <div class="pillar-score">Pillar 3 of 4</div>
+      </div>
+      <div class="pillar-card fade-up">
+        <div class="pillar-icon">◉</div>
+        <h3>Financial Vitals</h3>
+        <p>Cash flow, margin analysis, expense structure, Profit First allocation, and growth financing.</p>
+        <div class="pillar-score">Pillar 4 of 4</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF STRIP -->
+<section class="proof">
+  <div class="proof-inner">
+    <div class="proof-stat fade-up"><div class="num">$312<em>K</em></div><div class="label">Average recoverable revenue<br>identified per diagnosis</div></div>
+    <div class="proof-stat fade-up"><div class="num">34</div><div class="label">Deliverables installed<br>per 90-day engagement</div></div>
+    <div class="proof-stat fade-up"><div class="num">90</div><div class="label">Days from broken<br>to built and scaling</div></div>
+    <div class="proof-stat fade-up"><div class="num">3–10<em>x</em></div><div class="label">Typical ROI recovered<br>within the first engagement</div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how-section">
+  <div class="how-inner">
+    <div class="section-tag">How it works</div>
+    <h2>90 days. Three phases.<br>A business that runs without you.</h2>
+    <p class="how-sub">We don't sell advice. We sell a 90-day system installation. Here's exactly what happens.</p>
+
+    <div class="phase fade-up">
+      <div class="phase-marker"><div class="phase-num">1</div><div class="phase-line"></div></div>
+      <div class="phase-content">
+        <h3>Diagnose</h3>
+        <div class="phase-timing">Days 1 – 14</div>
+        <p>We open the hood on your business. Full audit across all four pillars — revenue, operations, people, finance. Tech stack audit. Process mapping. Financial analysis. You get a Diagnosis Report with a scored breakdown of exactly what's broken and what it's costing you.</p>
+        <div class="phase-deliverables">
+          <span class="phase-tag">Four Pillars score</span>
+          <span class="phase-tag">Tech stack audit</span>
+          <span class="phase-tag">Financial analysis</span>
+          <span class="phase-tag">Process map</span>
+          <span class="phase-tag">Diagnosis Report</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase fade-up">
+      <div class="phase-marker"><div class="phase-num">2</div><div class="phase-line"></div></div>
+      <div class="phase-content">
+        <h3>Fix</h3>
+        <div class="phase-timing">Days 15 – 28</div>
+        <p>Based on the diagnosis, we design and present your custom 90-Day Execution Plan. New revenue systems. Restructured operations. Team realignment. Tech architecture. Financial restructuring. You approve the plan in writing before we build anything.</p>
+        <div class="phase-deliverables">
+          <span class="phase-tag">90-Day Execution Plan</span>
+          <span class="phase-tag">Priority SOPs</span>
+          <span class="phase-tag">Revenue system blueprint</span>
+          <span class="phase-tag">Tech architecture spec</span>
+          <span class="phase-tag">Financial restructuring plan</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase fade-up">
+      <div class="phase-marker"><div class="phase-num">3</div><div class="phase-line"></div></div>
+      <div class="phase-content">
+        <h3>Scale</h3>
+        <div class="phase-timing">Days 29 – 90</div>
+        <p>We install everything. CRM configured. Automations live. SOPs implemented. New sales process running. KPI dashboards tracking. Team roles redefined. We stress test the systems, hand you the documentation, and deliver a final report with before/after results. You walk away with a business that operates without you in the room.</p>
+        <div class="phase-deliverables">
+          <span class="phase-tag">All systems installed</span>
+          <span class="phase-tag">KPI dashboard live</span>
+          <span class="phase-tag">Team trained</span>
+          <span class="phase-tag">Stress tested</span>
+          <span class="phase-tag">Final Report</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 34 DELIVERABLES -->
+<div class="deliverables">
+  <button class="deliverables-toggle" id="delToggle" onclick="toggleDeliverables()">
+    Here's exactly what you get. 34 deliverables. Zero ambiguity.
+    <span class="arrow">▼</span>
+  </button>
+  <div class="deliverables-list" id="delList">
+    <div class="deliverables-list-inner">
+      <div class="del-item">Four Pillars Diagnostic score</div>
+      <div class="del-item">Revenue system audit</div>
+      <div class="del-item">Operations process map</div>
+      <div class="del-item">People & org chart analysis</div>
+      <div class="del-item">Financial vitals assessment</div>
+      <div class="del-item">Tech stack audit & recommendations</div>
+      <div class="del-item">Complete Diagnosis Report</div>
+      <div class="del-item">90-Day Execution Plan</div>
+      <div class="del-item">Priority SOPs (drafted)</div>
+      <div class="del-item">Revenue system blueprint</div>
+      <div class="del-item">Tech architecture specification</div>
+      <div class="del-item">Financial restructuring plan</div>
+      <div class="del-item">Team realignment plan</div>
+      <div class="del-item">Client plan presentation</div>
+      <div class="del-item">Written client approval</div>
+      <div class="del-item">All priority SOPs installed</div>
+      <div class="del-item">CRM/pipeline configured & live</div>
+      <div class="del-item">Email/SMS automations live</div>
+      <div class="del-item">Workflow automations live</div>
+      <div class="del-item">KPI dashboard live</div>
+      <div class="del-item">New sales process installed</div>
+      <div class="del-item">New pricing/offer in effect</div>
+      <div class="del-item">Financial restructuring implemented</div>
+      <div class="del-item">Team roles redefined with metrics</div>
+      <div class="del-item">Lead generation system live</div>
+      <div class="del-item">Mid-point review notes</div>
+      <div class="del-item">Weekly check-in notes (6 weeks)</div>
+      <div class="del-item">Stress test results & resolution log</div>
+      <div class="del-item">Final SOPs in shared drive</div>
+      <div class="del-item">Tech documentation & user guides</div>
+      <div class="del-item">Training session recordings</div>
+      <div class="del-item">Final Report with before/after scorecard</div>
+      <div class="del-item">Client satisfaction survey</div>
+      <div class="del-item">Retainer proposal (if applicable)</div>
+    </div>
+  </div>
+</div>
+
+<!-- DIAGNOSTIC SECTION -->
+<section class="diagnostic" id="diagnostic-section">
+  <div class="diagnostic-inner">
+    <div class="section-tag">Free diagnostic</div>
+    <h2>Diagnose your business health<br>in under 2 minutes.</h2>
+    <p class="diagnostic-sub">5 questions. One from each pillar. Get a snapshot of where your business is bleeding — the higher the score, the worse the problem. No email required.</p>
+    <div class="diagnostic-box fade-up">
+      <div class="diag-progress"><div class="diag-progress-fill" id="diagProgress" style="width:0%"></div></div>
+      <div id="diagSteps">
+        <!-- Step 1: Revenue -->
+        <div class="diag-step" data-step="1">
+          <div class="diag-step-label">📈 Revenue &amp; Sales — Question 1 of 5</div>
+          <div class="diag-question">How dependent is your revenue on you personally closing deals?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Fully systemized — team closes without me</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Team handles most, I close a few</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Mostly me, some team support</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> I close everything — revenue stops without me</button>
+          </div>
+        </div>
+        <!-- Step 2: Operations -->
+        <div class="diag-step" data-step="2" style="display:none">
+          <div class="diag-step-label">⚙️ Operations &amp; Systems — Question 2 of 5</div>
+          <div class="diag-question">If you left for 2 weeks, what happens to daily operations?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Runs smoothly without me</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Minor hiccups only</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Major issues arise quickly</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Everything stops — business can't function</button>
+          </div>
+        </div>
+        <!-- Step 3: Team -->
+        <div class="diag-step" data-step="3" style="display:none">
+          <div class="diag-step-label">👥 Team &amp; Leadership — Question 3 of 5</div>
+          <div class="diag-question">Does every person on your team have clear KPIs and documented responsibilities?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Fully documented with scorecards</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Most roles clear, some gaps</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Some roles defined, most are vague</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> No KPIs, no documentation, no accountability</button>
+          </div>
+        </div>
+        <!-- Step 4: Financial -->
+        <div class="diag-step" data-step="4" style="display:none">
+          <div class="diag-step-label">💰 Financial Structure — Question 4 of 5</div>
+          <div class="diag-question">Do you know your exact profit margin, cash reserves, and monthly burn rate right now?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Tracked weekly with dashboard</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Know most numbers roughly</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Rough estimate at best</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> No idea — flying completely blind</button>
+          </div>
+        </div>
+        <!-- Step 5: Overall Systems -->
+        <div class="diag-step" data-step="5" style="display:none">
+          <div class="diag-step-label">⚙️ Operations &amp; Systems — Question 5 of 5</div>
+          <div class="diag-question">How many of your core business processes are documented as SOPs?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> All documented &amp; maintained</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Most are documented</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> A few critical ones only</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> None — everything is tribal knowledge</button>
+          </div>
+        </div>
+      </div>
+      <div class="diag-result" id="diagResult">
+        <div class="diag-score" id="diagScore">—</div>
+        <div class="diag-score-label">Your severity snapshot — higher = worse</div>
+        <div class="diag-severity-tag" id="diagSeverityTag"></div>
+        <p style="font-size:15px;color:#6B7280;margin-bottom:28px;line-height:1.6">This is a 5-question snapshot. The full diagnostic scores all <strong>40 factors</strong> across Revenue, Operations, Team, and Finance — weighted by business impact — and generates a complete Diagnosis Report showing exactly where you're bleeding and what it's costing you.</p>
+        <a href="opfix_diagnostic.html" class="btn-primary" style="display:inline-block;text-decoration:none">Start Your Full 40-Factor Diagnostic →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SYSTEM -->
+<section class="founder" id="founder-section">
+  <div class="system-inner">
+    <div class="system-header">
+      <div class="section-tag">The engine under the hood</div>
+      <h2>Not a consultant's opinion.<br>A unified operating system.</h2>
+      <p class="system-lead">OpFix was built from the ground up around one idea: consultants diagnose, but systems fix. Every engagement runs on a single decision-making engine distilled from 18 proven frameworks across 8 operating layers — sales, operations, finance, negotiation, persuasion, leadership, communication, and mindset.</p>
+    </div>
+    <div class="system-layers">
+      <div class="system-layer">
+        <div class="layer-num">01</div>
+        <div class="layer-info">
+          <div class="layer-name">Offer &amp; Lead Generation</div>
+          <div class="layer-desc">Value equation, Grand Slam Offers, Core Four lead gen — every engagement starts by fixing how you attract and convert.</div>
+        </div>
+      </div>
+      <div class="system-layer">
+        <div class="layer-num">02</div>
+        <div class="layer-info">
+          <div class="layer-name">Sales Methodology</div>
+          <div class="layer-desc">SPIN, Challenger, consultative selling, StoryBrand — installed into your sales process so it works without you running every call.</div>
+        </div>
+      </div>
+      <div class="system-layer">
+        <div class="layer-num">03</div>
+        <div class="layer-info">
+          <div class="layer-name">Operations &amp; Finance</div>
+          <div class="layer-desc">Profit First, EOS, systems thinking, labor efficiency — the infrastructure that turns chaos into a machine.</div>
+        </div>
+      </div>
+      <div class="system-layer">
+        <div class="layer-num">04</div>
+        <div class="layer-info">
+          <div class="layer-name">Human Influence &amp; Persuasion</div>
+          <div class="layer-desc">Carnegie, Cialdini, tactical empathy — wired into every team conversation, negotiation, and client interaction.</div>
+        </div>
+      </div>
+    </div>
+    <div class="framework-badge">⬡ 18 frameworks. 8 layers. One operating system. Every engagement.</div>
+    <div class="founder-stats">
+      <div class="founder-stat"><div class="num">18</div><div class="label">Frameworks unified</div></div>
+      <div class="founder-stat"><div class="num">8</div><div class="label">Operating layers</div></div>
+      <div class="founder-stat"><div class="num">34</div><div class="label">Deliverables per client</div></div>
+      <div class="founder-stat"><div class="num">90</div><div class="label">Day installation</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="final-section">
+  <h2>You're working harder<br>than your systems are.</h2>
+  <p style="max-width:640px;margin:0 auto 40px">Score your operational bleed across 40 factors in 5 minutes. See exactly where you're losing money.</p>
+  <div class="final-value">
+    <div class="final-value-item"><span class="check">✓</span> Your Four Pillars score</div>
+    <div class="final-value-item"><span class="check">✓</span> The #1 system costing you the most</div>
+    <div class="final-value-item"><span class="check">✓</span> A clear next step — even if we never work together</div>
+  </div>
+  <button class="btn-primary" style="font-size:18px;padding:18px 40px" onclick="smoothScroll('#diagnostic-section')">Diagnose Your Business Free →</button>
+  <p class="hero-qualifier">For founder-led businesses doing $500K – $10M in revenue</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-logo"><img src="OpFix_Logo__white_.svg" alt="OpFix" class="footer-logo-img"></div>
+      <div class="footer-tagline">Diagnose. Fix. Scale.</div>
+    </div>
+    <div class="footer-right">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="four-pillars.html">Four Pillars</a>
+      <a href="the-system.html">The System</a>
+      <a href="#diagnostic-section">Free Diagnostic</a>
+      <a href="opfix_team_page.html">The Team</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Calculator — Two-sided cost model
+// Side 1: Revenue leaking out (operational inefficiency, waste, margin loss)
+//   Range: 12-18% of revenue. Using 15% midpoint for conservative estimate.
+//   Backed by: 3x ROI floor math — Rebuild tier ($30K-$51K engagement)
+//   surfaces $100K-$300K in waste for $1M+ businesses = 10-30% range.
+//   15% is the conservative midpoint.
+//
+// Side 2: New revenue blocked (broken sales infra, no follow-up, founder bottleneck)
+//   Range: 15-25% of potential revenue never captured.
+//   Backed by: Revenue & Sales pillar has 10 diagnostic factors.
+//   Businesses scoring moderate-to-severe across lead gen, sales process,
+//   follow-up, offer clarity, pricing, and retention are easily leaving
+//   15-25% on the table. Using 20% midpoint.
+//
+// Combined: 35% total annual impact (15% leaking + 20% blocked)
+
+function calcLeak(val) {
+  const num = parseInt(val.replace(/[^0-9]/g,''));
+  const result = document.getElementById('calcResult');
+  if (!num || num < 50000) { result.style.display='none'; return; }
+  result.style.display='block';
+
+  // Tiered rates — smaller businesses leak proportionally more
+  let leakRate, blockedRate;
+  if (num <= 750000) {
+    leakRate = 0.18;    // smaller biz, less infrastructure, more waste
+    blockedRate = 0.25;  // heavily founder-dependent, weak pipeline
+  } else if (num <= 2000000) {
+    leakRate = 0.15;    // some systems exist, still significant gaps
+    blockedRate = 0.22;  // growing but constrained by broken processes
+  } else if (num <= 5000000) {
+    leakRate = 0.13;    // more infrastructure, but complexity creates new leaks
+    blockedRate = 0.18;  // team exists but underperforming without systems
+  } else {
+    leakRate = 0.12;    // larger ops, still bleeding from scale inefficiency
+    blockedRate = 0.15;  // capacity exists, blocked by misalignment
+  }
+
+  const leak = Math.round(num * leakRate);
+  const blocked = Math.round(num * blockedRate);
+  const total = leak + blocked;
+
+  document.getElementById('leakNum').textContent = '$' + leak.toLocaleString();
+  document.getElementById('blockedNum').textContent = '$' + blocked.toLocaleString();
+  document.getElementById('totalNum').textContent = '$' + total.toLocaleString();
+}
+
+
+// Mini Diagnostic (5 questions)
+let diagAnswers = {};
+let currentStep = 1;
+function selectOpt(el, val) {
+  el.parentElement.querySelectorAll('.diag-opt').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  diagAnswers[currentStep] = val;
+  setTimeout(()=>{
+    if(currentStep < 5) {
+      document.querySelector(`[data-step="${currentStep}"]`).style.display='none';
+      currentStep++;
+      document.querySelector(`[data-step="${currentStep}"]`).style.display='block';
+      document.getElementById('diagProgress').style.width = (currentStep-1)*25+'%';
+    } else {
+      document.getElementById('diagProgress').style.width='100%';
+      document.getElementById('diagSteps').style.display='none';
+      let total = Object.values(diagAnswers).reduce((a,b)=>a+b,0);
+      let maxScore = 15;
+      let scoreEl = document.getElementById('diagScore');
+      scoreEl.textContent = total + ' / ' + maxScore;
+      
+      let sevLabel, sevColor, sevDesc;
+      if (total <= 3) { sevLabel='HEALTHY'; sevColor='#22C55E'; sevDesc='Low severity. Minor tune-ups at most.'; }
+      else if (total <= 7) { sevLabel='MODERATE BLEED'; sevColor='#F59E0B'; sevDesc='Meaningful drag. Several areas need attention.'; }
+      else if (total <= 11) { sevLabel='SEVERE BLEED'; sevColor='#E97820'; sevDesc='Significant problems across multiple pillars. Revenue loss is active.'; }
+      else { sevLabel='CRITICAL'; sevColor='#E94560'; sevDesc='Operations are in crisis. Every day costs real money.'; }
+      
+      scoreEl.style.color = sevColor;
+      document.getElementById('diagSeverityTag').innerHTML = '<span style="background:'+sevColor+'15;color:'+sevColor+';padding:6px 16px;border-radius:6px;font-weight:700;font-size:14px;letter-spacing:1px">'+sevLabel+'</span><div style="margin-top:8px;font-size:14px;color:var(--gray-400)">'+sevDesc+'</div>';
+      
+      document.getElementById('diagResult').classList.add('show');
+    }
+  }, 400);
+}
+
+// Deliverables toggle
+// Deliverables toggle
+function toggleDeliverables() {
+  document.getElementById('delToggle').classList.toggle('open');
+  document.getElementById('delList').classList.toggle('open');
+}
+
+// Scroll
+function smoothScroll(sel) {
+  document.querySelector(sel).scrollIntoView({behavior:'smooth'});
+}
+
+// Fade-up on scroll
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.15});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>

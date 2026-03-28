@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="OpFix_Favicon_dark_32px.svg">
+<title>The Four Pillars Diagnostic | OpFix</title>
+<meta name="description" content="Every broken business fails in the same four places. 40 factors across Operations, Revenue, Financial, and Team.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B1D3A;--white:#FFFFFF;--off-white:#F8F9FA;--gray-100:#E5E7EB;--gray-200:#D1D5DB;--gray-300:#9CA3AF;--gray-400:#6B7280;--gray-500:#4B5563;--accent:#C81E2D;--font:'DM Sans',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--white);color:var(--navy);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(11,29,58,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo img{height:160px;width:auto}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--gray-200);transition:color .2s;letter-spacing:.2px}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{font-size:14px;font-weight:600;color:var(--white)!important;background:var(--accent);padding:10px 22px;border-radius:8px;transition:background .2s}
+.nav-cta:hover{background:#a8182a}
+
+.page-hero{padding:140px 48px 80px;text-align:center;background:var(--navy);color:var(--white)}
+.page-hero .section-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;background:rgba(200,30,30,.12);padding:6px 16px;border-radius:20px}
+.page-hero h1{font-size:clamp(32px,4.5vw,52px);font-weight:800;line-height:1.1;letter-spacing:-2px;margin-bottom:20px}
+.page-hero p{font-size:17px;color:#94A3B8;line-height:1.7;max-width:640px;margin:0 auto}
+
+.content{max-width:1000px;margin:0 auto;padding:80px 48px}
+.btn-primary{display:inline-block;padding:16px 32px;background:var(--accent);color:var(--white);border-radius:8px;font-weight:700;font-size:16px;border:none;cursor:pointer;transition:background .2s;text-decoration:none}
+.btn-primary:hover{background:#a8182a}
+
+.footer{background:var(--navy);padding:48px;color:var(--gray-400)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-left{font-size:14px}
+.footer-links{display:flex;gap:28px}
+.footer-links a{font-size:13px;color:var(--gray-400);transition:color .2s}
+.footer-links a:hover{color:var(--white)}
+
+@media(max-width:900px){
+  .nav{padding:0 16px}
+  .nav-links{display:none}
+  .page-hero,.content{padding-left:24px;padding-right:24px}
+  .footer-inner{flex-direction:column;gap:24px;text-align:center}
+}
+
+.pillar-deep{padding:64px 48px;border-bottom:1px solid var(--gray-100)}
+.pillar-deep:nth-child(even){background:var(--off-white)}
+.pillar-deep-inner{max-width:1000px;margin:0 auto}
+.pillar-badge{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:6px 14px;border-radius:6px;display:inline-block;margin-bottom:16px}
+.pb-ops{background:#EFF6FF;color:#1D4ED8}.pb-rev{background:#ECFDF5;color:#047857}.pb-fin{background:#FEF3C7;color:#B45309}.pb-team{background:#F3E8FF;color:#6D28D9}
+.pillar-deep h2{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-1px;margin-bottom:8px}
+.pillar-deep>div>p{font-size:15px;color:var(--gray-400);line-height:1.7;margin-bottom:32px;max-width:700px}
+.factor-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.factor-card{background:var(--white);border:1px solid var(--gray-100);border-radius:10px;padding:20px 24px}
+.factor-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.factor-weight{font-size:11px;font-weight:600;color:var(--gray-300);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.factor-desc{font-size:13px;color:var(--gray-400);line-height:1.5}
+.pillar-max{font-size:14px;color:var(--gray-300);margin-top:20px;text-align:right;font-weight:500}
+@media(max-width:900px){
+  .pillar-deep{padding:40px 24px}
+  .factor-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="OpFix_Logo__white_.svg" alt="OpFix"></a>
+  <div class="nav-links">
+    <a href="how-it-works.html">How It Works</a>
+    <a href="four-pillars.html" style="color:var(--white)">The Four Pillars</a>
+    <a href="the-system.html">The System</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="opfix_diagnostic.html" class="nav-cta">Free Diagnostic →</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="section-tag">The Four Pillars Diagnostic™</div>
+  <h1>Every broken business fails<br>in the same four places.</h1>
+  <p>40 weighted factors across 4 pillars. Each scored 0–3 based on severity. Higher score = worse problem. This is the engine that drives every OpFix engagement.</p>
+</section>
+
+
+<div class="pillar-deep">
+  <div class="pillar-deep-inner">
+    <div class="pillar-badge pb-ops">⚙️ Pillar 1</div>
+    <h2>Operations & Systems</h2>
+    <p>The infrastructure that keeps your business running without you. If these break, nothing else matters.</p>
+    <div class="factor-grid">
+      <div class="factor-card"><div class="factor-name">SOP Documentation</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Are your core processes documented and executable by anyone on the team?</div></div>
+      <div class="factor-card"><div class="factor-name">Tech Stack Integration</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Is your tech stack connected with a single source of truth, or fragmented across tools?</div></div>
+      <div class="factor-card"><div class="factor-name">Workflow Consistency</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Does every team member follow the same process, or does each client get a different experience?</div></div>
+      <div class="factor-card"><div class="factor-name">Reporting & KPI Tracking</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Can you see your business health in 60 seconds, or are you making gut-feel decisions?</div></div>
+      <div class="factor-card"><div class="factor-name">Bottleneck & Dependency</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">How many decisions require you personally? How long does the business last without you?</div></div>
+      <div class="factor-card"><div class="factor-name">Quality Control Systems</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Are errors caught proactively by systems, or reactively when clients complain?</div></div>
+      <div class="factor-card"><div class="factor-name">Client Delivery Process</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Is delivery mapped with phase gates and sign-offs, or improvised every time?</div></div>
+      <div class="factor-card"><div class="factor-name">Internal Communication</div><div class="factor-weight">Weight: 1x</div><div class="factor-desc">One platform with SLAs, or scattered across text, email, and DMs?</div></div>
+      <div class="factor-card"><div class="factor-name">Project Management</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Is every task tracked, assigned, and deadlined — or managed by memory?</div></div>
+      <div class="factor-card"><div class="factor-name">Business Continuity</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Can the business run 2+ weeks without you, or does it collapse in 48 hours?</div></div>
+    </div>
+    <div class="pillar-max">Max pillar severity: 72 pts</div>
+  </div>
+</div>
+
+<div class="pillar-deep">
+  <div class="pillar-deep-inner">
+    <div class="pillar-badge pb-rev">📈 Pillar 2</div>
+    <h2>Revenue & Sales</h2>
+    <p>The engine that generates, converts, and retains revenue. If this pillar bleeds, growth is impossible.</p>
+    <div class="factor-grid">
+      <div class="factor-card"><div class="factor-name">Lead Generation System</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Multi-channel with consistent flow, or pipeline empty unless you hustle?</div></div>
+      <div class="factor-card"><div class="factor-name">Sales Process Documentation</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">End-to-end with scripts and stages, or each rep selling differently?</div></div>
+      <div class="factor-card"><div class="factor-name">Conversion Tracking</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Stage-by-stage tracking with targets, or no idea where leads drop?</div></div>
+      <div class="factor-card"><div class="factor-name">Follow-Up & Nurture</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Automated sequences per stage, or one touch then gone forever?</div></div>
+      <div class="factor-card"><div class="factor-name">Offer Clarity & Differentiation</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Named, packaged, and crystal clear — or vague and competing on price?</div></div>
+      <div class="factor-card"><div class="factor-name">Pricing Strategy</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Value-based with tiers, or made up per deal in a race to the bottom?</div></div>
+      <div class="factor-card"><div class="factor-name">Revenue Concentration</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Diversified across 10+ clients, or top 3 clients are 70% of revenue?</div></div>
+      <div class="factor-card"><div class="factor-name">Client Retention & Churn</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Proactive retention system, or constant need for new clients?</div></div>
+      <div class="factor-card"><div class="factor-name">Upsell / Cross-Sell</div><div class="factor-weight">Weight: 1x</div><div class="factor-desc">Automated triggers with ascension model, or no upsell awareness?</div></div>
+      <div class="factor-card"><div class="factor-name">Marketing ROI Tracking</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Every dollar tracked with attribution, or spending with zero visibility?</div></div>
+    </div>
+    <div class="pillar-max">Max pillar severity: 69 pts</div>
+  </div>
+</div>
+
+<div class="pillar-deep">
+  <div class="pillar-deep-inner">
+    <div class="pillar-badge pb-fin">💰 Pillar 3</div>
+    <h2>Financial Structure</h2>
+    <p>The numbers that determine whether you're building wealth or burning it. Most founders don't know these are broken until it's too late.</p>
+    <div class="factor-grid">
+      <div class="factor-card"><div class="factor-name">Profit Margin Visibility</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Known per service line and reviewed monthly, or no idea what real margin is?</div></div>
+      <div class="factor-card"><div class="factor-name">Cash Flow Predictability</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">13-week forecast at 90%+ accuracy, or invoice to invoice?</div></div>
+      <div class="factor-card"><div class="factor-name">Expense Discipline</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Monthly audit with approval policy, or subscriptions piling up unmanaged?</div></div>
+      <div class="factor-card"><div class="factor-name">Debt Structure</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">No debt or fully manageable, or toxic MCAs consuming cash flow?</div></div>
+      <div class="factor-card"><div class="factor-name">Financial Forecasting</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">12-month with 3 scenarios, or month to month with zero visibility?</div></div>
+      <div class="factor-card"><div class="factor-name">Pricing Model Effectiveness</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Value-based with formula, or 30-50% of revenue left on the table?</div></div>
+      <div class="factor-card"><div class="factor-name">Revenue Model Sustainability</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">20%+ recurring with ladder, or every month starts at zero?</div></div>
+      <div class="factor-card"><div class="factor-name">Funding Readiness</div><div class="factor-weight">Weight: 1x</div><div class="factor-desc">Business credit established, or personally guaranteeing everything?</div></div>
+      <div class="factor-card"><div class="factor-name">Invoicing & Collections</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Automated with 90%+ collected in 7 days, or chaotic with significant AR?</div></div>
+      <div class="factor-card"><div class="factor-name">Financial Reporting Cadence</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Monthly close by the 10th with dashboard, or only at tax time?</div></div>
+    </div>
+    <div class="pillar-max">Max pillar severity: 66 pts</div>
+  </div>
+</div>
+
+<div class="pillar-deep">
+  <div class="pillar-deep-inner">
+    <div class="pillar-badge pb-team">👥 Pillar 4</div>
+    <h2>Team & Leadership</h2>
+    <p>The people structure that makes everything else scalable. Without this pillar, every fix you install is temporary.</p>
+    <div class="factor-grid">
+      <div class="factor-card"><div class="factor-name">Org Chart & Role Clarity</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Every role defined with KPIs and lanes, or chaos where nobody owns anything?</div></div>
+      <div class="factor-card"><div class="factor-name">Talent Quality in Key Seats</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">A-players in every critical role, or wrong people and top performers leaving?</div></div>
+      <div class="factor-card"><div class="factor-name">Performance Metrics Per Role</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">2-3 KPIs per role with targets, or no way to know who performs?</div></div>
+      <div class="factor-card"><div class="factor-name">Delegation Maturity</div><div class="factor-weight">Weight: 3x</div><div class="factor-desc">Team empowered with 80%+ of your time on strategy, or you do everything?</div></div>
+      <div class="factor-card"><div class="factor-name">Hiring Pipeline & Process</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Full SOP with structured interviews, or desperate hires when someone quits?</div></div>
+      <div class="factor-card"><div class="factor-name">Onboarding & Training</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Day 1-30 program with modules and milestones, or thrown in to figure it out?</div></div>
+      <div class="factor-card"><div class="factor-name">Accountability Framework</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Weekly standups, 1-on-1s, and defined consequences, or honor system?</div></div>
+      <div class="factor-card"><div class="factor-name">Culture & Retention</div><div class="factor-weight">Weight: 1x</div><div class="factor-desc">Values lived with high engagement, or toxic with good people leaving?</div></div>
+      <div class="factor-card"><div class="factor-name">Leadership Development</div><div class="factor-weight">Weight: 1x</div><div class="factor-desc">Development plans with succession path, or you're the only leader?</div></div>
+      <div class="factor-card"><div class="factor-name">Succession Planning</div><div class="factor-weight">Weight: 2x</div><div class="factor-desc">Every function mapped with a successor, or business collapses without you?</div></div>
+    </div>
+    <div class="pillar-max">Max pillar severity: 63 pts</div>
+  </div>
+</div>
+
+<div class="content" style="text-align:center">
+  <h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-1px;margin-bottom:12px">Total: 40 factors. Max severity: 270 points.</h2>
+  <p style="font-size:16px;color:var(--gray-400);margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto">Higher score = worse problem. Score yourself across all 40 factors in 5 minutes.</p>
+  <a href="opfix_diagnostic.html" class="btn-primary">Start the Full Diagnostic →</a>
+</div>
+
+
+<div class="cta-band" style="background:var(--navy);padding:64px 48px;text-align:center">
+  <h2 style="font-size:clamp(24px,3vw,36px);font-weight:800;color:var(--white);letter-spacing:-1px;margin-bottom:12px">You're working harder than your systems are.</h2>
+  <p style="font-size:16px;color:#94A3B8;margin-bottom:28px;max-width:540px;margin-left:auto;margin-right:auto">Score your operational bleed across 40 factors in 5 minutes. See exactly where you're losing money.</p>
+  <a href="opfix_diagnostic.html" class="btn-primary">Start the Free Diagnostic →</a>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">© 2026 OpFix. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="four-pillars.html">Four Pillars</a>
+      <a href="the-system.html">The System</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="opfix_diagnostic.html">Free Diagnostic</a>
+      <a href="opfix_team_page.html">The Team</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
