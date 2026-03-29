@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="OpFix_Favicon_dark_32px.svg">
+<title>OpFix X-Ray Worksheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1D3A;--navy-deep:#060F1F;--accent:#E94560;--white:#FFFFFF;--off-white:#F7F8FA;
+  --gray-100:#EEF0F4;--gray-200:#D5D9E0;--gray-300:#A0A8B8;--gray-400:#6B7280;--gray-500:#4A5060;
+  --blue:#3B82F6;--green:#22C55E;--amber:#F59E0B;--font:'DM Sans',sans-serif;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--navy);background:var(--off-white);-webkit-font-smoothing:antialiased}
+
+/* Header */
+.xray-header{background:var(--navy-deep);padding:32px 48px;border-bottom:3px solid var(--accent)}
+.xray-header-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.xray-title{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-300);margin-bottom:6px}
+.xray-name{font-size:28px;font-weight:800;color:var(--white);letter-spacing:-.5px}
+.xray-sub{font-size:14px;color:var(--gray-400);margin-top:4px}
+.xray-score-box{text-align:right}
+.xray-score-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400)}
+.xray-score-num{font-size:48px;font-weight:800;color:var(--accent);letter-spacing:-2px;line-height:1}
+.xray-score-num span{font-size:18px;color:var(--gray-400)}
+.xray-severity{display:inline-block;padding:4px 14px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:1px;margin-top:6px}
+
+/* Page body */
+.xray-body{max-width:900px;margin:0 auto;padding:32px 48px 80px}
+
+/* Scoring guide */
+.scoring-guide{background:var(--white);border:1px solid var(--gray-200);border-radius:10px;padding:20px 24px;margin-bottom:32px}
+.scoring-guide h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px;letter-spacing:.2px}
+.sg-row{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.sg-badge{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--white);flex-shrink:0}
+.sg-0{background:var(--green)}.sg-1{background:var(--amber)}.sg-2{background:#E97820}.sg-3{background:var(--accent)}
+.sg-text{font-size:13px;color:var(--gray-500);line-height:1.4}
+.sg-text strong{color:var(--navy)}
+
+/* Business context */
+.context-section{background:var(--white);border:1px solid var(--gray-200);border-radius:12px;padding:28px 32px;margin-bottom:32px}
+.context-section h2{font-size:16px;font-weight:700;color:var(--navy);letter-spacing:.2px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--gray-100)}
+.context-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.context-field{display:flex;flex-direction:column;gap:4px}
+.context-field.full{grid-column:1/-1}
+.context-field label{font-size:12px;font-weight:600;color:var(--gray-400);letter-spacing:.5px;text-transform:uppercase}
+.context-field input,.context-field textarea{padding:10px 14px;border:1px solid var(--gray-200);border-radius:8px;font-size:14px;font-family:var(--font);color:var(--navy);background:var(--off-white);transition:border-color .2s}
+.context-field input:focus,.context-field textarea:focus{border-color:var(--blue);outline:none;background:var(--white)}
+.context-field textarea{resize:vertical;min-height:60px}
+
+/* Pillar sections */
+.pillar-section{margin-bottom:32px}
+.pillar-header{padding:16px 24px;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center}
+.pillar-header h2{font-size:16px;font-weight:700;color:var(--white);letter-spacing:.3px}
+.pillar-header .pillar-subtotal{font-size:24px;font-weight:800;color:var(--white);letter-spacing:-1px}
+.pillar-ops .pillar-header{background:var(--accent)}
+.pillar-rev .pillar-header{background:var(--blue)}
+.pillar-fin .pillar-header{background:var(--amber)}
+.pillar-team .pillar-header{background:var(--green)}
+
+.factor-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--gray-200);border-top:none;border-radius:0 0 10px 10px;overflow:hidden}
+.factor-table th{font-size:11px;font-weight:700;color:var(--gray-400);letter-spacing:1px;text-transform:uppercase;padding:10px 12px;text-align:left;background:var(--off-white);border-bottom:1px solid var(--gray-200)}
+.factor-table th.center{text-align:center}
+.factor-row{border-bottom:1px solid var(--gray-100);transition:background .15s}
+.factor-row:hover{background:rgba(59,130,246,.02)}
+.factor-row:last-child{border-bottom:none}
+.factor-row td{padding:10px 12px;vertical-align:top;font-size:14px}
+.factor-num{font-size:12px;font-weight:700;color:var(--gray-300);text-align:center;width:32px}
+.factor-name{font-weight:600;color:var(--navy)}
+.factor-wt{font-size:12px;font-weight:700;color:var(--gray-400);text-align:center;width:40px}
+
+/* Score selector */
+.score-btns{display:flex;gap:4px;justify-content:center}
+.score-btn{width:32px;height:32px;border-radius:6px;border:1px solid var(--gray-200);background:var(--white);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--gray-400);font-family:var(--font)}
+.score-btn:hover{border-color:var(--blue)}
+.score-btn.active-0{background:var(--green);color:var(--white);border-color:var(--green)}
+.score-btn.active-1{background:var(--amber);color:var(--white);border-color:var(--amber)}
+.score-btn.active-2{background:#E97820;color:var(--white);border-color:#E97820}
+.score-btn.active-3{background:var(--accent);color:var(--white);border-color:var(--accent)}
+
+.factor-weighted{font-size:14px;font-weight:700;text-align:center;width:50px;color:var(--gray-400)}
+.factor-notes{width:200px}
+.factor-notes input{width:100%;padding:6px 10px;border:1px solid var(--gray-200);border-radius:6px;font-size:12px;font-family:var(--font);color:var(--navy);background:var(--off-white)}
+.factor-notes input:focus{border-color:var(--blue);outline:none;background:var(--white)}
+.factor-dollar{width:100px}
+.factor-dollar input{width:100%;padding:6px 10px;border:1px solid var(--gray-200);border-radius:6px;font-size:12px;font-family:var(--font);color:var(--navy);background:var(--off-white);text-align:right}
+.factor-dollar input:focus{border-color:var(--blue);outline:none;background:var(--white)}
+
+/* Summary */
+.summary-section{background:var(--navy-deep);border-radius:12px;padding:32px;margin-top:40px}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.summary-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:20px;text-align:center}
+.summary-card .s-score{font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1}
+.summary-card .s-label{font-size:12px;color:var(--gray-400);margin-top:4px}
+.summary-total{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;margin-bottom:20px}
+.summary-total-label{font-size:14px;font-weight:700;color:var(--white)}
+.summary-total-num{font-size:36px;font-weight:800;color:var(--white);letter-spacing:-2px}
+.summary-total-num span{font-size:16px;color:var(--gray-400)}
+.summary-dollar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:rgba(233,69,96,.08);border:1px solid rgba(233,69,96,.15);border-radius:10px}
+.summary-dollar-label{font-size:14px;font-weight:700;color:var(--gray-300)}
+.summary-dollar-num{font-size:28px;font-weight:800;color:var(--accent);letter-spacing:-1px}
+
+.disclaimer{text-align:center;font-size:12px;color:var(--gray-400);margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06)}
+
+/* Responsive */
+@media(max-width:768px){
+  .xray-header{padding:24px}
+  .xray-body{padding:16px 16px 60px}
+  .context-grid{grid-template-columns:1fr}
+  .summary-grid{grid-template-columns:repeat(2,1fr)}
+  .factor-table{display:block;overflow-x:auto}
+  .xray-score-num{font-size:36px}
+  .pillar-header h2{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="xray-header">
+  <div class="xray-header-inner">
+    <div>
+      <div class="xray-title">OpFix X-Ray Worksheet</div>
+      <div class="xray-name">Business Diagnostic Scoring</div>
+      <div class="xray-sub">Score each factor 0-3. Higher score = worse problem.</div>
+    </div>
+    <div class="xray-score-box">
+      <div class="xray-score-label">Total Score</div>
+      <div class="xray-score-num" id="headerScore">0<span>/240</span></div>
+      <div class="xray-severity" id="headerSeverity" style="background:rgba(34,197,94,.15);color:#22C55E">TUNE-UP</div>
+    </div>
+  </div>
+</div>
+
+<div class="xray-body">
+
+<!-- SCORING GUIDE -->
+<div class="scoring-guide">
+  <h3>Scoring Guide</h3>
+  <div class="sg-row"><div class="sg-badge sg-0">0</div><div class="sg-text"><strong>No Issue</strong> — This area is healthy. No action needed.</div></div>
+  <div class="sg-row"><div class="sg-badge sg-1">1</div><div class="sg-text"><strong>Minor</strong> — Small gap. Functional but not optimized.</div></div>
+  <div class="sg-row"><div class="sg-badge sg-2">2</div><div class="sg-text"><strong>Moderate</strong> — Meaningful drag. Needs attention.</div></div>
+  <div class="sg-row"><div class="sg-badge sg-3">3</div><div class="sg-text"><strong>Severe</strong> — Broken. Active damage to the business.</div></div>
+</div>
+
+<!-- BUSINESS CONTEXT -->
+<div class="context-section">
+  <h2>Business Context</h2>
+  <div class="context-grid">
+    <div class="context-field"><label>Client Name</label><input type="text" id="clientName"></div>
+    <div class="context-field"><label>Business Name</label><input type="text" id="bizName"></div>
+    <div class="context-field"><label>Industry</label><input type="text" id="industry"></div>
+    <div class="context-field"><label>Year Started</label><input type="text" id="yearStarted"></div>
+    <div class="context-field"><label>Annual Revenue</label><input type="text" id="annualRev" placeholder="$"></div>
+    <div class="context-field"><label>Employee Count</label><input type="text" id="empCount"></div>
+    <div class="context-field"><label># of Locations</label><input type="text" id="locations"></div>
+    <div class="context-field"><label>Primary Service / Product</label><input type="text" id="primaryService"></div>
+    <div class="context-field full"><label>Target Market</label><input type="text" id="targetMarket"></div>
+    <div class="context-field full"><label>Current Tech Stack / Tools</label><input type="text" id="techStack"></div>
+    <div class="context-field full"><label>Client Goal / Ideal Outcome</label><textarea id="clientGoal"></textarea></div>
+    <div class="context-field full"><label>Prior Relationship</label><input type="text" id="priorRel"></div>
+  </div>
+</div>
+
+<!-- PILLARS -->
+<div id="pillarsContainer"></div>
+
+<!-- SUMMARY -->
+<div class="summary-section" id="summarySection">
+  <div style="text-align:center;margin-bottom:24px">
+    <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px">Scoring Summary</div>
+  </div>
+  <div class="summary-grid" id="summaryGrid"></div>
+  <div class="summary-total">
+    <div class="summary-total-label">Total Weighted Score</div>
+    <div class="summary-total-num" id="summaryTotal">0<span>/240</span></div>
+  </div>
+  <div class="summary-dollar">
+    <div class="summary-dollar-label">Total Estimated $ Opportunity</div>
+    <div class="summary-dollar-num" id="summaryDollar">$0</div>
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <div style="font-size:13px;color:var(--gray-400);margin-bottom:8px">Severity Tier</div>
+    <div class="xray-severity" id="summarySeverity" style="font-size:16px;padding:8px 24px;background:rgba(34,197,94,.15);color:#22C55E">TUNE-UP</div>
+    <div style="font-size:12px;color:var(--gray-500);margin-top:8px">Tune-Up: 0-60 | Rebuild: 61-120 | Overhaul: 121-180 | Emergency: 181-240</div>
+  </div>
+  <div class="disclaimer">This is a diagnostic worksheet | OpFix | Diagnose. Fix. Scale.</div>
+</div>
+
+</div>
+
+<script>
+const PILLARS = [
+  {
+    id:'ops', name:'Operations & Systems', color:'#E94560',
+    factors:[
+      {num:1,name:'SOP Documentation',wt:3},
+      {num:2,name:'Tech Stack Integration',wt:2},
+      {num:3,name:'Workflow Consistency',wt:3},
+      {num:4,name:'Reporting & KPI Tracking',wt:2},
+      {num:5,name:'Bottleneck & Dependency',wt:3},
+      {num:6,name:'Quality Control Systems',wt:2},
+      {num:7,name:'Client Delivery Process',wt:3},
+      {num:8,name:'Internal Communication',wt:1},
+      {num:9,name:'Project Management',wt:2},
+      {num:10,name:'Business Continuity',wt:3}
+    ]
+  },
+  {
+    id:'rev', name:'Revenue & Sales', color:'#3B82F6',
+    factors:[
+      {num:11,name:'Lead Generation System',wt:3},
+      {num:12,name:'Sales Process Documentation',wt:3},
+      {num:13,name:'Conversion Tracking',wt:2},
+      {num:14,name:'Follow-Up & Nurture',wt:2},
+      {num:15,name:'Offer Clarity & Differentiation',wt:3},
+      {num:16,name:'Pricing Strategy',wt:3},
+      {num:17,name:'Revenue Concentration',wt:2},
+      {num:18,name:'Client Retention & Churn',wt:2},
+      {num:19,name:'Upsell / Cross-Sell',wt:1},
+      {num:20,name:'Marketing ROI Tracking',wt:2}
+    ]
+  },
+  {
+    id:'fin', name:'Financial Structure', color:'#F59E0B',
+    factors:[
+      {num:21,name:'Profit Margin Visibility',wt:3},
+      {num:22,name:'Cash Flow Predictability',wt:3},
+      {num:23,name:'Expense Discipline',wt:2},
+      {num:24,name:'Debt Structure',wt:2},
+      {num:25,name:'Financial Forecasting',wt:2},
+      {num:26,name:'Pricing Model Effectiveness',wt:3},
+      {num:27,name:'Revenue Model Sustainability',wt:2},
+      {num:28,name:'Funding Readiness',wt:1},
+      {num:29,name:'Invoicing & Collections',wt:2},
+      {num:30,name:'Financial Reporting Cadence',wt:2}
+    ]
+  },
+  {
+    id:'team', name:'Team & Leadership', color:'#22C55E',
+    factors:[
+      {num:31,name:'Org Chart & Role Clarity',wt:3},
+      {num:32,name:'Talent Quality in Key Seats',wt:3},
+      {num:33,name:'Performance Metrics Per Role',wt:2},
+      {num:34,name:'Delegation Maturity',wt:3},
+      {num:35,name:'Hiring Pipeline & Process',wt:2},
+      {num:36,name:'Onboarding & Training',wt:2},
+      {num:37,name:'Accountability Framework',wt:2},
+      {num:38,name:'Culture & Retention',wt:1},
+      {num:39,name:'Leadership Development',wt:1},
+      {num:40,name:'Succession Planning',wt:2}
+    ]
+  }
+];
+
+const pillarClass = {ops:'pillar-ops',rev:'pillar-rev',fin:'pillar-fin',team:'pillar-team'};
+const scores = {};
+
+function buildPillars(){
+  const container = document.getElementById('pillarsContainer');
+  PILLARS.forEach(p => {
+    const section = document.createElement('div');
+    section.className = `pillar-section ${pillarClass[p.id]}`;
+    let rows = '';
+    p.factors.forEach(f => {
+      scores[f.num] = {score:null, wt:f.wt, notes:'', dollar:0, pillar:p.id};
+      rows += `<tr class="factor-row">
+        <td class="factor-num">${f.num}</td>
+        <td class="factor-name">${f.name}</td>
+        <td class="factor-wt">${f.wt}x</td>
+        <td><div class="score-btns">
+          ${[0,1,2,3].map(s=>`<button class="score-btn" data-factor="${f.num}" data-score="${s}" onclick="setScore(${f.num},${s},this)">${s}</button>`).join('')}
+        </div></td>
+        <td class="factor-weighted" id="wt-${f.num}">—</td>
+        <td class="factor-notes"><input type="text" placeholder="Notes..." oninput="scores[${f.num}].notes=this.value"></td>
+        <td class="factor-dollar"><input type="text" placeholder="$" oninput="setDollar(${f.num},this.value)"></td>
+      </tr>`;
+    });
+    section.innerHTML = `
+      <div class="pillar-header">
+        <h2>${p.name}</h2>
+        <div class="pillar-subtotal" id="sub-${p.id}">0</div>
+      </div>
+      <table class="factor-table">
+        <thead><tr>
+          <th class="center">#</th><th>Factor</th><th class="center">Wt</th>
+          <th class="center">Score</th><th class="center">Wtd</th>
+          <th>Notes</th><th>Est. $</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+    container.appendChild(section);
+  });
+  buildSummary();
+}
+
+function setScore(num, val, btn){
+  btn.parentElement.querySelectorAll('.score-btn').forEach(b=>{
+    b.className='score-btn';
+  });
+  btn.className=`score-btn active-${val}`;
+  scores[num].score = val;
+  const weighted = val * scores[num].wt;
+  const wtCell = document.getElementById(`wt-${num}`);
+  wtCell.textContent = weighted;
+  wtCell.style.color = val===0?'#22C55E':val===1?'#F59E0B':val===2?'#E97820':'#E94560';
+  recalc();
+}
+
+function setDollar(num, val){
+  scores[num].dollar = parseInt(val.replace(/[^0-9]/g,'')) || 0;
+  recalc();
+}
+
+function recalc(){
+  let total = 0;
+  let totalDollar = 0;
+  const pillarScores = {};
+  const pillarDollars = {};
+  PILLARS.forEach(p => {pillarScores[p.id]=0; pillarDollars[p.id]=0;});
+
+  Object.entries(scores).forEach(([num,data])=>{
+    if(data.score !== null){
+      const w = data.score * data.wt;
+      pillarScores[data.pillar] += w;
+      total += w;
+    }
+    pillarDollars[data.pillar] += data.dollar;
+    totalDollar += data.dollar;
+  });
+
+  PILLARS.forEach(p => {
+    document.getElementById(`sub-${p.id}`).textContent = pillarScores[p.id];
+    const card = document.getElementById(`sc-${p.id}`);
+    if(card) card.textContent = pillarScores[p.id];
+    const dc = document.getElementById(`sd-${p.id}`);
+    if(dc) dc.textContent = '$'+pillarDollars[p.id].toLocaleString();
+  });
+
+  document.getElementById('headerScore').innerHTML = total+'<span>/240</span>';
+  document.getElementById('summaryTotal').innerHTML = total+'<span>/240</span>';
+  document.getElementById('summaryDollar').textContent = '$'+totalDollar.toLocaleString();
+
+  let sev, sevColor, sevBg;
+  if(total<=60){sev='TUNE-UP';sevColor='#22C55E';sevBg='rgba(34,197,94,.15)';}
+  else if(total<=120){sev='REBUILD';sevColor='#F59E0B';sevBg='rgba(245,158,11,.15)';}
+  else if(total<=180){sev='OVERHAUL';sevColor='#E97820';sevBg='rgba(233,120,32,.15)';}
+  else{sev='EMERGENCY';sevColor='#E94560';sevBg='rgba(233,69,96,.15)';}
+
+  ['headerSeverity','summarySeverity'].forEach(id=>{
+    const el = document.getElementById(id);
+    el.textContent = sev;
+    el.style.color = sevColor;
+    el.style.background = sevBg;
+  });
+}
+
+function buildSummary(){
+  const grid = document.getElementById('summaryGrid');
+  PILLARS.forEach(p => {
+    grid.innerHTML += `<div class="summary-card">
+      <div class="s-score" id="sc-${p.id}" style="color:${p.color}">0</div>
+      <div class="s-label">${p.name}</div>
+      <div style="font-size:13px;color:var(--gray-400);margin-top:8px" id="sd-${p.id}">$0</div>
+    </div>`;
+  });
+}
+
+buildPillars();
+</script>
+</body>
+</html>
