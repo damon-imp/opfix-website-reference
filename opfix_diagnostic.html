@@ -128,6 +128,30 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .diag-pillar-results{grid-template-columns:1fr}
   .diag-cta-result{padding:24px}
 }
+
+/* Contact Gate */
+.gate-overlay{position:fixed;inset:0;z-index:300;background:rgba(6,15,31,.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.gate-card{background:var(--white);border-radius:16px;padding:48px 40px;max-width:540px;width:100%;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.4)}
+.gate-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.gate-eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.gate-title{font-size:clamp(22px,4vw,30px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:10px}
+.gate-sub{font-size:14px;color:var(--gray-400);line-height:1.6;margin-bottom:28px}
+.gate-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gate-field{margin-bottom:14px}
+.gate-field label{display:block;font-size:12px;font-weight:700;color:var(--gray-500);margin-bottom:6px;letter-spacing:.02em}
+.gate-input,.gate-select{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:inherit;font-size:14px;color:var(--navy);background:var(--white);transition:border-color .15s,box-shadow .15s;outline:none;-webkit-appearance:none;appearance:none}
+.gate-input:focus,.gate-select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+.gate-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.gate-error{background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;font-size:13px;font-weight:500;padding:12px 14px;border-radius:8px;margin-bottom:14px}
+.gate-submit{width:100%;padding:16px;background:var(--accent);color:var(--white);border:none;border-radius:8px;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s,opacity .2s;margin-top:4px}
+.gate-submit:hover:not(:disabled){background:#a8182a}
+.gate-submit:disabled{opacity:.6;cursor:not-allowed}
+.gate-privacy{font-size:12px;color:var(--gray-300);text-align:center;margin-top:14px;line-height:1.5}
+@media(max-width:520px){
+  .gate-card{padding:32px 20px}
+  .gate-form-row{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -141,7 +165,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="page-header">
     <div class="page-tag">Full 40-Factor Diagnostic</div>
     <h1 class="page-title">Score your operational bleed<br>across all four pillars.</h1>
-    <p class="page-sub">40 factors. 4 pillars. 5 minutes. Score each factor 0–3 based on severity. <strong>Higher score = worse problem.</strong> No email. No sales pitch. Just your numbers.</p>
+    <p class="page-sub">40 factors. 4 pillars. 5 minutes. Score each factor 0–3 based on severity. <strong>Higher score = worse problem.</strong> Your results are unlocked at the end.</p>
   </div>
 
   <div class="scoring-guide">
@@ -158,6 +182,24 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 <script>
 (function() {
+
+// ─── GHL INTEGRATION ──────────────────────────────────────────────────────────
+var GHL_LOCATION_ID = 'dqU7ufz23PNRXzYvkHZy';
+var GHL_TOKEN = 'pit-aa68d803-3e25-4dd2-a7c6-02de0bbc9284';
+
+// GHL custom field keys (from your location's merge tags)
+var CF = {
+  businessName:          'business_name',
+  businessType:          'business_type',
+  diagnosticScore:       'diagnostic_score',
+  diagnosticSeverityPct: 'diagnostic_severity_percent',
+  diagnosticTier:        'severity_tier',
+  opsScore:              'operations__systems_score',
+  revScore:              'revenue__sales_score',
+  finScore:              'financial_structure_score',
+  teamScore:             'team__leadership_score',
+};
+// ─────────────────────────────────────────────────────────────────────────────
 
 const factors = [
   {id:1,name:"SOP Documentation",wt:3,pillar:0},
@@ -299,7 +341,176 @@ function render() {
 
 window.diagSet = function(idx, s) { scores[idx] = s; render(); };
 window.diagPrev = function() { if (currentPillar > 0) { currentPillar--; render(); app.scrollIntoView({behavior:'smooth',block:'start'}); } };
-window.diagNextPillar = function() { if (pillarComplete(currentPillar)) { currentPillar++; render(); app.scrollIntoView({behavior:'smooth',block:'start'}); } };
+window.diagNextPillar = function() {
+  if (pillarComplete(currentPillar)) {
+    currentPillar++;
+    if (currentPillar >= 4) {
+      showContactGate();
+    } else {
+      render();
+      app.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+};
+
+function calcDiagnosticData() {
+  var total = 0;
+  var pillarScores = [0,0,0,0];
+  var pillarMax = [0,0,0,0];
+  factors.forEach(function(f, i) {
+    var weighted = scores[i] * f.wt;
+    total += weighted;
+    pillarScores[f.pillar] += weighted;
+    pillarMax[f.pillar] += 3 * f.wt;
+  });
+  var sevPct = Math.round((total / maxScore) * 100);
+  var tier;
+  if (sevPct <= 15) tier = 'HEALTHY';
+  else if (sevPct <= 35) tier = 'MODERATE BLEED';
+  else if (sevPct <= 60) tier = 'SEVERE BLEED';
+  else tier = 'CRITICAL';
+  return {
+    total: total, maxScore: maxScore, sevPct: sevPct, tier: tier,
+    pillarScores: pillarScores, pillarMax: pillarMax,
+    opsPct:  pillarMax[0] > 0 ? Math.round((pillarScores[0] / pillarMax[0]) * 100) : 0,
+    revPct:  pillarMax[1] > 0 ? Math.round((pillarScores[1] / pillarMax[1]) * 100) : 0,
+    finPct:  pillarMax[2] > 0 ? Math.round((pillarScores[2] / pillarMax[2]) * 100) : 0,
+    teamPct: pillarMax[3] > 0 ? Math.round((pillarScores[3] / pillarMax[3]) * 100) : 0
+  };
+}
+
+function showContactGate() {
+  var overlay = document.createElement('div');
+  overlay.className = 'gate-overlay';
+  overlay.id = 'contact-gate';
+  overlay.innerHTML = [
+    '<div class="gate-card">',
+    '  <div class="gate-eyebrow"><span class="gate-eyebrow-dot"></span>Your results are ready</div>',
+    '  <h2 class="gate-title">Get Your Diagnostic Score</h2>',
+    '  <p class="gate-sub">Enter your info below to unlock your full 40-factor breakdown and operational bleed report. Takes 30 seconds.</p>',
+    '  <form id="gate-form">',
+    '    <div class="gate-form-row">',
+    '      <div class="gate-field"><label>First Name</label><input class="gate-input" id="gate-first" type="text" placeholder="John" required></div>',
+    '      <div class="gate-field"><label>Last Name</label><input class="gate-input" id="gate-last" type="text" placeholder="Doe" required></div>',
+    '    </div>',
+    '    <div class="gate-field"><label>Business Name</label><input class="gate-input" id="gate-company" type="text" placeholder="Acme Corp" required></div>',
+    '    <div class="gate-field"><label>Business Type</label>',
+    '      <select class="gate-select" id="gate-biztype" required>',
+    '        <option value="">Select your industry...</option>',
+    '        <option>Retail</option>',
+    '        <option>Wholesale / Distribution</option>',
+    '        <option>Manufacturing</option>',
+    '        <option>Construction &amp; Trades</option>',
+    '        <option>Food &amp; Beverage</option>',
+    '        <option>Healthcare &amp; Medical</option>',
+    '        <option>Professional Services (Legal, Accounting, Consulting)</option>',
+    '        <option>Financial Services</option>',
+    '        <option>Real Estate</option>',
+    '        <option>Technology / Software</option>',
+    '        <option>Marketing &amp; Advertising</option>',
+    '        <option>Logistics &amp; Transportation</option>',
+    '        <option>Education &amp; Training</option>',
+    '        <option>Hospitality &amp; Tourism</option>',
+    '        <option>Media &amp; Entertainment</option>',
+    '        <option>Government / Public Sector</option>',
+    '      </select>',
+    '    </div>',
+    '    <div class="gate-form-row">',
+    '      <div class="gate-field"><label>Phone</label><input class="gate-input" id="gate-phone" type="tel" placeholder="+1 (555) 000-0000" required></div>',
+    '      <div class="gate-field"><label>Email</label><input class="gate-input" id="gate-email" type="email" placeholder="john@acme.com" required></div>',
+    '    </div>',
+    '    <div id="gate-error" class="gate-error" style="display:none"></div>',
+    '    <button class="gate-submit" id="gate-submit" type="submit">Unlock My Results \u2192</button>',
+    '  </form>',
+    '  <p class="gate-privacy">No spam. No unsolicited sales calls. Your diagnostic data is processed locally in your browser.</p>',
+    '</div>'
+  ].join('');
+  document.body.appendChild(overlay);
+  document.getElementById('gate-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitGate();
+  });
+  // Focus first field
+  setTimeout(function() { var el = document.getElementById('gate-first'); if (el) el.focus(); }, 100);
+}
+
+function submitGate() {
+  var firstName  = document.getElementById('gate-first').value.trim();
+  var lastName   = document.getElementById('gate-last').value.trim();
+  var company    = document.getElementById('gate-company').value.trim();
+  var bizType    = document.getElementById('gate-biztype').value;
+  var phone      = document.getElementById('gate-phone').value.trim();
+  var email      = document.getElementById('gate-email').value.trim();
+
+  var errEl  = document.getElementById('gate-error');
+  var btnEl  = document.getElementById('gate-submit');
+
+  errEl.style.display = 'none';
+
+  if (!firstName || !lastName || !company || !bizType || !phone || !email) {
+    errEl.textContent = 'Please fill in all fields before continuing.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  var diag = calcDiagnosticData();
+
+  // Build custom fields array using GHL field keys
+  var customFields = [];
+  var cfMap = [
+    [CF.businessName,          company],
+    [CF.businessType,          bizType],
+    [CF.diagnosticScore,       String(diag.total)],
+    [CF.diagnosticSeverityPct, String(diag.sevPct)],
+    [CF.diagnosticTier,        diag.tier],
+    [CF.opsScore,              String(diag.pillarScores[0])],
+    [CF.revScore,              String(diag.pillarScores[1])],
+    [CF.finScore,              String(diag.pillarScores[2])],
+    [CF.teamScore,             String(diag.pillarScores[3])]
+  ];
+  cfMap.forEach(function(pair) { if (pair[0]) customFields.push({key: pair[0], value: pair[1]}); });
+
+  var payload = {
+    locationId:  GHL_LOCATION_ID,
+    firstName:   firstName,
+    lastName:    lastName,
+    email:       email,
+    phone:       phone,
+    companyName: company
+  };
+  if (customFields.length > 0) payload.customFields = customFields;
+
+  btnEl.disabled = true;
+  btnEl.textContent = 'Submitting\u2026';
+
+  fetch('https://services.leadconnectorhq.com/contacts/upsert', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + GHL_TOKEN,
+      'Content-Type': 'application/json',
+      'Version': '2021-07-28'
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) {
+    if (!res.ok) {
+      return res.json().then(function(d) { throw new Error(d.message || 'Submission failed (status ' + res.status + ')'); });
+    }
+    return res.json();
+  })
+  .then(function() {
+    var overlay = document.getElementById('contact-gate');
+    if (overlay) overlay.remove();
+    renderResults();
+    app.scrollIntoView({behavior:'smooth', block:'start'});
+  })
+  .catch(function(err) {
+    btnEl.disabled = false;
+    btnEl.textContent = 'Unlock My Results \u2192';
+    errEl.textContent = 'Something went wrong: ' + err.message + '. Please try again.';
+    errEl.style.display = 'block';
+  });
+}
 
 function renderResults() {
   var total = 0;
