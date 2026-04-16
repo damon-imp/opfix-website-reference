@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="OpFix_Favicon_dark_32px.svg">
+<title>OpFix | Business X-Ray Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1D3A;
+  --navy-deep:#060F1F;
+  --navy-mid:#0F3460;
+  --navy-light:#1A4A7A;
+  --accent:#E94560;
+  --accent-dark:#C73450;
+  --white:#FFFFFF;
+  --off-white:#F7F8FA;
+  --gray-100:#EEF0F4;
+  --gray-200:#D5D9E0;
+  --gray-300:#A0A8B8;
+  --gray-400:#6B7280;
+  --gray-500:#4A5060;
+  --blue:#3B82F6;
+  --green:#22C55E;
+  --amber:#F59E0B;
+  --font:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);color:var(--navy);background:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:#060F1F;backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo img{height:56px;width:auto}
+.nav-logo-fallback{font-size:22px;font-weight:800;color:#fff}
+.nav-logo-fallback span{color:#3B82F6}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--gray-200);transition:color .2s;letter-spacing:.2px}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--accent);color:var(--white);padding:10px 24px;border-radius:6px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all .2s;letter-spacing:.2px;font-family:var(--font)}
+.nav-cta:hover{background:var(--accent-dark);transform:translateY(-1px)}
+
+/* PAGE HEADER */
+.page-header{padding:120px 48px 60px;background:var(--navy-deep);position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;top:-40%;right:-20%;width:80%;height:160%;background:radial-gradient(ellipse,rgba(59,130,246,.06) 0%,transparent 70%);pointer-events:none}
+.page-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,.2),transparent)}
+.page-header-inner{max-width:820px;margin:0 auto;position:relative;z-index:1}
+.section-tag{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.page-header h1{font-size:clamp(32px,4vw,50px);font-weight:800;color:var(--white);line-height:1.08;letter-spacing:-1.5px;margin-bottom:16px}
+.page-header h1 em{font-style:normal;color:var(--accent)}
+.page-header-sub{font-size:17px;color:var(--gray-300);line-height:1.7;max-width:640px;margin-bottom:32px}
+.scoring-key{display:flex;gap:16px;flex-wrap:wrap}
+.key-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--gray-300)}
+.key-swatch{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.key-swatch.s0{background:rgba(255,255,255,.15)}
+.key-swatch.s1{background:var(--amber)}
+.key-swatch.s2{background:#E97820}
+.key-swatch.s3{background:var(--accent)}
+
+/* STICKY SCORE BAR */
+.score-sticky{position:sticky;top:72px;z-index:90;background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);padding:12px 48px}
+.score-sticky-inner{max-width:820px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.sticky-pillar{display:flex;flex-direction:column;gap:1px}
+.sticky-pillar-name{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400)}
+.sticky-pillar-val{font-size:17px;font-weight:800;color:var(--white);letter-spacing:-.5px;line-height:1}
+.sticky-pillar-val span{font-size:12px;font-weight:500;color:var(--gray-400)}
+.sticky-sep{width:1px;height:28px;background:rgba(255,255,255,.08);flex-shrink:0}
+.sticky-total{display:flex;flex-direction:column;gap:1px}
+.sticky-total-name{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+.sticky-total-val{font-size:20px;font-weight:800;color:var(--white);letter-spacing:-.5px;line-height:1}
+.sticky-total-val span{font-size:12px;font-weight:500;color:var(--gray-400)}
+.sticky-progress{flex:1;min-width:80px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.sticky-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--blue));border-radius:2px;transition:width .4s ease;width:0%}
+.sticky-tier{margin-left:auto;padding:5px 14px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:rgba(255,255,255,.06);color:var(--gray-300);border:1px solid rgba(255,255,255,.08);transition:all .3s;white-space:nowrap}
+.sticky-tier.tune-up{background:rgba(34,197,94,.08);color:var(--green);border-color:rgba(34,197,94,.2)}
+.sticky-tier.rebuild{background:rgba(245,158,11,.08);color:var(--amber);border-color:rgba(245,158,11,.2)}
+.sticky-tier.overhaul{background:rgba(233,69,96,.08);color:var(--accent);border-color:rgba(233,69,96,.2)}
+.sticky-tier.emergency{background:rgba(233,69,96,.14);color:#FF4466;border-color:rgba(233,69,96,.35)}
+
+/* FORM BODY */
+.form-body{padding:0 48px 80px;background:var(--off-white)}
+.form-inner{max-width:820px;margin:0 auto;padding-top:36px}
+
+/* PILLAR SUMMARY CARDS */
+.pillar-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.p-card{background:var(--white);border:1px solid var(--gray-100);border-radius:12px;padding:20px;text-align:center;position:relative;overflow:hidden;transition:border-color .3s}
+.p-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.p-card.has-score::after{transform:scaleX(1)}
+.p-card.ops::after{background:var(--accent)}
+.p-card.rev::after{background:var(--blue)}
+.p-card.fin::after{background:var(--amber)}
+.p-card.team::after{background:var(--green)}
+.p-card.has-score{border-color:var(--gray-200)}
+.p-card-name{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px}
+.p-card-score{font-size:30px;font-weight:800;color:var(--navy);letter-spacing:-1px;line-height:1;transition:color .3s}
+.p-card-max{font-size:12px;color:var(--gray-300);margin-top:2px}
+.p-card-bar{margin-top:12px;height:3px;background:var(--gray-100);border-radius:2px;overflow:hidden}
+.p-card-bar-fill{height:100%;border-radius:2px;transition:width .4s ease;width:0%}
+.p-card.ops .p-card-bar-fill{background:var(--accent)}
+.p-card.rev .p-card-bar-fill{background:var(--blue)}
+.p-card.fin .p-card-bar-fill{background:var(--amber)}
+.p-card.team .p-card-bar-fill{background:var(--green)}
+
+/* FORM SECTIONS */
+.form-section{background:var(--white);border:1px solid var(--gray-100);border-radius:14px;margin-bottom:20px;overflow:hidden;position:relative}
+.form-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sec-context::before{background:linear-gradient(90deg,var(--navy-mid),var(--blue))}
+.sec-ops::before{background:linear-gradient(90deg,var(--accent),var(--accent-dark))}
+.sec-rev::before{background:linear-gradient(90deg,var(--blue),#2563EB)}
+.sec-fin::before{background:linear-gradient(90deg,var(--amber),#D97706)}
+.sec-team::before{background:linear-gradient(90deg,var(--green),#16A34A)}
+
+.section-head{padding:28px 32px 20px;border-bottom:1px solid var(--gray-100)}
+.section-head-row{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.section-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sec-context .section-icon{background:rgba(15,52,96,.07);color:var(--navy-mid)}
+.sec-ops .section-icon{background:rgba(233,69,96,.08);color:var(--accent)}
+.sec-rev .section-icon{background:rgba(59,130,246,.08);color:var(--blue)}
+.sec-fin .section-icon{background:rgba(245,158,11,.08);color:var(--amber)}
+.sec-team .section-icon{background:rgba(34,197,94,.08);color:var(--green)}
+.section-title{font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.3px;flex:1}
+.section-badge{font-size:12px;font-weight:700;color:var(--gray-400);background:var(--gray-100);padding:4px 12px;border-radius:6px;white-space:nowrap;transition:all .3s}
+.section-badge.live{background:rgba(11,29,58,.06);color:var(--navy)}
+.section-desc{font-size:14px;color:var(--gray-400);line-height:1.5;margin-left:56px}
+
+/* CONTEXT BODY */
+.context-body{padding:28px 32px}
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ctx-grid .full{grid-column:1/-1}
+.field-group{display:flex;flex-direction:column;gap:6px}
+.field-label{font-size:11px;font-weight:700;color:var(--gray-400);letter-spacing:.8px;text-transform:uppercase}
+.field-label .req{color:var(--accent)}
+.field-input,.field-select,.field-textarea{font-family:var(--font);font-size:14px;font-weight:500;color:var(--navy);background:var(--off-white);border:1.5px solid var(--gray-200);border-radius:8px;padding:11px 14px;outline:none;transition:border-color .2s,background .2s;width:100%}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--blue);background:var(--white)}
+.field-input::placeholder,.field-textarea::placeholder{color:var(--gray-300);font-weight:400}
+.field-textarea{resize:vertical;min-height:72px}
+.field-input.err,.field-select.err,.field-textarea.err{border-color:var(--accent)!important;background:rgba(233,69,96,.02)!important}
+
+/* SCORING TABLE */
+.scoring-table{padding:0 32px 4px}
+.factor-row{border-bottom:1px solid var(--gray-100);transition:background .2s}
+.factor-row:last-child{border-bottom:none}
+.factor-row.sc-1{background:rgba(245,158,11,.025)}
+.factor-row.sc-2{background:rgba(233,110,32,.03)}
+.factor-row.sc-3{background:rgba(233,69,96,.035)}
+
+.factor-main{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:flex-start;padding:18px 0 14px}
+.factor-num{width:32px;height:32px;border-radius:7px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--gray-400);flex-shrink:0;margin-top:1px;transition:all .2s}
+.factor-row.sc-1 .factor-num{background:rgba(245,158,11,.12);color:var(--amber)}
+.factor-row.sc-2 .factor-num{background:rgba(233,110,32,.12);color:#E97820}
+.factor-row.sc-3 .factor-num{background:rgba(233,69,96,.12);color:var(--accent)}
+
+.factor-body{display:flex;flex-direction:column;gap:4px}
+.factor-name{font-size:15px;font-weight:700;color:var(--navy);letter-spacing:-.2px;line-height:1.3}
+.factor-meta{font-size:11px;font-weight:600;color:var(--gray-300);letter-spacing:.3px;text-transform:uppercase}
+.factor-meta strong{color:var(--navy-mid);font-weight:700}
+
+/* Score buttons column */
+.score-col{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.score-col-labels{display:flex;gap:4px}
+.score-col-label{width:40px;text-align:center;font-size:9px;font-weight:600;color:var(--gray-300);letter-spacing:.3px;text-transform:uppercase}
+.score-btns{display:flex;gap:4px}
+.score-btn{width:40px;height:40px;border-radius:8px;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-400);font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.score-btn:hover{border-color:var(--navy);color:var(--navy)}
+.score-btn.s0.on{background:var(--navy-deep);border-color:var(--navy-deep);color:var(--white)}
+.score-btn.s1.on{background:rgba(245,158,11,.1);border-color:var(--amber);color:var(--amber)}
+.score-btn.s2.on{background:rgba(233,110,32,.1);border-color:#E97820;color:#E97820}
+.score-btn.s3.on{background:rgba(233,69,96,.1);border-color:var(--accent);color:var(--accent)}
+
+/* Severity ref toggle */
+.sev-toggle{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--gray-300);cursor:pointer;background:none;border:none;font-family:var(--font);padding:2px 0;margin-top:4px;transition:color .2s;letter-spacing:.2px}
+.sev-toggle:hover{color:var(--blue)}
+.sev-toggle svg{flex-shrink:0;transition:transform .2s}
+.sev-toggle.open{color:var(--blue)}
+.sev-toggle.open svg{transform:rotate(180deg)}
+.sev-ref{display:none;margin-top:8px;margin-bottom:4px;background:var(--off-white);border:1px solid var(--gray-100);border-radius:8px;padding:12px 14px;display:none;flex-direction:column;gap:6px}
+.sev-ref.open{display:flex}
+.sev-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--gray-500);line-height:1.5}
+.sev-badge{font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.sev-badge.s1{background:rgba(245,158,11,.1);color:var(--amber)}
+.sev-badge.s2{background:rgba(233,110,32,.1);color:#E97820}
+.sev-badge.s3{background:rgba(233,69,96,.1);color:var(--accent)}
+
+/* Notes area */
+.factor-notes{padding:0 0 18px 50px}
+.notes-label{font-size:11px;font-weight:700;color:var(--gray-400);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+.notes-label .req{color:var(--accent)}
+.notes-label .hint{font-size:10px;font-weight:400;color:var(--gray-300);text-transform:none;letter-spacing:0}
+.notes-textarea{font-family:var(--font);font-size:13px;font-weight:400;color:var(--navy);background:var(--off-white);border:1.5px solid var(--gray-200);border-radius:8px;padding:10px 12px;outline:none;transition:border-color .2s,background .2s;width:100%;resize:vertical;min-height:60px}
+.notes-textarea:focus{border-color:var(--blue);background:var(--white)}
+.notes-textarea::placeholder{color:var(--gray-300)}
+.notes-textarea.err{border-color:var(--accent)!important;background:rgba(233,69,96,.02)!important}
+
+/* DOLLAR IMPACT */
+.factor-impact{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;min-width:90px;text-align:right}
+.impact-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-300)}
+.impact-val{font-size:16px;font-weight:800;color:var(--gray-200);letter-spacing:-.5px;line-height:1;transition:color .3s}
+.impact-val.has-impact{color:var(--accent)}
+.impact-val.no-score{color:var(--gray-200);font-size:13px;font-weight:500}
+.section-impact-total{display:flex;justify-content:space-between;align-items:center;padding:14px 32px;background:var(--off-white);border-top:1px solid var(--gray-100);font-size:13px;font-weight:600;color:var(--gray-400)}
+.section-impact-total strong{font-size:16px;font-weight:800;color:var(--navy)}
+.section-impact-total .acc{color:var(--accent)}
+.opportunity-bar{background:var(--navy-deep);border-radius:12px;padding:28px 32px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.opp-item{display:flex;flex-direction:column;gap:3px}
+.opp-item-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400)}
+.opp-item-val{font-size:22px;font-weight:800;color:var(--white);letter-spacing:-.5px;line-height:1}
+.opp-item-val.total{color:var(--accent);font-size:28px}
+.opp-sep{width:1px;height:36px;background:rgba(255,255,255,.08);flex-shrink:0}
+.revenue-hint{font-size:11px;color:var(--gray-500);font-style:italic;margin-top:2px}
+
+/* SUBMIT */
+.submit-section{background:var(--navy-deep);border-radius:14px;padding:56px 48px;text-align:center;position:relative;overflow:hidden;margin-top:8px}
+.submit-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--blue))}
+.submit-section::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.04),transparent 70%);pointer-events:none}
+.sub-label{font-size:12px;font-weight:700;color:var(--gray-400);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.sub-score{font-size:80px;font-weight:800;color:var(--white);letter-spacing:-4px;line-height:1;transition:color .3s;position:relative;z-index:1}
+.sub-score-max{font-size:28px;font-weight:500;color:var(--gray-500)}
+.sub-tier{margin:8px 0 4px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400);min-height:18px;position:relative;z-index:1;transition:color .3s}
+.sub-price{font-size:24px;font-weight:800;color:var(--accent);letter-spacing:-.5px;margin-bottom:36px;min-height:30px;position:relative;z-index:1}
+.btn-primary{background:var(--accent);color:var(--white);padding:16px 40px;border-radius:8px;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all .25s;letter-spacing:.3px;display:inline-flex;align-items:center;gap:8px;font-family:var(--font);position:relative;z-index:1}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(233,69,96,.3)}
+.sub-note{margin-top:16px;font-size:13px;color:var(--gray-400);line-height:1.5;position:relative;z-index:1}
+.sub-req-note{font-size:12px;color:var(--gray-500);margin-top:8px;position:relative;z-index:1}
+
+/* FOOTER */
+footer{background:var(--navy-deep);border-top:1px solid rgba(255,255,255,.06);padding:36px 48px;text-align:center}
+footer p{font-size:13px;color:var(--gray-400)}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;right:32px;background:var(--white);border:1px solid var(--gray-200);border-radius:10px;padding:14px 20px;font-size:14px;font-weight:600;color:var(--navy);z-index:999;display:none;box-shadow:0 8px 40px rgba(0,0,0,.12);max-width:380px;line-height:1.4}
+.toast.err{border-color:rgba(233,69,96,.3);background:rgba(233,69,96,.04);color:var(--accent)}
+.toast.show{display:block;animation:toastIn .3s ease}
+@keyframes toastIn{from{transform:translateX(16px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* SUCCESS */
+.success-wrap{display:none;background:var(--white);border:1px solid var(--gray-100);border-radius:14px;padding:80px 48px;text-align:center;margin-top:24px}
+.success-wrap.show{display:block}
+.success-icon{width:64px;height:64px;border-radius:50%;background:rgba(34,197,94,.08);border:2px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px}
+.success-wrap h2{font-size:32px;font-weight:800;color:var(--navy);letter-spacing:-.5px;margin-bottom:12px}
+.success-wrap p{font-size:16px;color:var(--gray-400);max-width:440px;margin:0 auto 20px;line-height:1.6}
+.success-meta{font-size:14px;color:var(--gray-300);margin-bottom:32px;line-height:1.8}
+.success-meta strong{color:var(--navy)}
+
+/* FADE UP */
+.fade-up{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .nav{padding:0 20px}.nav-links{display:none}
+  .page-header{padding:100px 20px 48px}
+  .score-sticky{padding:10px 20px}
+  .score-sticky-inner{gap:10px}
+  .sticky-sep,.sticky-pillar{display:none}
+  .form-body{padding:0 16px 64px}
+  .scoring-table{padding:0 16px 4px}
+  .section-head{padding:20px 16px 16px}
+  .section-desc{margin-left:0;margin-top:8px}
+  .factor-main{grid-template-columns:28px 1fr;gap:10px}
+  .score-col{align-items:flex-start;margin-top:8px}
+  .factor-impact{display:none}
+  .factor-notes{padding:0 0 16px 38px}
+  .pillar-summary{grid-template-columns:repeat(2,1fr)}
+  .ctx-grid{grid-template-columns:1fr}
+  .ctx-grid .full{grid-column:1}
+  .submit-section{padding:40px 24px}
+  .sub-score{font-size:60px}
+  .context-body{padding:20px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <a href="index.html">
+      <img src="OpFix_Logo_white.png" alt="OpFix" onerror="this.style.display='none';document.getElementById('logo-fb').style.display='block'">
+      <span id="logo-fb" class="nav-logo-fallback" style="display:none">Op<span>Fix</span></span>
+    </a>
+  </div>
+  <div class="nav-links">
+    <a href="how-it-works.html">How It Works</a>
+    <a href="four-pillars.html">Four Pillars</a>
+    <a href="the-system.html">The System</a>
+  </div>
+  <button class="nav-cta" onclick="window.location.href='index.html'">← Back to Site</button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="section-tag">The Four Pillars Diagnostic™</div>
+    <h1>Business <em>X-Ray</em></h1>
+    <p class="page-header-sub">40 diagnostic factors across 4 pillars. Score each factor 0–3 based on severity. Weighted score determines your engagement tier and investment. All fields required. Notes required on all factors scored above 0.</p>
+    <div class="scoring-key">
+      <div class="key-item"><div class="key-swatch s0"></div>0 — No issue</div>
+      <div class="key-item"><div class="key-swatch s1"></div>1 — Minor</div>
+      <div class="key-item"><div class="key-swatch s2"></div>2 — Moderate</div>
+      <div class="key-item"><div class="key-swatch s3"></div>3 — Severe</div>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY BAR -->
+<div class="score-sticky">
+  <div class="score-sticky-inner">
+    <div class="sticky-pillar">
+      <div class="sticky-pillar-name">Ops &amp; Systems</div>
+      <div class="sticky-pillar-val" id="st-ops">0 <span>/ 72</span></div>
+    </div>
+    <div class="sticky-sep"></div>
+    <div class="sticky-pillar">
+      <div class="sticky-pillar-name">Revenue &amp; Sales</div>
+      <div class="sticky-pillar-val" id="st-rev">0 <span>/ 69</span></div>
+    </div>
+    <div class="sticky-sep"></div>
+    <div class="sticky-pillar">
+      <div class="sticky-pillar-name">Financial</div>
+      <div class="sticky-pillar-val" id="st-fin">0 <span>/ 66</span></div>
+    </div>
+    <div class="sticky-sep"></div>
+    <div class="sticky-pillar">
+      <div class="sticky-pillar-name">Team &amp; Leadership</div>
+      <div class="sticky-pillar-val" id="st-team">0 <span>/ 63</span></div>
+    </div>
+    <div class="sticky-sep"></div>
+    <div class="sticky-total">
+      <div class="sticky-total-name">Total Score</div>
+      <div class="sticky-total-val" id="st-total">0 <span>/ 240</span></div>
+    </div>
+    <div class="sticky-progress"><div class="sticky-progress-fill" id="st-progress"></div></div>
+    <div class="sticky-tier" id="st-tier">—</div>
+  </div>
+</div>
+
+<!-- FORM BODY -->
+<div class="form-body">
+<div class="form-inner">
+
+  <!-- PILLAR CARDS -->
+  <div class="pillar-summary fade-up">
+    <div class="p-card ops" id="pc-ops"><div class="p-card-name">Ops &amp; Systems</div><div class="p-card-score" id="pcs-ops">0</div><div class="p-card-max">/ 72 pts</div><div class="p-card-bar"><div class="p-card-bar-fill" id="pcb-ops"></div></div></div>
+    <div class="p-card rev" id="pc-rev"><div class="p-card-name">Revenue &amp; Sales</div><div class="p-card-score" id="pcs-rev">0</div><div class="p-card-max">/ 69 pts</div><div class="p-card-bar"><div class="p-card-bar-fill" id="pcb-rev"></div></div></div>
+    <div class="p-card fin" id="pc-fin"><div class="p-card-name">Financial Structure</div><div class="p-card-score" id="pcs-fin">0</div><div class="p-card-max">/ 66 pts</div><div class="p-card-bar"><div class="p-card-bar-fill" id="pcb-fin"></div></div></div>
+    <div class="p-card team" id="pc-team"><div class="p-card-name">Team &amp; Leadership</div><div class="p-card-score" id="pcs-team">0</div><div class="p-card-max">/ 63 pts</div><div class="p-card-bar"><div class="p-card-bar-fill" id="pcb-team"></div></div></div>
+  </div>
+
+  <!-- 00: BUSINESS CONTEXT -->
+  <div class="form-section sec-context fade-up">
+    <div class="section-head">
+      <div class="section-head-row">
+        <div class="section-icon">◈</div>
+        <div class="section-title">Business Context</div>
+      </div>
+      <div class="section-desc">Client information required before the X-Ray is produced. All starred fields required.</div>
+    </div>
+    <div class="context-body">
+      <div class="ctx-grid">
+        <div class="field-group"><label class="field-label">Client Name <span class="req">*</span></label><input class="field-input" id="f-name" type="text" placeholder="First Last" autocomplete="name"></div>
+        <div class="field-group"><label class="field-label">Business Name <span class="req">*</span></label><input class="field-input" id="f-biz" type="text" placeholder="Company LLC"></div>
+        <div class="field-group"><label class="field-label">Email <span class="req">*</span></label><input class="field-input" id="f-email" type="email" placeholder="you@company.com" autocomplete="email"></div>
+        <div class="field-group"><label class="field-label">Phone</label><input class="field-input" id="f-phone" type="tel" placeholder="(555) 000-0000" autocomplete="tel"></div>
+        <div class="field-group"><label class="field-label">Industry <span class="req">*</span></label><input class="field-input" id="f-industry" type="text" placeholder="e.g. Home Services, SaaS, Restaurant"></div>
+        <div class="field-group"><label class="field-label">Year Started</label><input class="field-input" id="f-year" type="number" placeholder="e.g. 2018" min="1900" max="2030"></div>
+        <div class="field-group"><label class="field-label">Annual Revenue (est.) <span class="req">*</span></label>
+          <select class="field-select" id="f-revenue">
+            <option value="" disabled selected>Select range</option>
+            <option>Under $100K</option><option>$100K – $500K</option><option>$500K – $1M</option>
+            <option>$1M – $2.5M</option><option>$2.5M – $5M</option><option>$5M – $10M</option><option>$10M+</option>
+          </select>
+        </div>
+        <div class="field-group"><label class="field-label">Employee Count</label><input class="field-input" id="f-employees" type="number" placeholder="Including owners" min="1"></div>
+        <div class="field-group full"><label class="field-label">Primary Service / Product <span class="req">*</span></label><input class="field-input" id="f-service" type="text" placeholder="What do you sell? What do you deliver?"></div>
+        <div class="field-group"><label class="field-label">Target Market</label><input class="field-input" id="f-market" type="text" placeholder="Who buys from you?"></div>
+        <div class="field-group"><label class="field-label">Current Tech Stack / Tools</label><input class="field-input" id="f-tech" type="text" placeholder="e.g. Jobber, QuickBooks, Slack"></div>
+        <div class="field-group full"><label class="field-label">Client Goal / Ideal Outcome <span class="req">*</span></label><textarea class="field-textarea" id="f-goal" placeholder="What does success look like in 12–24 months?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPPORTUNITY BAR -->
+  <div class="opportunity-bar fade-up" id="opp-bar">
+    <div class="opp-item"><div class="opp-item-label">Ops &amp; Systems</div><div class="opp-item-val" id="opp-ops">$—</div></div>
+    <div class="opp-sep"></div>
+    <div class="opp-item"><div class="opp-item-label">Revenue &amp; Sales</div><div class="opp-item-val" id="opp-rev">$—</div></div>
+    <div class="opp-sep"></div>
+    <div class="opp-item"><div class="opp-item-label">Financial</div><div class="opp-item-val" id="opp-fin">$—</div></div>
+    <div class="opp-sep"></div>
+    <div class="opp-item"><div class="opp-item-label">Team &amp; Leadership</div><div class="opp-item-val" id="opp-team">$—</div></div>
+    <div class="opp-sep"></div>
+    <div class="opp-item"><div class="opp-item-label">Total Opportunity</div><div class="opp-item-val total" id="opp-total">$—</div></div>
+  </div>
+
+  <!-- PILLAR SECTIONS — injected -->
+  <div id="sec-ops"></div>
+  <div id="sec-rev"></div>
+  <div id="sec-fin"></div>
+  <div id="sec-team"></div>
+
+  <!-- SUCCESS -->
+  <div class="success-wrap" id="success-wrap">
+    <div class="success-icon">✓</div>
+    <h2>X-Ray Submitted.</h2>
+    <p>Your diagnostic has been received. The OpFix team will follow up within 24 hours to schedule your diagnosis call.</p>
+    <div class="success-meta">
+      Score: <strong id="s-score">—</strong> / 240<br>
+      Tier: <strong id="s-tier">—</strong><br>
+      Engagement Investment: <strong id="s-price">—</strong>
+    </div>
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:var(--white);padding:14px 28px;border-radius:8px;font-weight:700;font-size:15px">← Back to OpFix.io</a>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section fade-up" id="submit-block">
+    <div class="sub-label">Total Diagnostic Score</div>
+    <div class="sub-score" id="sub-score">0 <span class="sub-score-max">/ 240</span></div>
+    <div class="sub-tier" id="sub-tier"></div>
+    <div class="sub-price" id="sub-price"></div>
+    <button class="btn-primary" onclick="handleSubmit()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Submit X-Ray Diagnostic
+    </button>
+    <div class="sub-note">Results are sent directly to the OpFix team. We'll follow up within 24 hours to schedule your diagnosis call.</div>
+    <div class="sub-req-note">All fields marked <span style="color:var(--accent)">*</span> are required. Notes required on every factor scored above 0.</div>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <p>OpFix LLC &nbsp;·&nbsp; opfix.io &nbsp;·&nbsp; Diagnose. Fix. Scale.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────
+const FACTORS = [
+  // OPS & SYSTEMS — max 72
+  {id:1,  p:'ops',  n:'SOP Documentation',           wt:3, s1:'Some SOPs exist but outdated or incomplete.',                         s2:'Few SOPs. Most processes in people\'s heads.',                                         s3:'Zero documentation. Every task improvised.'},
+  {id:2,  p:'ops',  n:'Tech Stack Integration',      wt:2, s1:'Tools exist but some redundancy.',                                    s2:'Fragmented. Multiple tools doing same thing.',                                         s3:'No coherent stack. Spreadsheets and sticky notes.'},
+  {id:3,  p:'ops',  n:'Workflow Consistency',        wt:3, s1:'Workflows exist informally.',                                         s2:'Inconsistent. Different people do same process differently.',                          s3:'No mapped workflows. Every client gets a different experience.'},
+  {id:4,  p:'ops',  n:'Reporting & KPI Tracking',   wt:2, s1:'Some metrics tracked but not consistently.',                          s2:'Few KPIs. Gut feel decisions.',                                                        s3:'No metrics. No reporting. Zero visibility.'},
+  {id:5,  p:'ops',  n:'Bottleneck & Dependency',    wt:3, s1:'Founder involved in most decisions.',                                 s2:'Founder is bottleneck for most decisions.',                                            s3:'Everything runs through one person. Business stops without them.'},
+  {id:6,  p:'ops',  n:'Quality Control Systems',    wt:2, s1:'Some QC. Errors caught most of the time.',                            s2:'QC reactive. Errors caught when clients complain.',                                    s3:'No QC. Errors endemic. Constant rework.'},
+  {id:7,  p:'ops',  n:'Client Delivery Process',    wt:3, s1:'Loosely documented. Details vary.',                                  s2:'No formal process. Each engagement handled differently.',                             s3:'Chaos. No standard delivery. Scope creep constant.'},
+  {id:8,  p:'ops',  n:'Internal Communication',     wt:1, s1:'Communicates but informal.',                                          s2:'Scattered across text, email, DM.',                                                    s3:'No system. Silos. Miscommunication common.'},
+  {id:9,  p:'ops',  n:'Project Management',         wt:2, s1:'PM tool exists but underutilized.',                                   s2:'No PM tool. Tasks managed by memory.',                                                 s3:'No task management. Deadlines missed regularly.'},
+  {id:10, p:'ops',  n:'Business Continuity',        wt:3, s1:'Founder can step away for a few days.',                               s2:'Business deteriorates within a week without founder.',                                 s3:'Cannot function 48 hours without founder.'},
+  // REVENUE & SALES — max 69
+  {id:11, p:'rev',  n:'Lead Generation System',     wt:3, s1:'Leads come in but inconsistent.',                                     s2:'Sporadic. Referrals and word of mouth only.',                                          s3:'No lead gen. Pipeline empty unless founder hustles.'},
+  {id:12, p:'rev',  n:'Sales Process Documentation',wt:3, s1:'Process exists informally.',                                          s2:'No documented process. Each rep sells differently.',                                   s3:'No sales process. Owner sells on instinct.'},
+  {id:13, p:'rev',  n:'Conversion Tracking',        wt:2, s1:'Close rate tracked loosely.',                                         s2:'Not formally tracked.',                                                                s3:'No conversion data at all.'},
+  {id:14, p:'rev',  n:'Follow-Up & Nurture',        wt:2, s1:'Some follow-up but manual.',                                          s2:'Ad hoc. Reps follow up when they remember.',                                           s3:'Zero follow-up. One call, gone.'},
+  {id:15, p:'rev',  n:'Offer Clarity & Differentiation', wt:3, s1:'Clear to existing clients but not sharp.',                      s2:'Vague. Competes on price.',                                                            s3:'No defined offer.'},
+  {id:16, p:'rev',  n:'Pricing Strategy',           wt:3, s1:'Set but not reviewed recently.',                                      s2:'Arbitrary. Frequent discounts.',                                                       s3:'No strategy. Made up per deal.'},
+  {id:17, p:'rev',  n:'Revenue Concentration',      wt:2, s1:'Top client 15–25% of revenue.',                                      s2:'Top 2–3 clients are 40–60%.',                                                          s3:'One client 30%+ or top 3 are 70%+.'},
+  {id:18, p:'rev',  n:'Client Retention & Churn',  wt:2, s1:'Most stay. Some churn, reasons unclear.',                             s2:'Noticeable churn. No system.',                                                         s3:'High churn. Constant need for new clients.'},
+  {id:19, p:'rev',  n:'Upsell / Cross-Sell',        wt:1, s1:'Some upselling organic. No system.',                                 s2:'No upsell process.',                                                                   s3:'No awareness of opportunity.'},
+  {id:20, p:'rev',  n:'Marketing ROI Tracking',     wt:2, s1:'Some spend tracked.',                                                s2:'Not tracked. No idea which channels work.',                                            s3:'Spending with zero tracking.'},
+  // FINANCIAL STRUCTURE — max 66
+  {id:21, p:'fin',  n:'Profit Margin Visibility',   wt:3, s1:'Margins known at high level.',                                        s2:'Rough idea. Gut feel.',                                                                s3:'No idea what real margin is.'},
+  {id:22, p:'fin',  n:'Cash Flow Predictability',   wt:3, s1:'Mostly predictable. Occasional tight months.',                        s2:'Volatile. Can\'t forecast.',                                                           s3:'Crisis. Invoice to invoice.'},
+  {id:23, p:'fin',  n:'Expense Discipline',         wt:2, s1:'Monitored loosely.',                                                 s2:'No recent audit. Waste evident.',                                                      s3:'Completely unmanaged.'},
+  {id:24, p:'fin',  n:'Debt Structure',             wt:2, s1:'Some debt, manageable.',                                             s2:'Multiple instruments. Some bad terms.',                                                s3:'Toxic: MCAs, high-interest.'},
+  {id:25, p:'fin',  n:'Financial Forecasting',      wt:2, s1:'Basic forecasting quarterly.',                                       s2:'No formal forecasting.',                                                               s3:'No forecasting. Zero visibility.'},
+  {id:26, p:'fin',  n:'Pricing Model Effectiveness',wt:3, s1:'Works but could be more strategic.',                                 s2:'Cost-plus. Underpriced.',                                                              s3:'No model. Invented per deal.'},
+  {id:27, p:'fin',  n:'Revenue Model Sustainability',wt:2, s1:'Overly dependent on one-time transactions.',                        s2:'Entirely project-based. No recurring.',                                                s3:'Broken. Every month starts at zero.'},
+  {id:28, p:'fin',  n:'Funding Readiness',          wt:1, s1:'Could access some funding.',                                         s2:'Business credit underdeveloped.',                                                      s3:'No business credit.'},
+  {id:29, p:'fin',  n:'Invoicing & Collections',   wt:2, s1:'Regular invoicing. Most on time.',                                    s2:'Inconsistent. AR aging 30+.',                                                          s3:'Chaotic. No system.'},
+  {id:30, p:'fin',  n:'Financial Reporting Cadence',wt:2, s1:'P&L reviewed quarterly.',                                            s2:'Reports pulled annually for taxes.',                                                   s3:'No reporting at all.'},
+  // TEAM & LEADERSHIP — max 63
+  {id:31, p:'team', n:'Org Chart & Role Clarity',  wt:3, s1:'Exists but not current.',                                             s2:'No formal chart. Roles blur.',                                                         s3:'Total chaos. Everyone does everything.'},
+  {id:32, p:'team', n:'Talent Quality in Key Seats',wt:3, s1:'Most key seats competent.',                                          s2:'Several underperformers in key seats.',                                                 s3:'Wrong people in critical roles.'},
+  {id:33, p:'team', n:'Performance Metrics Per Role',wt:2, s1:'Some roles have metrics.',                                          s2:'Few or no individual metrics.',                                                        s3:'No metrics for anyone.'},
+  {id:34, p:'team', n:'Delegation Maturity',       wt:3, s1:'Delegates some but takes back.',                                      s2:'Delegates reluctantly. Micromanages.',                                                 s3:'Does everything. Can\'t let go.'},
+  {id:35, p:'team', n:'Hiring Pipeline & Process', wt:2, s1:'Reactive but functional.',                                            s2:'No process. Picks least bad option.',                                                  s3:'No hiring capability.'},
+  {id:36, p:'team', n:'Onboarding & Training',     wt:2, s1:'Some onboarding. Basic.',                                             s2:'No formal onboarding.',                                                                s3:'Zero onboarding.'},
+  {id:37, p:'team', n:'Accountability Framework',  wt:2, s1:'Some accountability.',                                                s2:'No framework. Honor system.',                                                          s3:'No accountability at all.'},
+  {id:38, p:'team', n:'Culture & Retention',       wt:1, s1:'Generally positive.',                                                 s2:'Undefined. Not engaged.',                                                              s3:'Toxic or nonexistent.'},
+  {id:39, p:'team', n:'Leadership Development',    wt:1, s1:'Some potential leaders.',                                             s2:'No development. Founder is only leader.',                                              s3:'Leadership vacuum.'},
+  {id:40, p:'team', n:'Succession Planning',       wt:2, s1:'Thought about but nothing documented.',                               s2:'No planning. Business struggles in 30 days.',                                          s3:'No plan. Collapses in weeks.'},
+];
+
+const PILLARS = {
+  ops:  {label:'Operations & Systems',  icon:'⚙',  num:'01', max:72, secEl:'sec-ops',  stEl:'st-ops',  pcsEl:'pcs-ops',  pcbEl:'pcb-ops',  pcEl:'pc-ops',  bdgEl:'bdg-ops'},
+  rev:  {label:'Revenue & Sales',       icon:'⚡', num:'02', max:69, secEl:'sec-rev',  stEl:'st-rev',  pcsEl:'pcs-rev',  pcbEl:'pcb-rev',  pcEl:'pc-rev',  bdgEl:'bdg-rev'},
+  fin:  {label:'Financial Structure',   icon:'◉',  num:'03', max:66, secEl:'sec-fin',  stEl:'st-fin',  pcsEl:'pcs-fin',  pcbEl:'pcb-fin',  pcEl:'pc-fin',  bdgEl:'bdg-fin'},
+  team: {label:'Team & Leadership',     icon:'◈',  num:'04', max:63, secEl:'sec-team', stEl:'st-team', pcsEl:'pcs-team', pcbEl:'pcb-team', pcEl:'pc-team', bdgEl:'bdg-team'},
+};
+
+const scores = {}; // id -> 0|1|2|3
+
+// ─── BUILD ────────────────────────────────────────────────────────
+function build() {
+  Object.entries(PILLARS).forEach(([key, m]) => {
+    const pf = FACTORS.filter(f => f.p === key);
+    document.getElementById(m.secEl).innerHTML = `
+      <div class="form-section sec-${key} fade-up">
+        <div class="section-head">
+          <div class="section-head-row">
+            <div class="section-icon">${m.icon}</div>
+            <div class="section-title">${m.label}</div>
+            <div class="section-badge" id="${m.bdgEl}">0 / ${m.max} pts</div>
+          </div>
+          <div class="section-desc">Score each factor 0–3. 0 = no issue. Notes required on every factor scored above 0.</div>
+        </div>
+        <div class="scoring-table">
+          ${pf.map(f => factorHTML(f)).join('')}
+        </div>
+        <div class="section-impact-total">
+          <span>Pillar opportunity (est.)</span>
+          <strong class="acc" id="pimp-${key}">$—</strong>
+        </div>
+      </div>`;
+  });
+}
+
+function factorHTML(f) {
+  return `
+    <div class="factor-row" id="fr-${f.id}">
+      <div class="factor-main">
+        <div class="factor-num" id="fn-${f.id}">${String(f.id).padStart(2,'0')}</div>
+        <div class="factor-body">
+          <div class="factor-name">${f.n}</div>
+          <div class="factor-meta">Weight: <strong>${f.wt}x</strong> &nbsp;·&nbsp; Max: <strong>${f.wt*3} pts</strong></div>
+          <button class="sev-toggle" id="st-tog-${f.id}" onclick="toggleSev(${f.id},event)">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            Score reference
+          </button>
+          <div class="sev-ref" id="sev-${f.id}">
+            <div class="sev-row"><div class="sev-badge s1">1 — Minor</div><span>${f.s1}</span></div>
+            <div class="sev-row"><div class="sev-badge s2">2 — Moderate</div><span>${f.s2}</span></div>
+            <div class="sev-row"><div class="sev-badge s3">3 — Severe</div><span>${f.s3}</span></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:16px;flex-shrink:0">
+          <div class="score-col">
+            <div class="score-col-labels">
+              <div class="score-col-label">None</div>
+              <div class="score-col-label">Minor</div>
+              <div class="score-col-label">Mod</div>
+              <div class="score-col-label">Severe</div>
+            </div>
+            <div class="score-btns">
+              <button class="score-btn s0" id="sb-${f.id}-0" onclick="setScore(${f.id},0)">0</button>
+              <button class="score-btn s1" id="sb-${f.id}-1" onclick="setScore(${f.id},1)">1</button>
+              <button class="score-btn s2" id="sb-${f.id}-2" onclick="setScore(${f.id},2)">2</button>
+              <button class="score-btn s3" id="sb-${f.id}-3" onclick="setScore(${f.id},3)">3</button>
+            </div>
+          </div>
+          <div class="factor-impact">
+            <div class="impact-label">Est. $ Impact</div>
+            <div class="impact-val no-score" id="imp-${f.id}">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="factor-notes" id="fn-notes-${f.id}">
+        <div class="notes-label">Notes / What You See <span class="req">*</span> <span class="hint">(required when scored above 0)</span></div>
+        <textarea class="notes-textarea" id="nt-${f.id}" placeholder="Describe what you observe for this factor..." rows="2"></textarea>
+      </div>
+    </div>`;
+}
+
+// ─── SCORING ─────────────────────────────────────────────────────
+function setScore(id, val) {
+  scores[id] = val;
+  for (let v=0;v<=3;v++) {
+    const b = document.getElementById(`sb-${id}-${v}`);
+    if(b) b.classList.toggle('on', v===val);
+  }
+  const row = document.getElementById(`fr-${id}`);
+  const num = document.getElementById(`fn-${id}`);
+  row.classList.remove('sc-1','sc-2','sc-3');
+  if (val>0) row.classList.add(`sc-${val}`);
+  // Notes: always visible but clear err state when re-scored
+  const nt = document.getElementById(`nt-${id}`);
+  if (nt) nt.classList.remove('err');
+  updateTotals();
+}
+
+// Mirror the sheet formula: revenue × rate × score
+// rate: score=1 → 0.5%, score=2 → 1.0%, score=3 → 1.5%
+function getRevenue() {
+  const sel = document.getElementById('f-revenue').value;
+  const map = {
+    'Under $100K': 75000,
+    '$100K – $500K': 300000,
+    '$500K – $1M': 750000,
+    '$1M – $2.5M': 1750000,
+    '$2.5M – $5M': 3750000,
+    '$5M – $10M': 7500000,
+    '$10M+': 12000000,
+  };
+  return map[sel] || 0;
+}
+
+function calcImpact(score, revenue) {
+  if (!score || !revenue) return 0;
+  const rate = score === 3 ? 0.015 : score === 2 ? 0.01 : 0.005;
+  return Math.round(revenue * rate * score);
+}
+
+function fmtDollar(n) {
+  if (!n) return '—';
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(1).replace(/\.0$/,'') + 'M';
+  if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+  return '$' + n.toLocaleString();
+}
+
+function updateTotals() {
+  const revenue = getRevenue();
+  const pt = {ops:0,rev:0,fin:0,team:0};
+  const pImp = {ops:0,rev:0,fin:0,team:0};
+
+  FACTORS.forEach(f => {
+    const s = scores[f.id] || 0;
+    pt[f.p] += s * f.wt;
+    const imp = calcImpact(s, revenue);
+    pImp[f.p] += imp;
+    // Update per-factor impact display
+    const impEl = document.getElementById(`imp-${f.id}`);
+    if (impEl) {
+      if (scores[f.id] === undefined) {
+        impEl.textContent = '—'; impEl.className = 'impact-val no-score';
+      } else if (s === 0) {
+        impEl.textContent = '$0'; impEl.className = 'impact-val';
+      } else {
+        impEl.textContent = fmtDollar(imp); impEl.className = 'impact-val has-impact';
+      }
+    }
+  });
+
+  const total = Object.values(pt).reduce((a,b)=>a+b,0);
+  const totalImp = Object.values(pImp).reduce((a,b)=>a+b,0);
+
+  // Pillar scores + impact
+  Object.entries(PILLARS).forEach(([k,m]) => {
+    const v = pt[k];
+    document.getElementById(m.stEl).innerHTML = `${v} <span>/ ${m.max}</span>`;
+    document.getElementById(m.pcsEl).textContent = v;
+    document.getElementById(m.pcbEl).style.width = `${(v/m.max)*100}%`;
+    const bdg = document.getElementById(m.bdgEl);
+    if(bdg){ bdg.textContent=`${v} / ${m.max} pts`; bdg.className=`section-badge${v>0?' live':''}`; }
+    const pc = document.getElementById(m.pcEl);
+    if(v>0) pc.classList.add('has-score'); else pc.classList.remove('has-score');
+    // Pillar impact footer
+    const pimpEl = document.getElementById(`pimp-${k}`);
+    if (pimpEl) pimpEl.textContent = revenue && pImp[k] ? fmtDollar(pImp[k]) + '/yr' : '$—';
+    // Opportunity bar
+    const oppEl = document.getElementById(`opp-${k}`);
+    if (oppEl) oppEl.textContent = revenue && pImp[k] ? fmtDollar(pImp[k]) : '$—';
+  });
+
+  // Opportunity bar total
+  const oppTotal = document.getElementById('opp-total');
+  if (oppTotal) oppTotal.textContent = revenue && totalImp ? fmtDollar(totalImp) + '/yr' : '$—';
+
+  document.getElementById('st-total').innerHTML = `${total} <span>/ 240</span>`;
+  document.getElementById('st-progress').style.width = `${(total/240)*100}%`;
+  document.getElementById('sub-score').innerHTML = `${total} <span class="sub-score-max">/ 240</span>`;
+
+  const {tier,price,cls} = getTier(total, totalImp);
+  const tierEl = document.getElementById('st-tier');
+  tierEl.textContent = tier; tierEl.className=`sticky-tier${cls?' '+cls:''}`;
+  document.getElementById('sub-tier').textContent = tier&&tier!=='—'?`Tier: ${tier}`:'';
+  document.getElementById('sub-price').textContent = price;
+}
+
+function getTier(score, totalImp) {
+  const scored = Object.keys(scores).length;
+  if (!scored||score===0) return {tier:'—',price:'',cls:''};
+  const eng = 15000+score*300;
+  const engFmt = `Engagement Investment: $${eng.toLocaleString()}`;
+  const oppFmt = totalImp ? ` · Est. Opportunity: ${fmtDollar(totalImp)}/yr` : '';
+  const fmt = engFmt + oppFmt;
+  if (score<=50)  return {tier:'Tune-Up',  price:fmt,cls:'tune-up'};
+  if (score<=120) return {tier:'Rebuild',  price:fmt,cls:'rebuild'};
+  if (score<=200) return {tier:'Overhaul', price:fmt,cls:'overhaul'};
+  return               {tier:'Emergency',price:fmt,cls:'emergency'};
+}
+
+// ─── SEVERITY TOGGLE ─────────────────────────────────────────────
+function toggleSev(id, e) {
+  e.stopPropagation();
+  const sev = document.getElementById(`sev-${id}`);
+  const tog = document.getElementById(`st-tog-${id}`);
+  sev.classList.toggle('open');
+  tog.classList.toggle('open');
+}
+
+// ─── SUBMIT ──────────────────────────────────────────────────────
+function handleSubmit() {
+  const errs = [];
+
+  // Context required
+  const ctxReq = [
+    {id:'f-name',    label:'Client Name'},
+    {id:'f-biz',     label:'Business Name'},
+    {id:'f-email',   label:'Email'},
+    {id:'f-revenue', label:'Annual Revenue'},
+    {id:'f-service', label:'Primary Service / Product'},
+    {id:'f-goal',    label:'Client Goal / Ideal Outcome'},
+    {id:'f-industry',label:'Industry'},
+  ];
+  ctxReq.forEach(f => {
+    const el = document.getElementById(f.id);
+    if (!el.value.trim()) { el.classList.add('err'); errs.push(f.label); }
+    else el.classList.remove('err');
+  });
+
+  // All 40 factors must be scored
+  const unscored = FACTORS.filter(f => scores[f.id]===undefined);
+  if (unscored.length) errs.push(`${unscored.length} factor(s) not yet scored`);
+
+  // Notes required when score > 0
+  let missingNotes = 0;
+  FACTORS.forEach(f => {
+    const s = scores[f.id];
+    if (s===undefined||s===0) return;
+    const el = document.getElementById(`nt-${f.id}`);
+    if (!el||!el.value.trim()) { if(el) el.classList.add('err'); missingNotes++; }
+    else if(el) el.classList.remove('err');
+  });
+  if (missingNotes) errs.push(`Notes missing on ${missingNotes} factor(s)`);
+
+  if (errs.length) {
+    showToast(`Fix before submitting:\n${errs.join(' · ')}`, true);
+    const first = document.querySelector('.field-input.err,.field-select.err,.field-textarea.err,.notes-textarea.err');
+    if (first) first.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  // Build payload
+  const total = FACTORS.reduce((s,f)=>s+(scores[f.id]||0)*f.wt,0);
+  const revenue = getRevenue();
+  const {tier} = getTier(total, 0);
+  const pt = {ops:0,rev:0,fin:0,team:0};
+  const pImp = {ops:0,rev:0,fin:0,team:0};
+  FACTORS.forEach(f=>{ pt[f.p]+=(scores[f.id]||0)*f.wt; pImp[f.p]+=calcImpact(scores[f.id]||0,revenue); });
+  const totalImp = Object.values(pImp).reduce((a,b)=>a+b,0);
+
+  const payload = {
+    client_name:    document.getElementById('f-name').value.trim(),
+    business_name:  document.getElementById('f-biz').value.trim(),
+    email:          document.getElementById('f-email').value.trim(),
+    phone:          document.getElementById('f-phone').value.trim(),
+    industry:       document.getElementById('f-industry').value.trim(),
+    year_started:   document.getElementById('f-year').value.trim(),
+    annual_revenue: document.getElementById('f-revenue').value,
+    employee_count: document.getElementById('f-employees').value.trim(),
+    primary_service:document.getElementById('f-service').value.trim(),
+    target_market:  document.getElementById('f-market').value.trim(),
+    tech_stack:     document.getElementById('f-tech').value.trim(),
+    client_goal:    document.getElementById('f-goal').value.trim(),
+    total_score: total,
+    tier,
+    engagement_price: 15000+total*300,
+    estimated_opportunity: totalImp,
+    annual_revenue_used: revenue,
+    pillar_ops:  pt.ops,
+    pillar_rev:  pt.rev,
+    pillar_fin:  pt.fin,
+    pillar_team: pt.team,
+    pillar_ops_impact:  pImp.ops,
+    pillar_rev_impact:  pImp.rev,
+    pillar_fin_impact:  pImp.fin,
+    pillar_team_impact: pImp.team,
+    factors: FACTORS.map(f => ({
+      id:       f.id,
+      name:     f.n,
+      pillar:   f.p,
+      weight:   f.wt,
+      score:    scores[f.id]||0,
+      weighted: (scores[f.id]||0)*f.wt,
+      impact:   calcImpact(scores[f.id]||0, revenue),
+      notes:    (document.getElementById(`nt-${f.id}`)?.value||'').trim(),
+    })),
+  };
+
+  // ── GHL WEBHOOK — replace before deploying ──
+  const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/dqU7ufz23PNRXzYvkHZy/webhook-trigger/c3207743-f6df-41ec-9f6f-30a26571cac4';
+  fetch(GHL_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
+
+  // Show success
+  document.getElementById('submit-block').style.display = 'none';
+  document.getElementById('s-score').textContent = total;
+  document.getElementById('s-tier').textContent = tier;
+  document.getElementById('s-price').textContent = `$${(15000+total*300).toLocaleString()}`;
+  document.getElementById('success-wrap').classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────
+function showToast(msg, isErr) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast${isErr?' err':''} show`;
+  clearTimeout(t._tid);
+  t._tid = setTimeout(()=>t.classList.remove('show'),5500);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────
+build();
+updateTotals();
+
+// Fade-up observer
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.08});
+requestAnimationFrame(()=>{
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+});
+
+// Clear err on input
+document.addEventListener('input', e=>{
+  if(e.target.matches('.field-input,.field-select,.field-textarea,.notes-textarea'))
+    e.target.classList.remove('err');
+});
+
+// Revenue change → recalculate all dollar impacts
+document.getElementById('f-revenue').addEventListener('change', updateTotals);
+</script>
+</body>
+</html>
