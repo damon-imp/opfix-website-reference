@@ -351,6 +351,10 @@ footer p{font-size:13px;color:var(--gray-400)}
   </div>
 
   <!-- 00: BUSINESS CONTEXT -->
+  <div id="prefill-banner" style="display:none;background:#ECFDF5;border:1px solid #A7F3D0;color:#065F46;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-size:14px;line-height:1.5">
+    <strong>Welcome back.</strong> We've filled in some of your info from your diagnostic — please verify and update anything that's changed.
+  </div>
+
   <div class="form-section sec-context fade-up">
     <div class="section-head">
       <div class="section-head-row">
@@ -833,6 +837,59 @@ document.addEventListener('input', e=>{
 
 // Revenue change → recalculate all dollar impacts
 document.getElementById('f-revenue').addEventListener('change', updateTotals);
+
+// ─── CLIENT PRE-FILL (auto-populates fields from GHL if ?email=xxx is in URL) ───
+// Failures are silent: if the lookup fails, the form just renders blank.
+function matchRevenueOption(label) {
+  if (!label) return false;
+  var sel = document.getElementById('f-revenue');
+  var norm = function(s) { return String(s).replace(/[–—-]/g, '-').replace(/\s+/g, ' ').trim().toLowerCase(); };
+  var target = norm(label);
+  for (var i = 0; i < sel.options.length; i++) {
+    if (norm(sel.options[i].text) === target || norm(sel.options[i].value) === target) {
+      sel.selectedIndex = i;
+      return true;
+    }
+  }
+  return false;
+}
+
+async function prefillFromEmail(email) {
+  try {
+    var res = await fetch('/api/get-contact', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ email: email })
+    });
+    if (!res.ok) return;
+
+    var c  = await res.json();
+    var cf = c.customFields || {};
+
+    document.getElementById('f-name').value      = (c.firstName + ' ' + c.lastName).trim();
+    document.getElementById('f-biz').value       = c.companyName || '';
+    document.getElementById('f-email').value     = c.email || '';
+    document.getElementById('f-phone').value     = c.phone || '';
+    document.getElementById('f-industry').value  = cf.business_type || cf.industry || '';
+    document.getElementById('f-year').value      = cf.year_started || '';
+    matchRevenueOption(cf.annual_revenue_range);
+    document.getElementById('f-employees').value = cf.employee_count || '';
+    document.getElementById('f-service').value   = cf.primary_service || '';
+    document.getElementById('f-market').value    = cf.target_market || '';
+    document.getElementById('f-tech').value      = cf.current_tech_stack || '';
+    document.getElementById('f-goal').value      = cf.client_goal || '';
+
+    var banner = document.getElementById('prefill-banner');
+    if (banner) banner.style.display = 'block';
+    updateTotals();
+  } catch (_) { /* silent */ }
+}
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var emailParam = params.get('email');
+  if (emailParam) prefillFromEmail(emailParam);
+})();
 </script>
 </body>
 </html>

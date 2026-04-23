@@ -511,10 +511,11 @@ window.submitContext = function() {
     return;
   }
 
-  // Capture revenue midpoint
+  // Capture revenue midpoint + human-readable label
   var revSel = document.getElementById('ctx-revenue');
   var revOpt = revSel.options[revSel.selectedIndex];
-  ctx.annual_revenue_used = parseInt(revOpt.getAttribute('data-mid')) || 0;
+  ctx.annual_revenue_used  = parseInt(revOpt.getAttribute('data-mid')) || 0;
+  ctx.annual_revenue_label = revOpt.text;  // e.g. "$1M - $2.5M" — sent to GHL for display
 
   context = ctx;
 
@@ -628,7 +629,7 @@ function logDisqualification(reason) {
       {key: CF.businessName,       value: context.business_name},
       {key: CF.businessType,       value: context.business_type},
       {key: CF.yearsOperating,     value: context.years_operating},
-      {key: CF.annualRevenueRange, value: context.annual_revenue},
+      {key: CF.annualRevenueRange, value: context.annual_revenue_label},
       {key: CF.employeeCount,      value: context.employee_count},
       {key: CF.role,               value: context.role},
       {key: CF.primaryService,     value: context.primary_service},
@@ -839,7 +840,7 @@ function submitDiagnostic() {
     [CF.businessName,           context.business_name],
     [CF.businessType,           context.business_type],
     [CF.yearsOperating,         context.years_operating],
-    [CF.annualRevenueRange,     context.annual_revenue],
+    [CF.annualRevenueRange,     context.annual_revenue_label],
     [CF.annualRevenueMidpoint,  String(context.annual_revenue_used)],
     [CF.revenueMidpoint,        String(context.annual_revenue_used)],
     [CF.employeeCount,          context.employee_count],
