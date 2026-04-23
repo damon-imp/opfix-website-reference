@@ -16,6 +16,9 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Email required' });
   }
 
+  // Build human-readable notes summary, grouped by pillar, for xray_notes_readable
+  const readableNotes = buildReadableNotes(p.factors);
+
   // Build customFields, dropping any empty values so we don't overwrite
   // good data on the contact with blanks.
   const cf = [
@@ -41,6 +44,7 @@ module.exports = async function handler(req, res) {
     ['pillar_opportunity__financial', p.pillar_fin_impact],
     ['pillar_opportunity__team',      p.pillar_team_impact],
     ['xray_factor_data',            p.factors ? JSON.stringify(p.factors) : undefined],
+    ['xray_notes_readable',         readableNotes],
     ['xray_submission_date',        new Date().toISOString().slice(0, 10)],
     ['xray_report_status',          'In Production']
   ];
@@ -95,3 +99,41 @@ module.exports = async function handler(req, res) {
 
   return res.status(200).json({ success: true });
 };
+
+// Groups factors by pillar and formats them as a skimmable briefing doc
+// for Damon. Shows the client's notes under each factor with score + bleed.
+function buildReadableNotes(factors) {
+  if (!Array.isArray(factors) || !factors.length) return '';
+
+  const PILLAR_LABELS = {
+    ops:  'OPERATIONS & SYSTEMS',
+    rev:  'REVENUE & SALES',
+    fin:  'FINANCIAL STRUCTURE',
+    team: 'TEAM & LEADERSHIP'
+  };
+  const PILLAR_ORDER = ['ops', 'rev', 'fin', 'team'];
+  const fmt$ = function(n) { return '$' + Math.round(Number(n) || 0).toLocaleString(); };
+
+  const byPillar = { ops: [], rev: [], fin: [], team: [] };
+  factors.forEach(function(f) {
+    const bucket = byPillar[f.pillar];
+    if (bucket) bucket.push(f);
+  });
+
+  const out = [];
+  PILLAR_ORDER.forEach(function(key) {
+    const list = byPillar[key];
+    if (!list.length) return;
+    out.push('── ' + PILLAR_LABELS[key] + ' ' + '─'.repeat(Math.max(0, 50 - PILLAR_LABELS[key].length)));
+    list.forEach(function(f) {
+      const scoreLine = f.id + '. ' + f.name + ' — score ' + (f.score || 0) + '/3, weight ' + f.weight + 'x, ' + fmt$(f.impact) + '/yr bleed';
+      out.push(scoreLine);
+      if (f.notes && String(f.notes).trim()) {
+        out.push('   ' + String(f.notes).trim().replace(/\n/g, '\n   '));
+      }
+      out.push('');
+    });
+  });
+
+  return out.join('\n').trim();
+}
