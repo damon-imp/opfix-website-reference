@@ -736,69 +736,129 @@ a{text-decoration:none;color:inherit}
 <section class="diagnostic" id="diagnostic-section">
   <div class="diagnostic-inner">
     <div class="section-tag">Free diagnostic</div>
-    <h2>Diagnose your business health<br>in under 2 minutes.</h2>
-    <p class="diagnostic-sub">5 questions. One from each pillar. Get a snapshot of where your business is bleeding — the higher the score, the worse the problem. No email required.</p>
+    <h2>Diagnose your business health<br>in under 3 minutes.</h2>
+    <p class="diagnostic-sub">10 questions. All four pillars. Get a real snapshot of where your business is bleeding — the higher the score, the worse the problem. No email required.</p>
     <div class="diagnostic-box fade-up">
       <div class="diag-progress"><div class="diag-progress-fill" id="diagProgress" style="width:0%"></div></div>
       <div id="diagSteps">
-        <!-- Step 1: Revenue -->
+        <!-- Q1: OPS — SOP Documentation -->
         <div class="diag-step" data-step="1">
-          <div class="diag-step-label">📈 Revenue &amp; Sales — Question 1 of 5</div>
-          <div class="diag-question">How dependent is your revenue on you personally closing deals?</div>
+          <div class="diag-step-label">⚙️ Operations &amp; Systems — Question 1 of 10</div>
+          <div class="diag-question">Do you have written, step-by-step procedures for your core processes that anyone on the team could follow?</div>
           <div class="diag-severity-hint">Higher score = worse problem</div>
           <div class="diag-options">
-            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Fully systemized — team closes without me</button>
-            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Team handles most, I close a few</button>
-            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Mostly me, some team support</button>
-            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> I close everything — revenue stops without me</button>
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> All documented and current</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Some exist but outdated or incomplete</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Few or none — most in people's heads</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Zero documentation — every task improvised</button>
           </div>
         </div>
-        <!-- Step 2: Operations -->
+        <!-- Q2: OPS — Bottleneck & Dependency -->
         <div class="diag-step" data-step="2" style="display:none">
-          <div class="diag-step-label">⚙️ Operations &amp; Systems — Question 2 of 5</div>
-          <div class="diag-question">If you left for 2 weeks, what happens to daily operations?</div>
+          <div class="diag-step-label">⚙️ Operations &amp; Systems — Question 2 of 10</div>
+          <div class="diag-question">If you disappeared for 2 weeks tomorrow, would the business run without you?</div>
           <div class="diag-severity-hint">Higher score = worse problem</div>
           <div class="diag-options">
-            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Runs smoothly without me</button>
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Runs fine without me</button>
             <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Minor hiccups only</button>
-            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Major issues arise quickly</button>
-            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Everything stops — business can't function</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Deteriorates within a week</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Stops within 48 hours</button>
           </div>
         </div>
-        <!-- Step 3: Team -->
+        <!-- Q3: OPS — Client Delivery -->
         <div class="diag-step" data-step="3" style="display:none">
-          <div class="diag-step-label">👥 Team &amp; Leadership — Question 3 of 5</div>
-          <div class="diag-question">Does every person on your team have clear KPIs and documented responsibilities?</div>
+          <div class="diag-step-label">⚙️ Operations &amp; Systems — Question 3 of 10</div>
+          <div class="diag-question">Does every client get the same experience, regardless of who on your team handles them?</div>
           <div class="diag-severity-hint">Higher score = worse problem</div>
           <div class="diag-options">
-            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Fully documented with scorecards</button>
-            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Most roles clear, some gaps</button>
-            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Some roles defined, most are vague</button>
-            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> No KPIs, no documentation, no accountability</button>
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Identical every time</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Mostly consistent</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Varies by person</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Complete chaos — no standard</button>
           </div>
         </div>
-        <!-- Step 4: Financial -->
+        <!-- Q4: REV — Lead Generation -->
         <div class="diag-step" data-step="4" style="display:none">
-          <div class="diag-step-label">💰 Financial Structure — Question 4 of 5</div>
-          <div class="diag-question">Do you know your exact profit margin, cash reserves, and monthly burn rate right now?</div>
+          <div class="diag-step-label">📈 Revenue &amp; Sales — Question 4 of 10</div>
+          <div class="diag-question">Do you have a system that generates new leads every week without you personally hustling for them?</div>
           <div class="diag-severity-hint">Higher score = worse problem</div>
           <div class="diag-options">
-            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Tracked weekly with dashboard</button>
-            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Know most numbers roughly</button>
-            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Rough estimate at best</button>
-            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> No idea — flying completely blind</button>
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Multi-channel system running consistently</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> 1–2 channels, inconsistent</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Sporadic — referrals only</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Pipeline is empty unless I hustle</button>
           </div>
         </div>
-        <!-- Step 5: Overall Systems -->
+        <!-- Q5: REV — Sales Process -->
         <div class="diag-step" data-step="5" style="display:none">
-          <div class="diag-step-label">⚙️ Operations &amp; Systems — Question 5 of 5</div>
-          <div class="diag-question">How many of your core business processes are documented as SOPs?</div>
+          <div class="diag-step-label">📈 Revenue &amp; Sales — Question 5 of 10</div>
+          <div class="diag-question">Is your sales process documented so that someone other than you could close deals using it?</div>
           <div class="diag-severity-hint">Higher score = worse problem</div>
           <div class="diag-options">
-            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> All documented &amp; maintained</button>
-            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Most are documented</button>
-            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> A few critical ones only</button>
-            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> None — everything is tribal knowledge</button>
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Fully documented and trained</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Informal process exists</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Ad hoc — varies by person</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> No process — I sell on instinct</button>
+          </div>
+        </div>
+        <!-- Q6: REV — Pricing Strategy -->
+        <div class="diag-step" data-step="6" style="display:none">
+          <div class="diag-step-label">📈 Revenue &amp; Sales — Question 6 of 10</div>
+          <div class="diag-question">Is your pricing based on the value you deliver, or are you guessing, copying competitors, or racing to the bottom?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Value-based, reviewed regularly</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Set but not reviewed recently</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Arbitrary or gut feel</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Made up per deal — leaving money on the table</button>
+          </div>
+        </div>
+        <!-- Q7: FIN — Profit Margin Visibility -->
+        <div class="diag-step" data-step="7" style="display:none">
+          <div class="diag-step-label">💰 Financial Structure — Question 7 of 10</div>
+          <div class="diag-question">Do you know your exact profit margin right now, by service line?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Know exact margin per service</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Know overall margin roughly</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Guessing</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> No idea what real margin is</button>
+          </div>
+        </div>
+        <!-- Q8: FIN — Cash Flow -->
+        <div class="diag-step" data-step="8" style="display:none">
+          <div class="diag-step-label">💰 Financial Structure — Question 8 of 10</div>
+          <div class="diag-question">Can you forecast your cash position 90 days from now with confidence?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> 90-day forecast active</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> 30-day visibility</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Check bank balance and hope</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Living invoice to invoice</button>
+          </div>
+        </div>
+        <!-- Q9: TEAM — Org Chart & Role Clarity -->
+        <div class="diag-step" data-step="9" style="display:none">
+          <div class="diag-step-label">👥 Team &amp; Leadership — Question 9 of 10</div>
+          <div class="diag-question">Does every person on your team know exactly what they own, what they're measured on, and who they report to?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> All roles documented with KPIs</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> Some clarity, some overlap</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> Informal — roles blur constantly</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> Chaos — everyone does everything</button>
+          </div>
+        </div>
+        <!-- Q10: TEAM — Delegation Maturity -->
+        <div class="diag-step" data-step="10" style="display:none">
+          <div class="diag-step-label">👥 Team &amp; Leadership — Question 10 of 10</div>
+          <div class="diag-question">What percentage of your week is spent on tasks someone else should be doing?</div>
+          <div class="diag-severity-hint">Higher score = worse problem</div>
+          <div class="diag-options">
+            <button class="diag-opt" onclick="selectOpt(this,0)"><span class="diag-opt-score" style="--sev-color:#22C55E">0</span> Less than 20%</button>
+            <button class="diag-opt" onclick="selectOpt(this,1)"><span class="diag-opt-score" style="--sev-color:#F59E0B">1</span> 20–40%</button>
+            <button class="diag-opt" onclick="selectOpt(this,2)"><span class="diag-opt-score" style="--sev-color:#E97820">2</span> 40–60% — I micromanage</button>
+            <button class="diag-opt" onclick="selectOpt(this,3)"><span class="diag-opt-score" style="--sev-color:#E94560">3</span> 60%+ — I do everything important</button>
           </div>
         </div>
       </div>
@@ -806,7 +866,7 @@ a{text-decoration:none;color:inherit}
         <div class="diag-score" id="diagScore">—</div>
         <div class="diag-score-label">Your severity snapshot — higher = worse</div>
         <div class="diag-severity-tag" id="diagSeverityTag"></div>
-        <p style="font-size:15px;color:#6B7280;margin-bottom:28px;line-height:1.6">This is a 5-question snapshot. The full diagnostic scores all <strong>40 factors</strong> across Revenue, Operations, Team, and Finance — weighted by business impact — and generates a complete Diagnosis Report showing exactly where you're bleeding and what it's costing you.</p>
+        <p style="font-size:15px;color:#6B7280;margin-bottom:28px;line-height:1.6">This is a 10-question snapshot across all four pillars. The full diagnostic scores all <strong>40 factors</strong> — weighted by business impact — and shows you exactly where you're bleeding and what it's costing you in dollars.</p>
         <a href="opfix_diagnostic.html" class="btn-primary" style="display:inline-block;text-decoration:none">Start Your Full 40-Factor Diagnostic →</a>
       </div>
     </div>
@@ -940,7 +1000,7 @@ function calcLeak(val) {
 }
 
 
-// Mini Diagnostic (5 questions)
+// Mini Diagnostic (10 questions)
 let diagAnswers = {};
 let currentStep = 1;
 function selectOpt(el, val) {
@@ -948,28 +1008,28 @@ function selectOpt(el, val) {
   el.classList.add('selected');
   diagAnswers[currentStep] = val;
   setTimeout(()=>{
-    if(currentStep < 5) {
+    if(currentStep < 10) {
       document.querySelector(`[data-step="${currentStep}"]`).style.display='none';
       currentStep++;
       document.querySelector(`[data-step="${currentStep}"]`).style.display='block';
-      document.getElementById('diagProgress').style.width = (currentStep-1)*25+'%';
+      document.getElementById('diagProgress').style.width = ((currentStep-1)/10*100)+'%';
     } else {
       document.getElementById('diagProgress').style.width='100%';
       document.getElementById('diagSteps').style.display='none';
       let total = Object.values(diagAnswers).reduce((a,b)=>a+b,0);
-      let maxScore = 15;
+      let maxScore = 30;
       let scoreEl = document.getElementById('diagScore');
       scoreEl.textContent = total + ' / ' + maxScore;
-      
+
       let sevLabel, sevColor, sevDesc;
-      if (total <= 3) { sevLabel='HEALTHY'; sevColor='#22C55E'; sevDesc='Low severity. Minor tune-ups at most.'; }
-      else if (total <= 7) { sevLabel='MODERATE BLEED'; sevColor='#F59E0B'; sevDesc='Meaningful drag. Several areas need attention.'; }
-      else if (total <= 11) { sevLabel='SEVERE BLEED'; sevColor='#E97820'; sevDesc='Significant problems across multiple pillars. Revenue loss is active.'; }
-      else { sevLabel='CRITICAL'; sevColor='#E94560'; sevDesc='Operations are in crisis. Every day costs real money.'; }
-      
+      if (total <= 7)       { sevLabel='HEALTHY';        sevColor='#22C55E'; sevDesc='Low severity. Minor tune-ups at most.'; }
+      else if (total <= 15) { sevLabel='MODERATE BLEED'; sevColor='#F59E0B'; sevDesc='Meaningful drag. Several areas need attention.'; }
+      else if (total <= 22) { sevLabel='SEVERE BLEED';   sevColor='#E97820'; sevDesc='Significant problems across multiple pillars. Revenue loss is active.'; }
+      else                  { sevLabel='CRITICAL';       sevColor='#E94560'; sevDesc='Operations are in crisis. Every day costs real money.'; }
+
       scoreEl.style.color = sevColor;
       document.getElementById('diagSeverityTag').innerHTML = '<span style="background:'+sevColor+'15;color:'+sevColor+';padding:6px 16px;border-radius:6px;font-weight:700;font-size:14px;letter-spacing:1px">'+sevLabel+'</span><div style="margin-top:8px;font-size:14px;color:var(--gray-400)">'+sevDesc+'</div>';
-      
+
       document.getElementById('diagResult').classList.add('show');
     }
   }, 400);

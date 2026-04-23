@@ -43,6 +43,27 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sg-text strong{font-weight:700}
 .scoring-note{font-size:13px;color:var(--gray-300);font-style:italic;margin-top:16px;text-align:center}
 
+/* Context Form */
+.context-card{background:var(--white);border:1px solid var(--gray-100);border-radius:12px;padding:36px;margin-bottom:28px}
+.context-header{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--gray-100)}
+.context-eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.context-title{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.context-sub{font-size:14px;color:var(--gray-400);line-height:1.5}
+.ctx-section-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);margin:20px 0 12px;padding-top:12px;border-top:1px dashed var(--gray-100)}
+.ctx-section-label:first-child{margin-top:0;padding-top:0;border-top:none}
+.ctx-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.ctx-field{margin-bottom:14px}
+.ctx-field label{display:block;font-size:12px;font-weight:700;color:var(--gray-500);margin-bottom:6px;letter-spacing:.02em}
+.ctx-field label .req{color:var(--accent)}
+.ctx-field .hint{font-size:12px;color:var(--gray-400);margin-top:5px;line-height:1.4}
+.ctx-input,.ctx-select,.ctx-textarea{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:inherit;font-size:14px;color:var(--navy);background:var(--white);transition:border-color .15s,box-shadow .15s;outline:none;-webkit-appearance:none;appearance:none}
+.ctx-textarea{min-height:80px;resize:vertical;line-height:1.5}
+.ctx-input:focus,.ctx-select:focus,.ctx-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+.ctx-input.error,.ctx-select.error,.ctx-textarea.error{border-color:var(--accent)}
+.ctx-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.ctx-error{background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;font-size:13px;font-weight:500;padding:12px 14px;border-radius:8px;margin-bottom:14px;display:none}
+.ctx-error.show{display:block}
+
 /* Diagnostic Engine */
 .diag-engine{max-width:860px;margin:0 auto}
 .diag-steps-bar{display:flex;gap:4px;margin-bottom:8px}
@@ -84,6 +105,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .diag-btn-next:hover{background:#a8182a}
 .diag-btn-next:disabled{opacity:.4;cursor:not-allowed}
 
+/* Disqualification card */
+.dq-card{max-width:640px;margin:0 auto;background:var(--white);border:1px solid var(--gray-100);border-radius:12px;padding:48px 40px;text-align:center}
+.dq-icon{width:64px;height:64px;border-radius:50%;background:var(--off-white);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px}
+.dq-eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.dq-title{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px;line-height:1.2}
+.dq-body{font-size:15px;color:var(--gray-500);line-height:1.6;max-width:520px;margin:0 auto 14px}
+.dq-body strong{color:var(--navy)}
+.dq-actions{margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
 /* Results */
 .diag-results{text-align:center}
 .diag-results h2{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:8px}
@@ -96,6 +126,31 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .diag-score-max{font-size:20px;color:var(--gray-300)}
 .diag-severity-pct{font-size:18px;color:var(--gray-400);margin-bottom:32px}
 .diag-severity-note{font-size:14px;color:var(--gray-300);margin-bottom:32px;font-style:italic}
+
+/* Estimated bleed block */
+.diag-bleed-block{background:var(--white);border:1px solid var(--gray-100);border-left:4px solid var(--accent);border-radius:10px;padding:24px 28px;margin:12px 0 32px;text-align:left}
+.diag-bleed-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px}
+.diag-bleed-amount{font-size:clamp(28px,4vw,36px);font-weight:800;color:var(--accent);letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
+.diag-bleed-range{font-size:13px;color:var(--gray-500);line-height:1.5}
+.diag-bleed-range strong{color:var(--navy);font-weight:700}
+.diag-bleed-caveat{font-size:12px;color:var(--gray-400);margin-top:10px;font-style:italic}
+
+/* Worst pillar callout */
+.diag-worst-pillar{background:#FEE2E2;border:1px solid #FECACA;border-radius:10px;padding:16px 20px;margin:20px 0 32px;text-align:left;display:flex;align-items:center;gap:14px}
+.diag-worst-pillar-icon{font-size:24px;flex-shrink:0}
+.diag-worst-pillar-text{font-size:14px;color:#7F1D1D;line-height:1.5}
+.diag-worst-pillar-text strong{font-weight:800;color:#B91C1C}
+
+/* X-Ray teaser above the CTA */
+.diag-xray-teaser{background:var(--off-white);border:1px solid var(--gray-100);border-radius:10px;padding:20px 24px;margin:24px 0 0;text-align:left}
+.diag-xray-teaser-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.diag-xray-teaser-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.diag-xray-teaser-body{font-size:13px;color:var(--gray-500);line-height:1.6}
+.diag-xray-teaser-body strong{color:var(--navy);font-weight:700}
+
+/* Pillar impact dollars — inside pillar card */
+.dpr-impact{font-size:13px;color:var(--accent);font-weight:700;margin-top:6px}
+.dpr-impact-label{font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
 
 .diag-pillar-results{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0;text-align:left}
 .diag-pillar-result{background:var(--white);border:1px solid var(--gray-100);border-radius:10px;padding:20px;position:relative;overflow:hidden}
@@ -123,34 +178,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 @media(max-width:600px){
   .nav{padding:0 16px}
   .page{padding:80px 16px 60px}
+  .context-card{padding:24px 20px}
+  .ctx-row{grid-template-columns:1fr}
   .diag-factor-row{grid-template-columns:1fr;gap:12px}
   .diag-scores{justify-content:flex-start}
   .diag-pillar-results{grid-template-columns:1fr}
   .diag-cta-result{padding:24px}
-}
-
-/* Contact Gate */
-.gate-overlay{position:fixed;inset:0;z-index:300;background:rgba(6,15,31,.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
-.gate-card{background:var(--white);border-radius:16px;padding:48px 40px;max-width:540px;width:100%;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.4)}
-.gate-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-.gate-eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.6s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-.gate-title{font-size:clamp(22px,4vw,30px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:10px}
-.gate-sub{font-size:14px;color:var(--gray-400);line-height:1.6;margin-bottom:28px}
-.gate-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.gate-field{margin-bottom:14px}
-.gate-field label{display:block;font-size:12px;font-weight:700;color:var(--gray-500);margin-bottom:6px;letter-spacing:.02em}
-.gate-input,.gate-select{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:inherit;font-size:14px;color:var(--navy);background:var(--white);transition:border-color .15s,box-shadow .15s;outline:none;-webkit-appearance:none;appearance:none}
-.gate-input:focus,.gate-select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
-.gate-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
-.gate-error{background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;font-size:13px;font-weight:500;padding:12px 14px;border-radius:8px;margin-bottom:14px}
-.gate-submit{width:100%;padding:16px;background:var(--accent);color:var(--white);border:none;border-radius:8px;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s,opacity .2s;margin-top:4px}
-.gate-submit:hover:not(:disabled){background:#a8182a}
-.gate-submit:disabled{opacity:.6;cursor:not-allowed}
-.gate-privacy{font-size:12px;color:var(--gray-300);text-align:center;margin-top:14px;line-height:1.5}
-@media(max-width:520px){
-  .gate-card{padding:32px 20px}
-  .gate-form-row{grid-template-columns:1fr}
+  .dq-card{padding:32px 20px}
 }
 
 /* Booking Modal */
@@ -166,6 +200,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .booking-modal{max-height:95vh}
   .booking-modal-body iframe{min-height:500px}
 }
+
+/* Submitting overlay */
+.submit-overlay{position:fixed;inset:0;z-index:350;background:rgba(248,249,250,.92);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+.spinner{width:48px;height:48px;border:4px solid var(--gray-100);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+.submit-text{font-size:15px;color:var(--gray-500);font-weight:500}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -179,16 +219,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="page-header">
     <div class="page-tag">Full 40-Factor Diagnostic</div>
     <h1 class="page-title">Score your operational bleed<br>across all four pillars.</h1>
-    <p class="page-sub">40 factors. 4 pillars. 5 minutes. Score each factor 0–3 based on severity. <strong>Higher score = worse problem.</strong> Your results are unlocked at the end.</p>
-  </div>
-
-  <div class="scoring-guide">
-    <h3>Scoring Guide — higher = more damage</h3>
-    <div class="sg-row"><div class="sg-badge sg-0">0</div><div class="sg-text"><strong>No Issue</strong> — This area is healthy. No action needed.</div></div>
-    <div class="sg-row"><div class="sg-badge sg-1">1</div><div class="sg-text"><strong>Minor</strong> — Small gaps. Optimize when you get to it.</div></div>
-    <div class="sg-row"><div class="sg-badge sg-2">2</div><div class="sg-text"><strong>Moderate</strong> — Real problems. Costing you money or time right now.</div></div>
-    <div class="sg-row"><div class="sg-badge sg-3">3</div><div class="sg-text"><strong>Severe</strong> — Critical failure. Actively bleeding revenue or blocking growth.</div></div>
-    <p class="scoring-note">Be honest. The diagnostic only works if you are. Higher scores mean more damage.</p>
+    <p class="page-sub">40 factors. 4 pillars. 7 minutes. Score each factor 0–3 based on severity. <strong>Higher score = worse problem.</strong> Your results are unlocked at the end.</p>
   </div>
 
   <div id="diagnostic-app"></div>
@@ -198,15 +229,32 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 (function() {
 
 // ─── GHL INTEGRATION ──────────────────────────────────────────────────────────
-// Credentials live in Vercel environment variables — see /api/submit-diagnostic.js
+// Payload posts to /api/submit-diagnostic (Vercel serverless).
+// Endpoint must be updated in same deploy to accept v2 schema.
+// v2 uses opfix_v2_ prefixed custom fields to avoid collision with live v1 data.
 
-// GHL custom field keys (from your location's merge tags)
 var CF = {
+  // Business context
   businessName:          'business_name',
   businessType:          'business_type',
+  yearsOperating:        'years_operating',
+  annualRevenueRange:    'annual_revenue_range',
+  annualRevenueMidpoint: 'annual_revenue_midpoint',
+  revenueMidpoint:       'revenue_midpoint',          // legacy duplicate of annual_revenue_midpoint — populate both
+  employeeCount:         'employee_count',
+  role:                  'role',
+  primaryService:        'primary_service',
+  targetMarket:          'target_market',
+  techStack:             'current_tech_stack',
+  clientGoal:            'client_goal',
+  // Scoring (240 max)
   diagnosticScore:       'diagnostic_score',
   diagnosticSeverityPct: 'diagnostic_severity_percent',
   diagnosticTier:        'severity_tier',
+  engagementPrice:       'engagement_price',
+  estimatedOpportunity:  'estimated_opportunity',
+  estAnnualOpportunity:  'est_annual_opportunity',    // legacy duplicate of estimated_opportunity — populate both
+  // Pillar scores
   opsScore:              'operations__systems_score',
   revScore:              'revenue__sales_score',
   finScore:              'financial_structure_score',
@@ -215,58 +263,66 @@ var CF = {
   revPct:                'revenue__sales_',
   finPct:                'financial_structure_',
   teamPct:               'team__leadership_',
-  topIssue1:             'top_issue_1',
-  topIssue2:             'top_issue_2',
-  topIssue3:             'top_issue_3',
-  topIssue4:             'top_issue_4',
-  topIssue5:             'top_issue_5',
-  topIssue6:             'top_issue_6',
-  topIssue7:             'top_issue_7',
-  topIssue8:             'top_issue_8',
+  opsImpact:             'pillar_opportunity__ops',
+  revImpact:             'pillar_opportunity__revenue',
+  finImpact:             'pillar_opportunity__financial',
+  teamImpact:            'pillar_opportunity__team',
+  // Top issues
+  topIssue1:'top_issue_1',topIssue2:'top_issue_2',topIssue3:'top_issue_3',topIssue4:'top_issue_4',
+  topIssue5:'top_issue_5',topIssue6:'top_issue_6',topIssue7:'top_issue_7',topIssue8:'top_issue_8',
+  // Version flag
+  schemaVersion:         'diagnostic_schema_version',
+  // Disqualification
+  dqReason:              'dq_reason'
 };
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ═══════════════════════════════════════════════════════════════════════════
+// 40 FACTORS — v2 weights produce max weighted score of 240
+// Weight cuts approved: F2, F6, F9, F13, F18, F20, F23, F30, F36, F40 (2→1)
+// Pillar maxes: ops=63, rev=60, fin=60, team=57. Total = 240.
+// ═══════════════════════════════════════════════════════════════════════════
 const factors = [
-  {id:1,name:"SOP Documentation",wt:3,pillar:0},
-  {id:2,name:"Tech Stack Integration",wt:2,pillar:0},
-  {id:3,name:"Workflow Consistency",wt:3,pillar:0},
-  {id:4,name:"Reporting & KPI Tracking",wt:2,pillar:0},
-  {id:5,name:"Bottleneck & Dependency",wt:3,pillar:0},
-  {id:6,name:"Quality Control Systems",wt:2,pillar:0},
-  {id:7,name:"Client Delivery Process",wt:3,pillar:0},
-  {id:8,name:"Internal Communication",wt:1,pillar:0},
-  {id:9,name:"Project Management",wt:2,pillar:0},
-  {id:10,name:"Business Continuity",wt:3,pillar:0},
-  {id:11,name:"Lead Generation System",wt:3,pillar:1},
-  {id:12,name:"Sales Process Documentation",wt:3,pillar:1},
-  {id:13,name:"Conversion Tracking",wt:2,pillar:1},
-  {id:14,name:"Follow-Up & Nurture",wt:2,pillar:1},
-  {id:15,name:"Offer Clarity & Differentiation",wt:3,pillar:1},
-  {id:16,name:"Pricing Strategy",wt:3,pillar:1},
-  {id:17,name:"Revenue Concentration",wt:2,pillar:1},
-  {id:18,name:"Client Retention & Churn",wt:2,pillar:1},
-  {id:19,name:"Upsell / Cross-Sell",wt:1,pillar:1},
-  {id:20,name:"Marketing ROI Tracking",wt:2,pillar:1},
-  {id:21,name:"Profit Margin Visibility",wt:3,pillar:2},
-  {id:22,name:"Cash Flow Predictability",wt:3,pillar:2},
-  {id:23,name:"Expense Discipline",wt:2,pillar:2},
-  {id:24,name:"Debt Structure",wt:2,pillar:2},
-  {id:25,name:"Financial Forecasting",wt:2,pillar:2},
-  {id:26,name:"Pricing Model Effectiveness",wt:3,pillar:2},
-  {id:27,name:"Revenue Model Sustainability",wt:2,pillar:2},
-  {id:28,name:"Funding Readiness",wt:1,pillar:2},
-  {id:29,name:"Invoicing & Collections",wt:2,pillar:2},
-  {id:30,name:"Financial Reporting Cadence",wt:2,pillar:2},
-  {id:31,name:"Org Chart & Role Clarity",wt:3,pillar:3},
-  {id:32,name:"Talent Quality in Key Seats",wt:3,pillar:3},
-  {id:33,name:"Performance Metrics Per Role",wt:2,pillar:3},
-  {id:34,name:"Delegation Maturity",wt:3,pillar:3},
-  {id:35,name:"Hiring Pipeline & Process",wt:2,pillar:3},
-  {id:36,name:"Onboarding & Training",wt:2,pillar:3},
-  {id:37,name:"Accountability Framework",wt:2,pillar:3},
-  {id:38,name:"Culture & Retention",wt:1,pillar:3},
-  {id:39,name:"Leadership Development",wt:1,pillar:3},
-  {id:40,name:"Succession Planning",wt:2,pillar:3}
+  {id:1, name:"SOP Documentation",              wt:3, pillar:0},
+  {id:2, name:"Tech Stack Integration",         wt:1, pillar:0},  // v2: 2→1
+  {id:3, name:"Workflow Consistency",           wt:3, pillar:0},
+  {id:4, name:"Reporting & KPI Tracking",       wt:2, pillar:0},
+  {id:5, name:"Bottleneck & Dependency",        wt:3, pillar:0},
+  {id:6, name:"Quality Control Systems",        wt:1, pillar:0},  // v2: 2→1
+  {id:7, name:"Client Delivery Process",        wt:3, pillar:0},
+  {id:8, name:"Internal Communication",         wt:1, pillar:0},
+  {id:9, name:"Project Management",             wt:1, pillar:0},  // v2: 2→1
+  {id:10,name:"Business Continuity",            wt:3, pillar:0},
+  {id:11,name:"Lead Generation System",         wt:3, pillar:1},
+  {id:12,name:"Sales Process Documentation",    wt:3, pillar:1},
+  {id:13,name:"Conversion Tracking",            wt:1, pillar:1},  // v2: 2→1
+  {id:14,name:"Follow-Up & Nurture",            wt:2, pillar:1},
+  {id:15,name:"Offer Clarity & Differentiation",wt:3, pillar:1},
+  {id:16,name:"Pricing Strategy",               wt:3, pillar:1},
+  {id:17,name:"Revenue Concentration",          wt:2, pillar:1},
+  {id:18,name:"Client Retention & Churn",       wt:1, pillar:1},  // v2: 2→1
+  {id:19,name:"Upsell / Cross-Sell",            wt:1, pillar:1},
+  {id:20,name:"Marketing ROI Tracking",         wt:1, pillar:1},  // v2: 2→1
+  {id:21,name:"Profit Margin Visibility",       wt:3, pillar:2},
+  {id:22,name:"Cash Flow Predictability",       wt:3, pillar:2},
+  {id:23,name:"Expense Discipline",             wt:1, pillar:2},  // v2: 2→1
+  {id:24,name:"Debt Structure",                 wt:2, pillar:2},
+  {id:25,name:"Financial Forecasting",          wt:2, pillar:2},
+  {id:26,name:"Pricing Model Effectiveness",    wt:3, pillar:2},
+  {id:27,name:"Revenue Model Sustainability",   wt:2, pillar:2},
+  {id:28,name:"Funding Readiness",              wt:1, pillar:2},
+  {id:29,name:"Invoicing & Collections",        wt:2, pillar:2},
+  {id:30,name:"Financial Reporting Cadence",    wt:1, pillar:2},  // v2: 2→1
+  {id:31,name:"Org Chart & Role Clarity",       wt:3, pillar:3},
+  {id:32,name:"Talent Quality in Key Seats",    wt:3, pillar:3},
+  {id:33,name:"Performance Metrics Per Role",   wt:2, pillar:3},
+  {id:34,name:"Delegation Maturity",            wt:3, pillar:3},
+  {id:35,name:"Hiring Pipeline & Process",      wt:2, pillar:3},
+  {id:36,name:"Onboarding & Training",          wt:1, pillar:3},  // v2: 2→1
+  {id:37,name:"Accountability Framework",       wt:2, pillar:3},
+  {id:38,name:"Culture & Retention",            wt:1, pillar:3},
+  {id:39,name:"Leadership Development",         wt:1, pillar:3},
+  {id:40,name:"Succession Planning",            wt:1, pillar:3}   // v2: 2→1
 ];
 
 const pillarNames = ["Operations & Systems","Revenue & Sales","Financial Structure","Team & Leadership"];
@@ -276,13 +332,323 @@ const pillarColors = ["#3B82F6","#22C55E","#F59E0B","#8B5CF6"];
 const scoreLabels = ["None","Minor","Mod","Severe"];
 const selClasses = ["sel-0","sel-1","sel-2","sel-3"];
 
+// Dollar impact rate per severity score. Scales with factor weight.
+// Used to estimate annual opportunity (total bleed).
+const IMPACT_RATE = {0: 0, 1: 0.005, 2: 0.015, 3: 0.03};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════
+var stage = 'context';  // 'context' | 'dq' | 'diagnostic' | 'results'
+var context = {};
 var scores = new Array(40).fill(-1);
 var currentPillar = 0;
-var maxScore = 270;
-var gateContact = null; // populated after gate submission, used to pre-fill booking widget
+var maxScore = 240;
+var gateContact = null;
 
 var app = document.getElementById('diagnostic-app');
 
+// ═══════════════════════════════════════════════════════════════════════════
+// STAGE 1: CONTEXT FORM
+// ═══════════════════════════════════════════════════════════════════════════
+function renderContext() {
+  stage = 'context';
+  var html = [
+    '<div class="context-card">',
+    '  <div class="context-header">',
+    '    <div class="context-eyebrow">Step 1 of 2 · Business Context</div>',
+    '    <h2 class="context-title">Tell us about your business.</h2>',
+    '    <p class="context-sub">Your score only means something in context. Revenue, team size, and industry determine what the number actually costs you. Takes 90 seconds.</p>',
+    '  </div>',
+    '  <div id="context-error" class="ctx-error"></div>',
+
+    '  <div class="ctx-section-label">About You</div>',
+    '  <div class="ctx-row">',
+    '    <div class="ctx-field"><label>First Name <span class="req">*</span></label><input class="ctx-input" id="ctx-first" type="text" autocomplete="given-name"></div>',
+    '    <div class="ctx-field"><label>Last Name <span class="req">*</span></label><input class="ctx-input" id="ctx-last" type="text" autocomplete="family-name"></div>',
+    '  </div>',
+    '  <div class="ctx-row">',
+    '    <div class="ctx-field"><label>Email <span class="req">*</span></label><input class="ctx-input" id="ctx-email" type="email" autocomplete="email"></div>',
+    '    <div class="ctx-field"><label>Phone <span class="req">*</span></label><input class="ctx-input" id="ctx-phone" type="tel" autocomplete="tel"></div>',
+    '  </div>',
+    '  <div class="ctx-field"><label>Your Role in the Business <span class="req">*</span></label>',
+    '    <select class="ctx-select" id="ctx-role">',
+    '      <option value="">Select one...</option>',
+    '      <option value="founder_ceo">Founder / CEO / Owner</option>',
+    '      <option value="co_founder">Co-Founder / Partner</option>',
+    '      <option value="president_coo">President / COO</option>',
+    '      <option value="operator">Operator / General Manager</option>',
+    '      <option value="employee">Employee</option>',
+    '      <option value="advisor_consultant">Advisor / Consultant</option>',
+    '      <option value="other">Other</option>',
+    '    </select>',
+    '    <div class="hint">We only work directly with owners and decision-makers.</div>',
+    '  </div>',
+
+    '  <div class="ctx-section-label">About the Business</div>',
+    '  <div class="ctx-field"><label>Business Name <span class="req">*</span></label><input class="ctx-input" id="ctx-company" type="text"></div>',
+    '  <div class="ctx-row">',
+    '    <div class="ctx-field"><label>Industry <span class="req">*</span></label>',
+    '      <select class="ctx-select" id="ctx-biztype">',
+    '        <option value="">Select your industry...</option>',
+    '        <option>Retail</option>',
+    '        <option>Wholesale / Distribution</option>',
+    '        <option>Manufacturing</option>',
+    '        <option>Construction &amp; Trades</option>',
+    '        <option>Home Services (HVAC, plumbing, roofing, gutters)</option>',
+    '        <option>Food &amp; Beverage</option>',
+    '        <option>Healthcare &amp; Medical</option>',
+    '        <option>Professional Services (Legal, Accounting, Consulting)</option>',
+    '        <option>Financial Services</option>',
+    '        <option>Real Estate</option>',
+    '        <option>Technology / Software</option>',
+    '        <option>Marketing &amp; Advertising</option>',
+    '        <option>Logistics &amp; Transportation</option>',
+    '        <option>Education &amp; Training</option>',
+    '        <option>Hospitality &amp; Tourism</option>',
+    '        <option>Media &amp; Entertainment</option>',
+    '        <option>Other</option>',
+    '      </select>',
+    '    </div>',
+    '    <div class="ctx-field"><label>Years Operating <span class="req">*</span></label>',
+    '      <select class="ctx-select" id="ctx-years">',
+    '        <option value="">Select...</option>',
+    '        <option value="0-1">Under 1 year</option>',
+    '        <option value="1-3">1 - 3 years</option>',
+    '        <option value="3-7">3 - 7 years</option>',
+    '        <option value="7-15">7 - 15 years</option>',
+    '        <option value="15+">15+ years</option>',
+    '      </select>',
+    '    </div>',
+    '  </div>',
+
+    '  <div class="ctx-section-label">Size & Scope</div>',
+    '  <div class="ctx-row">',
+    '    <div class="ctx-field"><label>Annual Revenue <span class="req">*</span></label>',
+    '      <select class="ctx-select" id="ctx-revenue">',
+    '        <option value="">Select...</option>',
+    '        <option value="under_100k"  data-mid="50000">Under $100K</option>',
+    '        <option value="100k_500k"   data-mid="300000">$100K - $500K</option>',
+    '        <option value="500k_1m"     data-mid="750000">$500K - $1M</option>',
+    '        <option value="1m_2_5m"     data-mid="1750000">$1M - $2.5M</option>',
+    '        <option value="2_5m_5m"     data-mid="3750000">$2.5M - $5M</option>',
+    '        <option value="5m_10m"      data-mid="7500000">$5M - $10M</option>',
+    '        <option value="10m_25m"     data-mid="17500000">$10M - $25M</option>',
+    '        <option value="25m_plus"    data-mid="35000000">$25M+</option>',
+    '      </select>',
+    '    </div>',
+    '    <div class="ctx-field"><label>Employee Count <span class="req">*</span></label>',
+    '      <select class="ctx-select" id="ctx-employees">',
+    '        <option value="">Select...</option>',
+    '        <option value="1">Just me (1)</option>',
+    '        <option value="2-5">2 - 5</option>',
+    '        <option value="6-15">6 - 15</option>',
+    '        <option value="16-30">16 - 30</option>',
+    '        <option value="31-50">31 - 50</option>',
+    '        <option value="50+">50+</option>',
+    '      </select>',
+    '    </div>',
+    '  </div>',
+    '  <div class="ctx-field"><label>Primary Service or Product <span class="req">*</span></label><input class="ctx-input" id="ctx-service" type="text" placeholder="What do you actually sell? Be specific."></div>',
+    '  <div class="ctx-field"><label>Target Market</label><input class="ctx-input" id="ctx-market" type="text" placeholder="Who do you sell to? (e.g., homeowners in SC, B2B SaaS)"></div>',
+    '  <div class="ctx-field"><label>Current Tech Stack</label><input class="ctx-input" id="ctx-tech" type="text" placeholder="What tools do you use? (e.g., QuickBooks, Jobber, HubSpot)"></div>',
+
+    '  <div class="ctx-section-label">The Goal</div>',
+    '  <div class="ctx-field"><label>What\'s the #1 thing you want fixed? <span class="req">*</span></label><textarea class="ctx-textarea" id="ctx-goal" placeholder="In one or two sentences, what would you fix if you could fix one thing?"></textarea></div>',
+
+    '  <div class="diag-nav" style="margin-top:28px">',
+    '    <div></div>',
+    '    <button class="diag-btn diag-btn-next" onclick="submitContext()">Continue to Diagnostic →</button>',
+    '  </div>',
+    '</div>'
+  ].join('');
+  app.innerHTML = html;
+  app.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+window.submitContext = function() {
+  var errEl = document.getElementById('context-error');
+  errEl.classList.remove('show');
+
+  var ctx = {
+    first_name:      document.getElementById('ctx-first').value.trim(),
+    last_name:       document.getElementById('ctx-last').value.trim(),
+    email:           document.getElementById('ctx-email').value.trim(),
+    phone:           document.getElementById('ctx-phone').value.trim(),
+    role:            document.getElementById('ctx-role').value,
+    business_name:   document.getElementById('ctx-company').value.trim(),
+    business_type:   document.getElementById('ctx-biztype').value,
+    years_operating: document.getElementById('ctx-years').value,
+    annual_revenue:  document.getElementById('ctx-revenue').value,
+    employee_count:  document.getElementById('ctx-employees').value,
+    primary_service: document.getElementById('ctx-service').value.trim(),
+    target_market:   document.getElementById('ctx-market').value.trim(),
+    tech_stack:      document.getElementById('ctx-tech').value.trim(),
+    client_goal:     document.getElementById('ctx-goal').value.trim()
+  };
+
+  // Required fields
+  var requiredMap = {
+    first_name:'First Name', last_name:'Last Name', email:'Email', phone:'Phone',
+    role:'Role', business_name:'Business Name', business_type:'Industry',
+    years_operating:'Years Operating', annual_revenue:'Annual Revenue',
+    employee_count:'Employee Count', primary_service:'Primary Service', client_goal:'The Goal'
+  };
+  var missing = [];
+  Object.keys(requiredMap).forEach(function(k) {
+    if (!ctx[k]) missing.push(requiredMap[k]);
+  });
+  if (missing.length) {
+    errEl.textContent = 'Please complete required fields: ' + missing.join(', ');
+    errEl.classList.add('show');
+    return;
+  }
+
+  // Email format
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ctx.email)) {
+    errEl.textContent = 'Please enter a valid email address.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  // Capture revenue midpoint
+  var revSel = document.getElementById('ctx-revenue');
+  var revOpt = revSel.options[revSel.selectedIndex];
+  ctx.annual_revenue_used = parseInt(revOpt.getAttribute('data-mid')) || 0;
+
+  context = ctx;
+
+  // ─── DISQUALIFICATION ROUTING ───
+  if (['employee','advisor_consultant','other'].indexOf(ctx.role) !== -1) {
+    logDisqualification('not_owner');
+    renderDQ('not_owner');
+    return;
+  }
+  if (ctx.annual_revenue === 'under_100k') {
+    logDisqualification('under_100k');
+    renderDQ('under_100k');
+    return;
+  }
+  if (ctx.annual_revenue === '25m_plus') {
+    logDisqualification('enterprise');
+    renderDQ('enterprise');
+    return;
+  }
+
+  // Qualified → proceed to diagnostic
+  render();
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DISQUALIFICATION SCREENS
+// ═══════════════════════════════════════════════════════════════════════════
+function renderDQ(reason) {
+  stage = 'dq';
+  var content;
+  if (reason === 'not_owner') {
+    content = {
+      icon: '🔒',
+      eyebrow: 'This Diagnostic Is Owner-Only',
+      title: 'The diagnostic needs to come from the decision-maker.',
+      body: [
+        'The Four Pillars framework scores 40 things you control. If you can\'t authorize changes to operations, pricing, staffing, and systems, the score doesn\'t reflect what can actually be fixed.',
+        '<strong>If you think the owner should see this:</strong> forward them opfix.io. The diagnostic takes 10 minutes. If they want to talk after that, we\'ll talk.'
+      ],
+      actions: '<button class="diag-btn diag-btn-back" onclick="resetAll()">← Start Over</button>'
+    };
+  } else if (reason === 'under_100k') {
+    content = {
+      icon: '🔧',
+      eyebrow: 'You\'re Earlier Than Our Sweet Spot',
+      title: 'Under $100K, the problem isn\'t operations. It\'s offer and volume.',
+      body: [
+        'OpFix installs operational infrastructure for businesses doing $500K+ in revenue. At your stage, fixing ops is like tuning a Ferrari when you need a driver\'s license. We\'d waste your money.',
+        '<strong>What actually moves the needle at your stage:</strong> sharpen your offer, build one working lead-gen channel, and close more deals. Once you\'re above $500K and the wheels start wobbling, come back.'
+      ],
+      actions: '<a href="index.html" class="diag-btn diag-btn-back">← Back to Home</a>'
+    };
+  } else {
+    content = {
+      icon: '🏢',
+      eyebrow: 'Bigger Than Our Standard Engagement',
+      title: 'At your size, the diagnostic is the starting point, not the deliverable.',
+      body: [
+        'Our core engagement model runs for founder-led businesses in the $500K - $10M range. At $25M+, we custom-scope engagements and the standard pricing formula doesn\'t apply.',
+        'Submit your info and we\'ll set up a scoping conversation within 1 business day.'
+      ],
+      actions: '<button class="diag-btn diag-btn-next" onclick="submitEnterprise()">Request a Scoping Call →</button>'
+    };
+  }
+
+  var bodyHtml = content.body.map(function(p) { return '<p class="dq-body">' + p + '</p>'; }).join('');
+  app.innerHTML = [
+    '<div class="dq-card">',
+    '  <div class="dq-icon">' + content.icon + '</div>',
+    '  <div class="dq-eyebrow">' + content.eyebrow + '</div>',
+    '  <h2 class="dq-title">' + content.title + '</h2>',
+    bodyHtml,
+    '  <div class="dq-actions">' + content.actions + '</div>',
+    '</div>'
+  ].join('');
+  app.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+window.resetAll = function() {
+  context = {};
+  scores = new Array(40).fill(-1);
+  currentPillar = 0;
+  renderContext();
+};
+
+window.submitEnterprise = function() {
+  // Enterprise lead already logged via logDisqualification.
+  // Show simple confirmation.
+  app.innerHTML = [
+    '<div class="dq-card">',
+    '  <div class="dq-icon">✓</div>',
+    '  <div class="dq-eyebrow">Request Received</div>',
+    '  <h2 class="dq-title">We\'ll be in touch within 1 business day.</h2>',
+    '  <p class="dq-body">A member of the team will reach out at <strong>' + context.email + '</strong> to schedule a scoping conversation.</p>',
+    '  <div class="dq-actions"><a href="index.html" class="diag-btn diag-btn-back">← Back to Home</a></div>',
+    '</div>'
+  ].join('');
+  app.scrollIntoView({behavior:'smooth', block:'start'});
+};
+
+function logDisqualification(reason) {
+  var payload = {
+    submissionType: 'disqualified',
+    dqReason: reason,
+    firstName:   context.first_name,
+    lastName:    context.last_name,
+    email:       context.email,
+    phone:       context.phone,
+    companyName: context.business_name,
+    customFields: [
+      {key: CF.businessName,       value: context.business_name},
+      {key: CF.businessType,       value: context.business_type},
+      {key: CF.yearsOperating,     value: context.years_operating},
+      {key: CF.annualRevenueRange, value: context.annual_revenue},
+      {key: CF.employeeCount,      value: context.employee_count},
+      {key: CF.role,               value: context.role},
+      {key: CF.primaryService,     value: context.primary_service},
+      {key: CF.targetMarket,       value: context.target_market},
+      {key: CF.techStack,          value: context.tech_stack},
+      {key: CF.clientGoal,         value: context.client_goal},
+      {key: CF.dqReason,           value: reason},
+      {key: CF.schemaVersion,      value: 'v2'}
+    ]
+  };
+  fetch('/api/submit-diagnostic', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).catch(function(err) { console.warn('DQ log failed:', err); });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STAGE 2: DIAGNOSTIC SCORING
+// ═══════════════════════════════════════════════════════════════════════════
 function getFactorsForPillar(p) {
   return factors.filter(function(f) { return f.pillar === p; });
 }
@@ -302,12 +668,25 @@ function pillarSubtotal(p) {
 }
 
 function render() {
+  stage = 'diagnostic';
   if (currentPillar >= 4) { renderResults(); return; }
 
   var pf = getFactorsForPillar(currentPillar);
   var sub = pillarSubtotal(currentPillar);
 
   var html = '<div class="diag-engine">';
+
+  // Scoring guide (shown once at top of diagnostic)
+  if (currentPillar === 0) {
+    html += '<div class="scoring-guide">';
+    html += '<h3>Scoring Guide — higher = more damage</h3>';
+    html += '<div class="sg-row"><div class="sg-badge sg-0">0</div><div class="sg-text"><strong>No Issue</strong> — This area is healthy. No action needed.</div></div>';
+    html += '<div class="sg-row"><div class="sg-badge sg-1">1</div><div class="sg-text"><strong>Minor</strong> — Small gaps. Optimize when you get to it.</div></div>';
+    html += '<div class="sg-row"><div class="sg-badge sg-2">2</div><div class="sg-text"><strong>Moderate</strong> — Real problems. Costing you money or time right now.</div></div>';
+    html += '<div class="sg-row"><div class="sg-badge sg-3">3</div><div class="sg-text"><strong>Severe</strong> — Critical failure. Actively bleeding revenue or blocking growth.</div></div>';
+    html += '<p class="scoring-note">Be honest. The diagnostic only works if you are. Higher scores mean more damage.</p>';
+    html += '</div>';
+  }
 
   // Step labels
   html += '<div class="diag-step-labels">';
@@ -355,10 +734,14 @@ function render() {
 
   // Nav
   html += '<div class="diag-nav">';
-  html += '<button class="diag-btn diag-btn-back" onclick="diagPrev()"' + (currentPillar === 0 ? ' disabled style="opacity:0.3"' : '') + '>\u2190 Back</button>';
+  if (currentPillar === 0) {
+    html += '<button class="diag-btn diag-btn-back" onclick="backToContext()">← Edit Info</button>';
+  } else {
+    html += '<button class="diag-btn diag-btn-back" onclick="diagPrev()">← Back</button>';
+  }
   html += '<span style="font-size:13px;color:var(--gray-300)">Pillar ' + (currentPillar + 1) + ' of 4</span>';
   var canNext = pillarComplete(currentPillar);
-  var nextLabel = currentPillar === 3 ? 'See Results \u2192' : 'Next Pillar \u2192';
+  var nextLabel = currentPillar === 3 ? 'See Results →' : 'Next Pillar →';
   html += '<button class="diag-btn diag-btn-next" onclick="diagNextPillar()"' + (canNext ? '' : ' disabled') + '>' + nextLabel + '</button>';
   html += '</div></div>';
 
@@ -367,11 +750,12 @@ function render() {
 
 window.diagSet = function(idx, s) { scores[idx] = s; render(); };
 window.diagPrev = function() { if (currentPillar > 0) { currentPillar--; render(); app.scrollIntoView({behavior:'smooth',block:'start'}); } };
+window.backToContext = function() { renderContext(); };
 window.diagNextPillar = function() {
   if (pillarComplete(currentPillar)) {
     currentPillar++;
     if (currentPillar >= 4) {
-      showContactGate();
+      submitDiagnostic();
     } else {
       render();
       app.scrollIntoView({behavior:'smooth', block:'start'});
@@ -379,157 +763,146 @@ window.diagNextPillar = function() {
   }
 };
 
+// ═══════════════════════════════════════════════════════════════════════════
+// SCORING CALCULATION (240 max)
+// ═══════════════════════════════════════════════════════════════════════════
 function calcDiagnosticData() {
   var total = 0;
   var pillarScores = [0,0,0,0];
   var pillarMax = [0,0,0,0];
+  var pillarImpacts = [0,0,0,0];
+  var totalImpact = 0;
+  var revenue = context.annual_revenue_used || 0;
+
   factors.forEach(function(f, i) {
-    var weighted = scores[i] * f.wt;
+    var score = scores[i] >= 0 ? scores[i] : 0;
+    var weighted = score * f.wt;
+    var impact = revenue * IMPACT_RATE[score] * (f.wt / 3);
+
     total += weighted;
     pillarScores[f.pillar] += weighted;
     pillarMax[f.pillar] += 3 * f.wt;
+    pillarImpacts[f.pillar] += impact;
+    totalImpact += impact;
   });
+
   var sevPct = Math.round((total / maxScore) * 100);
-  var tier;
-  if (sevPct <= 15) tier = 'HEALTHY';
-  else if (sevPct <= 35) tier = 'MODERATE BLEED';
-  else if (sevPct <= 60) tier = 'SEVERE BLEED';
-  else tier = 'CRITICAL';
+  var tier, tierClass;
+  if (sevPct <= 15)      { tier = "Healthy";         tierClass = "tier-healthy"; }
+  else if (sevPct <= 35) { tier = "Moderate Bleed";  tierClass = "tier-moderate"; }
+  else if (sevPct <= 60) { tier = "Severe Bleed";    tierClass = "tier-severe"; }
+  else                   { tier = "Critical";        tierClass = "tier-critical"; }
+
+  // Engagement price: $15k base + (total_score × $300)
+  // At 240 max: $15,000 + (240 × $300) = $87,000
+  var engagementPrice = 15000 + (total * 300);
+
+  // Top issues by weighted impact
   var issues = [];
   factors.forEach(function(f, i) {
-    if (scores[i] > 0) issues.push({name: f.name, weighted: scores[i] * f.wt});
+    if (scores[i] > 0) {
+      issues.push({name: f.name, score: scores[i], weighted: scores[i] * f.wt, pillar: f.pillar});
+    }
   });
   issues.sort(function(a, b) { return b.weighted - a.weighted; });
-  var topIssues = issues.slice(0, 8).map(function(iss) { return iss.name; });
+
   return {
-    total: total, maxScore: maxScore, sevPct: sevPct, tier: tier,
+    total: total, maxScore: maxScore, sevPct: sevPct, tier: tier, tierClass: tierClass,
+    engagementPrice: engagementPrice,
+    estimatedOpportunity: Math.round(totalImpact),
     pillarScores: pillarScores, pillarMax: pillarMax,
+    pillarImpacts: pillarImpacts.map(Math.round),
     opsPct:  pillarMax[0] > 0 ? Math.round((pillarScores[0] / pillarMax[0]) * 100) : 0,
     revPct:  pillarMax[1] > 0 ? Math.round((pillarScores[1] / pillarMax[1]) * 100) : 0,
     finPct:  pillarMax[2] > 0 ? Math.round((pillarScores[2] / pillarMax[2]) * 100) : 0,
     teamPct: pillarMax[3] > 0 ? Math.round((pillarScores[3] / pillarMax[3]) * 100) : 0,
-    topIssues: topIssues
+    issues: issues,
+    topIssueNames: issues.slice(0, 8).map(function(iss) { return iss.name; })
   };
 }
 
-function showContactGate() {
+// ═══════════════════════════════════════════════════════════════════════════
+// SUBMIT TO /api/submit-diagnostic
+// ═══════════════════════════════════════════════════════════════════════════
+function submitDiagnostic() {
+  // Show submitting overlay
   var overlay = document.createElement('div');
-  overlay.className = 'gate-overlay';
-  overlay.id = 'contact-gate';
-  overlay.innerHTML = [
-    '<div class="gate-card">',
-    '  <div class="gate-eyebrow"><span class="gate-eyebrow-dot"></span>Your results are ready</div>',
-    '  <h2 class="gate-title">Get Your Diagnostic Score</h2>',
-    '  <p class="gate-sub">Enter your info below to unlock your full 40-factor breakdown and operational bleed report. Takes 30 seconds.</p>',
-    '  <form id="gate-form">',
-    '    <div class="gate-form-row">',
-    '      <div class="gate-field"><label>First Name</label><input class="gate-input" id="gate-first" type="text" placeholder="John" required></div>',
-    '      <div class="gate-field"><label>Last Name</label><input class="gate-input" id="gate-last" type="text" placeholder="Doe" required></div>',
-    '    </div>',
-    '    <div class="gate-field"><label>Business Name</label><input class="gate-input" id="gate-company" type="text" placeholder="Acme Corp" required></div>',
-    '    <div class="gate-field"><label>Business Type</label>',
-    '      <select class="gate-select" id="gate-biztype" required>',
-    '        <option value="">Select your industry...</option>',
-    '        <option>Retail</option>',
-    '        <option>Wholesale / Distribution</option>',
-    '        <option>Manufacturing</option>',
-    '        <option>Construction &amp; Trades</option>',
-    '        <option>Food &amp; Beverage</option>',
-    '        <option>Healthcare &amp; Medical</option>',
-    '        <option>Professional Services (Legal, Accounting, Consulting)</option>',
-    '        <option>Financial Services</option>',
-    '        <option>Real Estate</option>',
-    '        <option>Technology / Software</option>',
-    '        <option>Marketing &amp; Advertising</option>',
-    '        <option>Logistics &amp; Transportation</option>',
-    '        <option>Education &amp; Training</option>',
-    '        <option>Hospitality &amp; Tourism</option>',
-    '        <option>Media &amp; Entertainment</option>',
-    '        <option>Government / Public Sector</option>',
-    '      </select>',
-    '    </div>',
-    '    <div class="gate-form-row">',
-    '      <div class="gate-field"><label>Phone</label><input class="gate-input" id="gate-phone" type="tel" placeholder="+1 (555) 000-0000" required></div>',
-    '      <div class="gate-field"><label>Email</label><input class="gate-input" id="gate-email" type="email" placeholder="john@acme.com" required></div>',
-    '    </div>',
-    '    <div id="gate-error" class="gate-error" style="display:none"></div>',
-    '    <button class="gate-submit" id="gate-submit" type="submit">Unlock My Results \u2192</button>',
-    '  </form>',
-    '  <p class="gate-privacy">No spam. No unsolicited sales calls. Your diagnostic data is processed locally in your browser.</p>',
-    '</div>'
-  ].join('');
+  overlay.className = 'submit-overlay';
+  overlay.id = 'submit-overlay';
+  overlay.innerHTML = '<div class="spinner"></div><div class="submit-text">Calculating your score...</div>';
   document.body.appendChild(overlay);
-  document.getElementById('gate-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    submitGate();
-  });
-  // Focus first field
-  setTimeout(function() { var el = document.getElementById('gate-first'); if (el) el.focus(); }, 100);
-}
-
-function submitGate() {
-  var firstName  = document.getElementById('gate-first').value.trim();
-  var lastName   = document.getElementById('gate-last').value.trim();
-  var company    = document.getElementById('gate-company').value.trim();
-  var bizType    = document.getElementById('gate-biztype').value;
-  var phone      = document.getElementById('gate-phone').value.trim();
-  var email      = document.getElementById('gate-email').value.trim();
-
-  var errEl  = document.getElementById('gate-error');
-  var btnEl  = document.getElementById('gate-submit');
-
-  errEl.style.display = 'none';
-
-  if (!firstName || !lastName || !company || !bizType || !phone || !email) {
-    errEl.textContent = 'Please fill in all fields before continuing.';
-    errEl.style.display = 'block';
-    return;
-  }
 
   var diag = calcDiagnosticData();
 
-  // Build custom fields array using GHL field keys
-  var customFields = [];
-  var cfMap = [
-    [CF.businessName,          company],
-    [CF.businessType,          bizType],
-    [CF.diagnosticScore,       String(diag.total)],
-    [CF.diagnosticSeverityPct, String(diag.sevPct)],
-    [CF.diagnosticTier,        diag.tier],
-    [CF.opsScore,              String(diag.pillarScores[0])],
-    [CF.revScore,              String(diag.pillarScores[1])],
-    [CF.finScore,              String(diag.pillarScores[2])],
-    [CF.teamScore,             String(diag.pillarScores[3])],
-    [CF.opsPct,                String(diag.opsPct)],
-    [CF.revPct,                String(diag.revPct)],
-    [CF.finPct,                String(diag.finPct)],
-    [CF.teamPct,               String(diag.teamPct)],
-    [CF.topIssue1,             diag.topIssues[0] || ''],
-    [CF.topIssue2,             diag.topIssues[1] || ''],
-    [CF.topIssue3,             diag.topIssues[2] || ''],
-    [CF.topIssue4,             diag.topIssues[3] || ''],
-    [CF.topIssue5,             diag.topIssues[4] || ''],
-    [CF.topIssue6,             diag.topIssues[5] || ''],
-    [CF.topIssue7,             diag.topIssues[6] || ''],
-    [CF.topIssue8,             diag.topIssues[7] || '']
+  // Build custom fields payload
+  var customFields = [
+    [CF.businessName,           context.business_name],
+    [CF.businessType,           context.business_type],
+    [CF.yearsOperating,         context.years_operating],
+    [CF.annualRevenueRange,     context.annual_revenue],
+    [CF.annualRevenueMidpoint,  String(context.annual_revenue_used)],
+    [CF.revenueMidpoint,        String(context.annual_revenue_used)],
+    [CF.employeeCount,          context.employee_count],
+    [CF.role,                   context.role],
+    [CF.primaryService,         context.primary_service],
+    [CF.targetMarket,           context.target_market],
+    [CF.techStack,              context.tech_stack],
+    [CF.clientGoal,             context.client_goal],
+    [CF.diagnosticScore,        String(diag.total)],
+    [CF.diagnosticSeverityPct,  String(diag.sevPct)],
+    [CF.diagnosticTier,         diag.tier],
+    [CF.engagementPrice,        String(diag.engagementPrice)],
+    [CF.estimatedOpportunity,   String(diag.estimatedOpportunity)],
+    [CF.estAnnualOpportunity,   String(diag.estimatedOpportunity)],
+    [CF.opsScore,               String(diag.pillarScores[0])],
+    [CF.revScore,               String(diag.pillarScores[1])],
+    [CF.finScore,               String(diag.pillarScores[2])],
+    [CF.teamScore,              String(diag.pillarScores[3])],
+    [CF.opsPct,                 String(diag.opsPct)],
+    [CF.revPct,                 String(diag.revPct)],
+    [CF.finPct,                 String(diag.finPct)],
+    [CF.teamPct,                String(diag.teamPct)],
+    [CF.opsImpact,              String(diag.pillarImpacts[0])],
+    [CF.revImpact,              String(diag.pillarImpacts[1])],
+    [CF.finImpact,              String(diag.pillarImpacts[2])],
+    [CF.teamImpact,             String(diag.pillarImpacts[3])],
+    [CF.topIssue1,              diag.topIssueNames[0] || ''],
+    [CF.topIssue2,              diag.topIssueNames[1] || ''],
+    [CF.topIssue3,              diag.topIssueNames[2] || ''],
+    [CF.topIssue4,              diag.topIssueNames[3] || ''],
+    [CF.topIssue5,              diag.topIssueNames[4] || ''],
+    [CF.topIssue6,              diag.topIssueNames[5] || ''],
+    [CF.topIssue7,              diag.topIssueNames[6] || ''],
+    [CF.topIssue8,              diag.topIssueNames[7] || ''],
+    [CF.schemaVersion,          'v2']
   ];
-  cfMap.forEach(function(pair) { if (pair[0]) customFields.push({key: pair[0], value: pair[1]}); });
+
+  var customFieldsOut = [];
+  customFields.forEach(function(pair) {
+    if (pair[0]) customFieldsOut.push({key: pair[0], value: pair[1]});
+  });
 
   var payload = {
-    firstName:    firstName,
-    lastName:     lastName,
-    email:        email,
-    phone:        phone,
-    companyName:  company,
-    customFields: customFields
+    submissionType: 'full_diagnostic',
+    firstName:     context.first_name,
+    lastName:      context.last_name,
+    email:         context.email,
+    phone:         context.phone,
+    companyName:   context.business_name,
+    customFields:  customFieldsOut,
+    // Raw factor array for downstream use (diagnosis report generation)
+    rawFactors: factors.map(function(f, i) {
+      return {
+        id: f.id, name: f.name, pillar: f.pillar, weight: f.wt,
+        score: scores[i], weighted: scores[i] * f.wt,
+        dollarImpact: Math.round((context.annual_revenue_used || 0) * IMPACT_RATE[scores[i]] * (f.wt / 3))
+      };
+    })
   };
-
-  btnEl.disabled = true;
-  btnEl.textContent = 'Submitting\u2026';
 
   fetch('/api/submit-diagnostic', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {'Content-Type':'application/json'},
     body: JSON.stringify(payload)
   })
   .then(function(res) {
@@ -539,68 +912,86 @@ function submitGate() {
     return res.json();
   })
   .then(function() {
-    gateContact = { firstName: firstName, lastName: lastName, email: email, phone: phone };
-    var overlay = document.getElementById('contact-gate');
-    if (overlay) overlay.remove();
-    renderResults();
-    app.scrollIntoView({behavior:'smooth', block:'start'});
+    gateContact = {
+      firstName: context.first_name, lastName: context.last_name,
+      email: context.email, phone: context.phone
+    };
+    var o = document.getElementById('submit-overlay');
+    if (o) o.remove();
+    renderResults(diag);
   })
   .catch(function(err) {
-    btnEl.disabled = false;
-    btnEl.textContent = 'Unlock My Results \u2192';
-    errEl.textContent = 'Something went wrong: ' + err.message + '. Please try again.';
-    errEl.style.display = 'block';
+    var o = document.getElementById('submit-overlay');
+    if (o) o.remove();
+    // Still show results — don't block the user on backend failure
+    console.error('Submission failed:', err);
+    renderResults(diag, err.message);
   });
 }
 
-function renderResults() {
-  var total = 0;
-  var pillarScores = [0,0,0,0];
-  var pillarMax = [0,0,0,0];
-  var issues = [];
-
-  factors.forEach(function(f, i) {
-    var weighted = scores[i] * f.wt;
-    total += weighted;
-    pillarScores[f.pillar] += weighted;
-    pillarMax[f.pillar] += 3 * f.wt;
-    if (scores[i] > 0) { issues.push({name: f.name, score: scores[i], weighted: weighted, pillar: f.pillar}); }
-  });
-
-  issues.sort(function(a, b) { return b.weighted - a.weighted; });
-  var topIssues = issues.slice(0, 8);
-
-  var sevPct = Math.round((total / maxScore) * 100);
-  var tier, tierClass;
-  if (sevPct <= 15) { tier = "HEALTHY"; tierClass = "tier-healthy"; }
-  else if (sevPct <= 35) { tier = "MODERATE BLEED"; tierClass = "tier-moderate"; }
-  else if (sevPct <= 60) { tier = "SEVERE BLEED"; tierClass = "tier-severe"; }
-  else { tier = "CRITICAL"; tierClass = "tier-critical"; }
+// ═══════════════════════════════════════════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════════════════════════════════════════
+function renderResults(diag, errorMsg) {
+  stage = 'results';
 
   var html = '<div class="diag-engine diag-results">';
   html += '<h2>Your Operational Bleed Report</h2>';
-  html += '<div class="diag-tier-badge ' + tierClass + '">' + tier + '</div>';
-  html += '<div><span class="diag-score-display">' + total + '</span><span class="diag-score-max"> / ' + maxScore + '</span></div>';
-  html += '<div class="diag-severity-pct">' + sevPct + '% severity — higher = worse</div>';
+  html += '<div class="diag-tier-badge ' + diag.tierClass + '">' + diag.tier + '</div>';
+  html += '<div><span class="diag-score-display">' + diag.total + '</span><span class="diag-score-max"> / ' + diag.maxScore + '</span></div>';
+  html += '<div class="diag-severity-pct">' + diag.sevPct + '% severity — higher = worse</div>';
 
+  // Estimated opportunity (if revenue provided)
+  if (diag.estimatedOpportunity > 0) {
+    // Build conservative range: -25% / +50% around the point estimate
+    var rangeLow = Math.round(diag.estimatedOpportunity * 0.75 / 1000) * 1000;
+    var rangeHigh = Math.round(diag.estimatedOpportunity * 1.5 / 1000) * 1000;
+    html += '<div class="diag-bleed-block">';
+    html += '<div class="diag-bleed-label">Estimated Annual Operational Bleed</div>';
+    html += '<div class="diag-bleed-amount">$' + diag.estimatedOpportunity.toLocaleString() + '</div>';
+    html += '<div class="diag-bleed-range">Likely range: <strong>$' + rangeLow.toLocaleString() + ' – $' + rangeHigh.toLocaleString() + '</strong> per year bleeding out of your business through operational inefficiency, margin loss, and blocked revenue.</div>';
+    html += '<div class="diag-bleed-caveat">Estimate based on your revenue and severity across 40 factors. Conservative calibration — your real number is often higher once we quantify it in the full X-Ray Report.</div>';
+    html += '</div>';
+  }
+
+  // Pillar results
   html += '<div class="diag-pillar-results">';
   for (var p = 0; p < 4; p++) {
-    var ppct = pillarMax[p] > 0 ? Math.round((pillarScores[p] / pillarMax[p]) * 100) : 0;
+    var ppct = diag.pillarMax[p] > 0 ? Math.round((diag.pillarScores[p] / diag.pillarMax[p]) * 100) : 0;
     html += '<div class="diag-pillar-result ' + pillarResultClasses[p] + '">';
     html += '<div class="dpr-name">' + pillarNames[p] + '</div>';
     html += '<div class="dpr-bar"><div class="dpr-fill" style="width:' + ppct + '%;background:' + pillarColors[p] + '"></div></div>';
-    html += '<div class="dpr-score">' + pillarScores[p] + ' / ' + pillarMax[p] + ' (' + ppct + '% severity)</div>';
+    html += '<div class="dpr-score">' + diag.pillarScores[p] + ' / ' + diag.pillarMax[p] + ' (' + ppct + '% severity)</div>';
+    if (diag.pillarImpacts && diag.pillarImpacts[p] > 0) {
+      html += '<div class="dpr-impact"><span class="dpr-impact-label">Bleed</span>$' + diag.pillarImpacts[p].toLocaleString() + '/yr</div>';
+    }
     html += '</div>';
   }
   html += '</div>';
 
+  // Worst pillar callout (only if revenue was provided and we have dollar impact)
+  if (diag.estimatedOpportunity > 0 && diag.pillarImpacts) {
+    var worstIdx = 0;
+    for (var pp = 1; pp < 4; pp++) {
+      if (diag.pillarImpacts[pp] > diag.pillarImpacts[worstIdx]) worstIdx = pp;
+    }
+    if (diag.pillarImpacts[worstIdx] > 0) {
+      html += '<div class="diag-worst-pillar">';
+      html += '<div class="diag-worst-pillar-icon">🩸</div>';
+      html += '<div class="diag-worst-pillar-text"><strong>$' + diag.pillarImpacts[worstIdx].toLocaleString() + '</strong> is bleeding out of your <strong>' + pillarNames[worstIdx] + '</strong> pillar alone. That\'s where the biggest single-pillar recovery sits.</div>';
+      html += '</div>';
+    }
+  }
+
+  // Top issues
+  var topIssues = diag.issues.slice(0, 8);
   if (topIssues.length > 0) {
     html += '<div class="diag-top-issues"><h3>Your Top Issues (by weighted impact)</h3>';
     topIssues.forEach(function(iss) {
       html += '<div class="diag-issue-item">';
       html += '<div class="diag-issue-score sev-' + iss.score + '">' + iss.score + '</div>';
       html += '<div><div class="diag-issue-name">' + iss.name + '</div>';
-      html += '<div class="diag-issue-pillar">' + pillarNames[iss.pillar] + ' \u00B7 Weighted: ' + iss.weighted + 'pts</div></div>';
+      html += '<div class="diag-issue-pillar">' + pillarNames[iss.pillar] + ' · Weighted: ' + iss.weighted + 'pts</div></div>';
       html += '</div>';
     });
     html += '</div>';
@@ -608,20 +999,37 @@ function renderResults() {
 
   html += '<div class="diag-severity-note">Every factor is weighted 1-3x based on business impact. Your total score reflects both severity and weight. Higher = more operational bleed = more urgent the fix.</div>';
 
+  // CTA
   html += '<div class="diag-cta-result">';
-  html += '<h3>Ready to Fix What\u2019s Broken?</h3>';
-  html += '<p>You\u2019ve seen the diagnosis. Now let us show you the prescription. Book a free 30-minute call and we\u2019ll walk through your results, prioritize your fixes, and map your 90-day plan.</p>';
-  html += '<button class="btn-primary" onclick="openBookingModal()">Book Your Free Diagnosis Call \u2192</button>';
+  html += '<h3>Ready to Fix What\'s Broken?</h3>';
+  html += '<p>You\'ve seen the diagnosis. Now let us show you the prescription. Book a free 30-minute call and we\'ll walk through your results, prioritize your fixes, and map your 90-day plan.</p>';
+  html += '<button class="btn-primary" onclick="openBookingModal()">Book Your Free Diagnosis Call →</button>';
   html += '</div>';
 
+  // X-Ray teaser (only if revenue provided — otherwise dollar framing falls flat)
+  if (diag.estimatedOpportunity > 0) {
+    html += '<div class="diag-xray-teaser">';
+    html += '<div class="diag-xray-teaser-eyebrow">Want the Full Picture?</div>';
+    html += '<div class="diag-xray-teaser-title">The X-Ray Report ($997) shows you the receipt.</div>';
+    html += '<div class="diag-xray-teaser-body">This free diagnostic gives you the score and the bleed estimate. The <strong>X-Ray Report</strong> shows you <strong>exactly which factors cost what</strong>, ranked by dollar impact, with the <strong>10 fastest fixes</strong> and the specific recovery each one unlocks. The $997 is credited toward any engagement if you hire us to install the fixes.</div>';
+    html += '</div>';
+  }
+
+  if (errorMsg) {
+    html += '<div style="margin-top:24px;padding:14px 20px;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;border-radius:8px;font-size:13px">Your results are visible here, but we couldn\'t save them to our system. Please screenshot this page or email info@opfix.io. Error: ' + errorMsg + '</div>';
+  }
+
   html += '<div style="margin-top:24px;text-align:center">';
-  html += '<button class="diag-btn diag-btn-back" onclick="diagReset()">\u2190 Retake Diagnostic</button>';
+  html += '<button class="diag-btn diag-btn-back" onclick="resetAll()">← Retake Diagnostic</button>';
   html += '</div></div>';
 
   app.innerHTML = html;
   app.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// BOOKING MODAL
+// ═══════════════════════════════════════════════════════════════════════════
 function buildBookingUrl() {
   var base = 'https://crm.advisorhub.io/widget/booking/O5v0VLDLbAg4sVEgBHpG';
   if (!gateContact) return base;
@@ -636,7 +1044,6 @@ function buildBookingUrl() {
 
 window.openBookingModal = function() {
   if (document.getElementById('booking-modal')) return;
-
   var overlay = document.createElement('div');
   overlay.className = 'booking-overlay';
   overlay.id = 'booking-modal';
@@ -650,11 +1057,9 @@ window.openBookingModal = function() {
         '<iframe src="' + buildBookingUrl() + '" scrolling="no" id="O5v0VLDLbAg4sVEgBHpG_booking"></iframe>' +
       '</div>' +
     '</div>';
-
   document.body.appendChild(overlay);
   document.body.style.overflow = 'hidden';
 
-  // Load the booking widget script once
   if (!document.getElementById('ghl-booking-script')) {
     var script = document.createElement('script');
     script.id = 'ghl-booking-script';
@@ -662,13 +1067,9 @@ window.openBookingModal = function() {
     script.type = 'text/javascript';
     document.body.appendChild(script);
   }
-
-  // Close on backdrop click
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) closeBookingModal();
   });
-
-  // Close on Escape
   document.addEventListener('keydown', bookingEscHandler);
 };
 
@@ -683,9 +1084,10 @@ window.closeBookingModal = function() {
   document.removeEventListener('keydown', bookingEscHandler);
 };
 
-window.diagReset = function() { scores = new Array(40).fill(-1); currentPillar = 0; render(); app.scrollIntoView({behavior:'smooth',block:'start'}); };
-
-render();
+// ═══════════════════════════════════════════════════════════════════════════
+// KICKOFF
+// ═══════════════════════════════════════════════════════════════════════════
+renderContext();
 
 })();
 </script>
