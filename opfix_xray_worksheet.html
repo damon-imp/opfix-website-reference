@@ -186,7 +186,7 @@ body{font-family:var(--font);color:var(--navy);background:var(--off-white);-webk
   <div style="text-align:center;margin-top:20px">
     <div style="font-size:13px;color:var(--gray-400);margin-bottom:8px">Severity Tier</div>
     <div class="xray-severity" id="summarySeverity" style="font-size:16px;padding:8px 24px;background:rgba(34,197,94,.15);color:#22C55E">TUNE-UP</div>
-    <div style="font-size:12px;color:var(--gray-500);margin-top:8px">Tune-Up: 0-60 | Rebuild: 61-120 | Overhaul: 121-180 | Emergency: 181-240</div>
+    <div style="font-size:12px;color:var(--gray-500);margin-top:8px">Tune-Up: 0-50 | Rebuild: 51-120 | Overhaul: 121-199 | Emergency: 200-240</div>
   </div>
   <div class="disclaimer">This is a diagnostic worksheet | OpFix | Diagnose. Fix. Scale.</div>
 </div>
@@ -199,14 +199,14 @@ const PILLARS = [
     id:'ops', name:'Operations & Systems', color:'#E94560',
     factors:[
       {num:1,name:'SOP Documentation',wt:3},
-      {num:2,name:'Tech Stack Integration',wt:2},
+      {num:2,name:'Tech Stack Integration',wt:1},
       {num:3,name:'Workflow Consistency',wt:3},
       {num:4,name:'Reporting & KPI Tracking',wt:2},
       {num:5,name:'Bottleneck & Dependency',wt:3},
-      {num:6,name:'Quality Control Systems',wt:2},
+      {num:6,name:'Quality Control Systems',wt:1},
       {num:7,name:'Client Delivery Process',wt:3},
       {num:8,name:'Internal Communication',wt:1},
-      {num:9,name:'Project Management',wt:2},
+      {num:9,name:'Project Management',wt:1},
       {num:10,name:'Business Continuity',wt:3}
     ]
   },
@@ -215,14 +215,14 @@ const PILLARS = [
     factors:[
       {num:11,name:'Lead Generation System',wt:3},
       {num:12,name:'Sales Process Documentation',wt:3},
-      {num:13,name:'Conversion Tracking',wt:2},
+      {num:13,name:'Conversion Tracking',wt:1},
       {num:14,name:'Follow-Up & Nurture',wt:2},
       {num:15,name:'Offer Clarity & Differentiation',wt:3},
       {num:16,name:'Pricing Strategy',wt:3},
       {num:17,name:'Revenue Concentration',wt:2},
-      {num:18,name:'Client Retention & Churn',wt:2},
+      {num:18,name:'Client Retention & Churn',wt:1},
       {num:19,name:'Upsell / Cross-Sell',wt:1},
-      {num:20,name:'Marketing ROI Tracking',wt:2}
+      {num:20,name:'Marketing ROI Tracking',wt:1}
     ]
   },
   {
@@ -230,14 +230,14 @@ const PILLARS = [
     factors:[
       {num:21,name:'Profit Margin Visibility',wt:3},
       {num:22,name:'Cash Flow Predictability',wt:3},
-      {num:23,name:'Expense Discipline',wt:2},
+      {num:23,name:'Expense Discipline',wt:1},
       {num:24,name:'Debt Structure',wt:2},
       {num:25,name:'Financial Forecasting',wt:2},
       {num:26,name:'Pricing Model Effectiveness',wt:3},
       {num:27,name:'Revenue Model Sustainability',wt:2},
       {num:28,name:'Funding Readiness',wt:1},
       {num:29,name:'Invoicing & Collections',wt:2},
-      {num:30,name:'Financial Reporting Cadence',wt:2}
+      {num:30,name:'Financial Reporting Cadence',wt:1}
     ]
   },
   {
@@ -248,11 +248,11 @@ const PILLARS = [
       {num:33,name:'Performance Metrics Per Role',wt:2},
       {num:34,name:'Delegation Maturity',wt:3},
       {num:35,name:'Hiring Pipeline & Process',wt:2},
-      {num:36,name:'Onboarding & Training',wt:2},
+      {num:36,name:'Onboarding & Training',wt:1},
       {num:37,name:'Accountability Framework',wt:2},
       {num:38,name:'Culture & Retention',wt:1},
       {num:39,name:'Leadership Development',wt:1},
-      {num:40,name:'Succession Planning',wt:2}
+      {num:40,name:'Succession Planning',wt:1}
     ]
   }
 ];
@@ -346,9 +346,9 @@ function recalc(){
   document.getElementById('summaryDollar').textContent = '$'+totalDollar.toLocaleString();
 
   let sev, sevColor, sevBg;
-  if(total<=60){sev='TUNE-UP';sevColor='#22C55E';sevBg='rgba(34,197,94,.15)';}
+  if(total<=50){sev='TUNE-UP';sevColor='#22C55E';sevBg='rgba(34,197,94,.15)';}
   else if(total<=120){sev='REBUILD';sevColor='#F59E0B';sevBg='rgba(245,158,11,.15)';}
-  else if(total<=180){sev='OVERHAUL';sevColor='#E97820';sevBg='rgba(233,120,32,.15)';}
+  else if(total<=199){sev='OVERHAUL';sevColor='#E97820';sevBg='rgba(233,120,32,.15)';}
   else{sev='EMERGENCY';sevColor='#E94560';sevBg='rgba(233,69,96,.15)';}
 
   ['headerSeverity','summarySeverity'].forEach(id=>{

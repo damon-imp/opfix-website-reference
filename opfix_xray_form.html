@@ -310,22 +310,22 @@ footer p{font-size:13px;color:var(--gray-400)}
   <div class="score-sticky-inner">
     <div class="sticky-pillar">
       <div class="sticky-pillar-name">Ops &amp; Systems</div>
-      <div class="sticky-pillar-val" id="st-ops">0 <span>/ 72</span></div>
+      <div class="sticky-pillar-val" id="st-ops">0 <span>/ 63</span></div>
     </div>
     <div class="sticky-sep"></div>
     <div class="sticky-pillar">
       <div class="sticky-pillar-name">Revenue &amp; Sales</div>
-      <div class="sticky-pillar-val" id="st-rev">0 <span>/ 69</span></div>
+      <div class="sticky-pillar-val" id="st-rev">0 <span>/ 60</span></div>
     </div>
     <div class="sticky-sep"></div>
     <div class="sticky-pillar">
       <div class="sticky-pillar-name">Financial</div>
-      <div class="sticky-pillar-val" id="st-fin">0 <span>/ 66</span></div>
+      <div class="sticky-pillar-val" id="st-fin">0 <span>/ 60</span></div>
     </div>
     <div class="sticky-sep"></div>
     <div class="sticky-pillar">
       <div class="sticky-pillar-name">Team &amp; Leadership</div>
-      <div class="sticky-pillar-val" id="st-team">0 <span>/ 63</span></div>
+      <div class="sticky-pillar-val" id="st-team">0 <span>/ 57</span></div>
     </div>
     <div class="sticky-sep"></div>
     <div class="sticky-total">
@@ -594,8 +594,8 @@ function setScore(id, val) {
   updateTotals();
 }
 
-// Mirror the sheet formula: revenue × rate × score
-// rate: score=1 → 0.5%, score=2 → 1.0%, score=3 → 1.5%
+// Mirror the sheet formula: revenue × rate × (weight / 3)
+// rate: score=1 → 0.5%, score=2 → 1.5%, score=3 → 3.0%
 function getRevenue() {
   const sel = document.getElementById('f-revenue').value;
   const map = {

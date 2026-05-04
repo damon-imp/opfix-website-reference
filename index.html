@@ -1021,11 +1021,13 @@ function selectOpt(el, val) {
       let scoreEl = document.getElementById('diagScore');
       scoreEl.textContent = total + ' / ' + maxScore;
 
+      // Tier breakpoints mirror the full diagnostic: 21% / 50% / 83% of max.
+      const sevPct = Math.round((total / maxScore) * 100);
       let sevLabel, sevColor, sevDesc;
-      if (total <= 7)       { sevLabel='HEALTHY';        sevColor='#22C55E'; sevDesc='Low severity. Minor tune-ups at most.'; }
-      else if (total <= 15) { sevLabel='MODERATE BLEED'; sevColor='#F59E0B'; sevDesc='Meaningful drag. Several areas need attention.'; }
-      else if (total <= 22) { sevLabel='SEVERE BLEED';   sevColor='#E97820'; sevDesc='Significant problems across multiple pillars. Revenue loss is active.'; }
-      else                  { sevLabel='CRITICAL';       sevColor='#E94560'; sevDesc='Operations are in crisis. Every day costs real money.'; }
+      if (sevPct <= 21)      { sevLabel='TUNE-UP';   sevColor='#22C55E'; sevDesc='Low severity. Minor tune-ups at most.'; }
+      else if (sevPct <= 50) { sevLabel='REBUILD';   sevColor='#F59E0B'; sevDesc='Meaningful drag. Several areas need a rebuild.'; }
+      else if (sevPct <= 83) { sevLabel='OVERHAUL';  sevColor='#E97820'; sevDesc='Significant problems across multiple pillars. Revenue loss is active.'; }
+      else                   { sevLabel='EMERGENCY'; sevColor='#E94560'; sevDesc='Operations are in crisis. Every day costs real money.'; }
 
       scoreEl.style.color = sevColor;
       document.getElementById('diagSeverityTag').innerHTML = '<span style="background:'+sevColor+'15;color:'+sevColor+';padding:6px 16px;border-radius:6px;font-weight:700;font-size:14px;letter-spacing:1px">'+sevLabel+'</span><div style="margin-top:8px;font-size:14px;color:var(--gray-400)">'+sevDesc+'</div>';
